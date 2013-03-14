@@ -4,6 +4,7 @@ import java.util.HashMap;
 
 import javax.media.opengl.GL2;
 import javax.vecmath.Matrix4d;
+import javax.vecmath.Matrix4f;
 import javax.vecmath.Vector3f;
 
 import figures.Prism;
@@ -38,6 +39,10 @@ public class SkeletonPart {
 		}
 	}
 	
+//	public void draw(GL2 gl, Matrix4f modelview_matrix) {
+//		modelview_matrix.mu
+//	}
+//	
 	public void addRotateDimension(RotateDimension rotateDimension) {
 		rotateDimensions.add(rotateDimension);
 	}

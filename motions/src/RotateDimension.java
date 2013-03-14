@@ -2,24 +2,26 @@ import javax.swing.JSlider;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 import types.Range;
+
+import javax.vecmath.AxisAngle4f;
+import javax.vecmath.Matrix4f;
 import javax.vecmath.Vector3f;
 
 public class RotateDimension extends JSlider implements ChangeListener {
-	/**
-	 * 
+	/** This class represents rotate dimension. 
+	 *  Attribute range sets bounds of rotation capacity.
+	 *  axisAngle is a vector in the space which defines the axis of rotation.
 	 */
 	private static final long serialVersionUID = 1L;
 	private String name;
-	private int angle;
 	private Range<Integer> range;
-	private Vector3f axis;
+	private AxisAngle4f axisAngle;
 	
 	public RotateDimension(String name, Vector3f axis, Range<Integer> range) {
 		super(range.from(), range.to());
 		this.name = name;
-		this.axis = axis;
+		axis.normalize(); this.axisAngle = new AxisAngle4f(axis, 0);
 		this.range = range;
-		this.angle = 0;
 		this.addChangeListener(this);
 	}
 	
@@ -31,32 +33,38 @@ public class RotateDimension extends JSlider implements ChangeListener {
 		this(name, new Vector3f(0.0f, 0.0f, 1.0f), new Range<Integer>(0, 0));
 	}
 	
-	public void setCurrentAngle(int angle) {
-		Integer value = new Integer(angle);
-		if(range.contains(value)) {
-			this.angle = angle;
-		} else if(range.onLeftSizeOf(value)) {
-			this.angle = range.to();
+	public void setAngle(int angle) {
+		if(range.contains(angle)) {
+			this.axisAngle.setAngle(angle);
+		} else if(range.onLeftSizeOf(angle)) {
+			this.axisAngle.setAngle(range.to());
 		} else {
-			this.angle = range.from();
+			this.axisAngle.setAngle(range.from());
 		}
 	}
 	
-	public int getAngle() { return this.angle; }
+	public int getAngle() { return (int)this.axisAngle.getAngle(); }
 	
 	public String getName() { return this.name; }
 	
 	public Range<Integer> getRange() { return this.range; }
 	
-	public Vector3f getAxis() { return this.axis; }
+	public Vector3f getAxis() { return new Vector3f(axisAngle.x, axisAngle.y, axisAngle.z); }
 	
-	public void setAxis(Vector3f axis) { this.axis = axis; }
+	public void setAxis(Vector3f axis) { axis.normalize(); this.axisAngle.set(axis, this.axisAngle.getAngle()); }
 	
-	public void setAxis(float x, float y, float z) { this.axis = new Vector3f(x, y, z); }
+	public void setAxis(float x, float y, float z) { setAxis(new Vector3f(x, y, z)); }
 
 	@Override
 	public void stateChanged(ChangeEvent e) {
 		 JSlider slider = (JSlider)e.getSource();
-		 this.angle = (int)slider.getValue();
+		 setAngle((int)slider.getValue());
+	}
+	
+	public Matrix4f getRotationMatrix() {
+		Matrix4f rotationMatrix = new Matrix4f();
+		rotationMatrix.set(1);
+		rotationMatrix.set(this.axisAngle);
+		return rotationMatrix;
 	}
 }

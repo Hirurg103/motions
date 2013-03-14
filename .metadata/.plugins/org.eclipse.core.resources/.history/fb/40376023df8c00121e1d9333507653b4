@@ -1,0 +1,75 @@
+import java.util.Vector;
+
+import javax.swing.JSlider;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
+import types.Range;
+
+import javax.vecmath.AxisAngle4f;
+import javax.vecmath.Matrix4f;
+import javax.vecmath.Vector3f;
+
+public class RotateDimension extends JSlider implements ChangeListener {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	private String name;
+	private Range<Integer> range;
+	private AxisAngle4f axisAngle;
+	
+	public RotateDimension(String name, Vector3f axis, Range<Integer> range) {
+		super(range.from(), range.to());
+		this.name = name;
+		axis.normalize(); this.axisAngle = new AxisAngle4f(axis, 0);
+		this.range = range;
+		this.addChangeListener(this);
+	}
+	
+	public RotateDimension(String name, Vector3f axis) { 
+		this(name, axis, new Range<Integer>(0, 0));
+	}
+	
+	public RotateDimension(String name) { 
+		this(name, new Vector3f(0.0f, 0.0f, 1.0f), new Range<Integer>(0, 0));
+	}
+	
+	public void setAxisAngle(int angle) {
+		Integer value = new Integer(angle);
+		if(range.contains(value)) {
+			this.axisAngle.angle = angle;
+		} else if(range.onLeftSizeOf(value)) {
+			this.angle = range.to();
+		} else {
+			this.angle = range.from();
+		}
+	}
+	
+	public int getAngle() { return this.angle; }
+	
+	public String getName() { return this.name; }
+	
+	public Range<Integer> getRange() { return this.range; }
+	
+	public Vector3f getAxis() { return this.axis; }
+	
+	public void setAxis(Vector3f axis) { this.axis = axis; this.axis.normalize(); }
+	
+	public void setAxis(float x, float y, float z) { this.axis = new Vector3f(x, y, z); this.axis.normalize(); }
+
+	@Override
+	public void stateChanged(ChangeEvent e) {
+		 JSlider slider = (JSlider)e.getSource();
+		 this.angle = (int)slider.getValue();
+	}
+	
+	public Matrix4f getRotationMatrix() {
+		float angle = (float)Math.PI/180*this.angle;
+		Matrix4f rotationMatrix = new Matrix4f();
+		rotationMatrix.set(1);
+		
+		rotationMatrix.set(this.axis, angle);
+		rotationMatrix.set
+		return rotationMatrix;
+	}
+}
