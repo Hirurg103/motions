@@ -3,3 +3,4 @@
 1362999303986	Move compilation unit
 1362999331472	Move compilation unit
 1363006634694	Encapsulate field 'length'
+1363293268645	Encapsulate field 'angleChanged'
