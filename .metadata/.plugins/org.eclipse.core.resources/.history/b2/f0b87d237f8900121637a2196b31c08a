@@ -1,0 +1,15 @@
+package types;
+
+public class Range<T> {
+	private T from = null;
+	private T to = null;
+	
+	public Range(T from, T to) {
+		this.from = from;
+		this.to = to;
+	}
+	
+	public boolean contains(T value) {
+		return value <= to;
+	}
+}

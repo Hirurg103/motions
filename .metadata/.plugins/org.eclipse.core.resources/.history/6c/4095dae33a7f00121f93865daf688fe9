@@ -1,0 +1,6 @@
+import javax.media.opengl.GLAutoDrawable;
+
+
+public interface CustomFigure {
+	public void draw(GLAutoDrawable, float, float, float);
+}

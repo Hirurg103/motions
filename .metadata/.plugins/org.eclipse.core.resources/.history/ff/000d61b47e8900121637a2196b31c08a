@@ -1,0 +1,8 @@
+package types;
+
+public class Range<T> {
+	T start, end;
+	public Range(T start, T end) {
+		
+	}
+}

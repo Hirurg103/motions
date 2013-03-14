@@ -1,0 +1,8 @@
+import javax.media.opengl.GLAutoDrawable;
+
+
+public class Pyramid implements CustomFigure {
+	public void draw(GLAutoDrawable drawable) { 
+		
+	}
+}

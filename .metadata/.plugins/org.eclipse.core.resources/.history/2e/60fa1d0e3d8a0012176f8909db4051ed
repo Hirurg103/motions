@@ -1,0 +1,10 @@
+package figures;
+import jaxax.media.opengl.GL2;
+
+public class Prism extends CustomFigure {
+	
+	@Override
+	public void draw(GL2 gl) {
+		
+	}
+}

@@ -1,0 +1,13 @@
+package types;
+
+public class Range<T> {
+	T start, end;
+	public Range(T start, T end) {
+		this.start = start;
+		this.end = end;
+	}
+	
+	public boolean contains(T value) {
+		
+	}
+}

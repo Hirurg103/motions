@@ -1,0 +1,38 @@
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
+import types.Range;
+import javax.vecmath.Vector3f;
+
+public class RotateDimension implements ChangeListener {
+	private String name;
+	private float currentAngle;
+	private Range<Integer> angleRange;
+	private Vector3f axis;
+	
+	public RotateDimension(String name, Vector3f axis, Range<Integer> angleRange) {
+		this.name = name;
+		this.axis = axis;
+		this.angleRange = angleRange;
+		this.currentAngle = 0.0f;
+	}
+	
+	public RotateDimension(String name, Vector3f axis) { 
+		this(name, axis, new Range<Integer>(0, 0));
+	}
+	
+	public RotateDimension(String name) { 
+		this(name, new Vector3f(0.0f, 0.0f, 1.0f), new Range<Integer>(0, 0));
+	}
+	
+	public void setCurrentAngle(int angle) {
+		Float value = new Float(angle);
+		if(angleRange.contains(value)) {
+			
+		}
+	}
+
+	@Override
+	public void stateChanged(ChangeEvent arg0) {
+		
+	}
+}

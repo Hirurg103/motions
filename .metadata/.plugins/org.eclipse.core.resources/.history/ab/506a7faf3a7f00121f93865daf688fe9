@@ -1,0 +1,4 @@
+
+public interface CustomFigure {
+	public void draw();
+}

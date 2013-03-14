@@ -1,0 +1,39 @@
+import javax.swing.JPanel;
+import javax.swing.JSlider;
+import javax.swing.event.ChangeListener;
+import javax.media.opengl.GL2;
+import types.Range;
+import javax.vecmath.Vector3f;
+
+import static javax.media.opengl.GL2.*;
+
+public class HumanSkeleton {
+	private SkeletonPart root;
+	private JPanel controlPanel;
+	
+	public HumanSkeleton(JPanel panel) {
+		this.root = new SkeletonPart("Shoulder", 1);
+		this.root.addRotateDimension(new RotateDimension("Down-Up", new Vector3f(0, 0, 1), new Range(-90, 90)));
+		this.root.addRotateDimension(new RotateDimension("Left-Right", new Vector3f(0, 1, 0), new Range(-90, 90)));
+	    //SkeletonPart elbow = new SkeletonPart("shoulder", 1);
+		drawControls(this.root);
+	}
+	
+	public HumanSkeleton() {
+		this(null);
+	}
+	
+	public void draw(GL2 gl) {
+		gl.glLineWidth(100);
+	    this.root.draw(gl);
+	}
+	
+	public void drawControls(SkeletonPart skeletonPart) {
+//		for(RotateDimension rotateDimension : skeletonPart.getRotateDimensions()) {
+//			JSlider slider = new JSlider(rotateDimension.getRange().from().intValue(), rotateDimension.getRange().to().intValue());
+//			slider.addChangeListener(rotateDimension);
+//			this.controlPanel.add(slider);
+//		}
+		JSlider slider = new JSlider(1,1);
+	}
+}

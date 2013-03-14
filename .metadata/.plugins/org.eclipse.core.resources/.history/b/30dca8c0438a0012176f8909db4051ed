@@ -1,0 +1,23 @@
+package figures;
+import javax.media.opengl.GL2;
+
+import static javax.media.opengl.GL2.*;
+
+public class Prism extends CustomFigure {
+	private int countFaces;
+	private float height;
+	
+	public Prism(int countFaces, float height) {
+		this.countFaces = countFaces;
+		this.height = height;
+	}
+	
+	public Prism() { this(3, 1.0f); }
+	
+	@Override
+	public void draw(GL2 gl) {
+		for(int i = 0; i <= countFaces  + 1; i++) {
+			gl.glBegin();
+		}
+	}
+}
