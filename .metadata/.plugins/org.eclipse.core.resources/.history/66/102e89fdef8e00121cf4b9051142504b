@@ -1,0 +1,5 @@
+
+public class GraphicsObject {
+	private char[] myColorID;
+	private static char gColorID[3] = (char[]){0, 0, 0}; 
+}

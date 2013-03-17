@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+
 import javax.swing.JSlider;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
@@ -11,13 +13,14 @@ public class RotateDimension extends JSlider implements ChangeListener {
 	/** This class represents rotate dimension. 
 	 *  Attribute range sets bounds of rotation capacity.
 	 *  axisAngle is a vector in the space which defines the axis of rotation.
+	 *  angleChanged sets to true after angle changed and sets to false after angle read.
+	 *  axisChanged sets to true after axis changed and sets to false after axis read.
 	 */
 	private static final long serialVersionUID = 1L;
 	private String name;
 	private Range<Integer> range;
 	private AxisAngle4f axisAngle;
-	private boolean angleChanged = true;
-	private boolean axisChanged = true;
+	private ArrayList<UpdateListener> updateListeners;
 	
 	public RotateDimension(String name, Vector3f axis, Range<Integer> range) {
 		super(range.from(), range.to());
@@ -25,8 +28,7 @@ public class RotateDimension extends JSlider implements ChangeListener {
 		axis.normalize(); this.axisAngle = new AxisAngle4f(axis, 0);
 		this.range = range;
 		this.addChangeListener(this);
-		this.setAngleChanged(true);
-		this.setAxisChanged(true);
+		this.updateListeners = new ArrayList<UpdateListener>();
 	}
 	
 	public RotateDimension(String name, Vector3f axis) { 
@@ -45,10 +47,10 @@ public class RotateDimension extends JSlider implements ChangeListener {
 		} else {
 			this.axisAngle.setAngle(range.from());
 		}
-		this.setAngleChanged(true);
+		notifyUpdateListeners();
 	}
 	
-	public int getAngle() { this.setAngleChanged(false); return (int)this.axisAngle.getAngle(); }
+	public int getAngle() { return (int)this.axisAngle.getAngle(); }
 	
 	public String getName() { return this.name; }
 	
@@ -56,7 +58,7 @@ public class RotateDimension extends JSlider implements ChangeListener {
 	
 	public Vector3f getAxis() { return new Vector3f(axisAngle.x, axisAngle.y, axisAngle.z); }
 	
-	public void setAxis(Vector3f axis) { axis.normalize(); this.axisAngle.set(axis, this.axisAngle.getAngle()); this.setAxisChanged(true); }
+	public void setAxis(Vector3f axis) { axis.normalize(); this.axisAngle.set(axis, this.axisAngle.getAngle()); notifyUpdateListeners(); }
 	
 	public void setAxis(float x, float y, float z) { setAxis(new Vector3f(x, y, z)); }
 
@@ -72,24 +74,14 @@ public class RotateDimension extends JSlider implements ChangeListener {
 		rotationMatrix.set(this.axisAngle);
 		return rotationMatrix;
 	}
-
-	public boolean isAngleChanged() {
-		return angleChanged;
-	}
-
-	public void setAngleChanged(boolean angleChanged) {
-		this.angleChanged = angleChanged;
+	
+	private void notifyUpdateListeners() {
+		for(UpdateListener updateListener: updateListeners) {
+			updateListener.update();
+		}
 	}
 	
-	public boolean isAxisChanged() {
-		return axisChanged;
-	}
-	
-	public void setAxisChanged(boolean axisChanged) {
-		this.axisChanged = axisChanged;
-	}
-	
-	public boolean isChanged() {
-		return isAngleChanged() && isAxisChanged();
+	public void addUpdateListener(UpdateListener updateListener) {
+		updateListeners.add(updateListener);
 	}
 }

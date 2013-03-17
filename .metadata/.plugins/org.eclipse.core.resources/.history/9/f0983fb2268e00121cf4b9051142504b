@@ -1,0 +1,12 @@
+attribute vec3 position;
+attribute float color;
+attribute float x;
+attribute float y;
+attribute float z;
+attribute float a;
+
+void main(void) {
+    gl_Position = vec4(x, y, z, a);
+    // transmit vertex color into fragment shader  
+    //fragmentColor = color; 
+}

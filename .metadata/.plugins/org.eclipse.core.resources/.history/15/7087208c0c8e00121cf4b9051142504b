@@ -1,0 +1,14 @@
+
+uniform mat4 projectionMatrix;
+
+ vec3 position;
+ vec3 color;
+
+attribute vec3 fragmentColor;
+
+void main(void) {
+    //
+    gl_Position = vec4(position, 1.0);
+    // transmit vertex color into fragment shader  
+    fragmentColor = color; 
+}

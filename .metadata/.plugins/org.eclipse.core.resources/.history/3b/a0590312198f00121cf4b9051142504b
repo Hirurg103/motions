@@ -1,0 +1,23 @@
+import java.nio.IntBuffer;
+
+import javax.vecmath.Color4b;
+import javax.vecmath.Color4f;
+
+public class GraphicsObject {
+	protected Color4f myColorID;
+	private static long lastID = 0;
+	
+	public GraphicsObject() {
+		this.myColorID = new Color4f();
+		this.myColorID.setX((int)(lastID % 256)); 
+		this.myColorID.setY((int)(lastID/256 % 256));
+		this.myColorID.setZ((int)(lastID/65536 % 256));
+		this.myColorID.setW(18);
+		lastID++;
+	}
+	
+	@Override
+	public String toString() {
+		return "(" + myColorID.getX() + ", " + myColorID.getY() + ", " +  myColorID.getZ() + ", " + myColorID.getW()  ")";
+	}
+}

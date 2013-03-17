@@ -35,6 +35,9 @@
 <part id="1"/>
 <part id="2"/>
 <part id="3"/>
+<part id="4"/>
+<part id="5"/>
+<part id="6"/>
 </presentation>
 </folder>
 </info>
@@ -45,7 +48,7 @@
 </editor>
 <editor activePart="true" focus="true" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="SkeletonPart.java" partName="SkeletonPart.java" path="/home/dmitry/study/10_semestre/diploma/application/motions/src/SkeletonPart.java" title="SkeletonPart.java" tooltip="motions/src/SkeletonPart.java" workbook="DefaultEditorWorkbook">
 <input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/motions/src/SkeletonPart.java"/>
-<editorState selectionHorizontalPixel="0" selectionLength="0" selectionOffset="1047" selectionTopPixel="443"/>
+<editorState selectionHorizontalPixel="0" selectionLength="0" selectionOffset="1199" selectionTopPixel="259"/>
 </editor>
 <editor id="org.eclipse.jdt.ui.CompilationUnitEditor" name="HumanCanvas.java" partName="HumanCanvas.java" path="/home/dmitry/study/10_semestre/diploma/application/motions/src/HumanCanvas.java" title="HumanCanvas.java" tooltip="motions/src/HumanCanvas.java" workbook="DefaultEditorWorkbook">
 <input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/motions/src/HumanCanvas.java"/>
@@ -55,6 +58,18 @@
 <input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/motions/src/HumanSkeleton.java"/>
 <editorState selectionHorizontalPixel="0" selectionLength="0" selectionOffset="1281" selectionTopPixel="0"/>
 </editor>
+<editor id="org.eclipse.jdt.ui.CompilationUnitEditor" name="RotateDimension.java" partName="RotateDimension.java" path="/home/dmitry/study/10_semestre/diploma/application/motions/src/RotateDimension.java" title="RotateDimension.java" tooltip="motions/src/RotateDimension.java" workbook="DefaultEditorWorkbook">
+<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/motions/src/RotateDimension.java"/>
+<editorState selectionHorizontalPixel="0" selectionLength="0" selectionOffset="2135" selectionTopPixel="0"/>
+</editor>
+<editor id="org.eclipse.jdt.ui.CompilationUnitEditor" name="Main.java" partName="Main.java" path="/home/dmitry/study/10_semestre/diploma/application/motions/src/Main.java" title="Main.java" tooltip="motions/src/Main.java" workbook="DefaultEditorWorkbook">
+<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/motions/src/Main.java"/>
+<editorState selectionHorizontalPixel="0" selectionLength="0" selectionOffset="2021" selectionTopPixel="691"/>
+</editor>
+<editor id="org.eclipse.jdt.ui.CompilationUnitEditor" name="Prism.java" partName="Prism.java" path="/home/dmitry/study/10_semestre/diploma/application/motions/src/figures/Prism.java" title="Prism.java" tooltip="motions/src/figures/Prism.java" workbook="DefaultEditorWorkbook">
+<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/motions/src/figures/Prism.java"/>
+<editorState selectionHorizontalPixel="0" selectionLength="0" selectionOffset="0" selectionTopPixel="90"/>
+</editor>
 </editors>
 <views>
 <view id="org.eclipse.ui.navigator.ProjectExplorer" partName="Project Explorer">
@@ -63,7 +78,8 @@
 <view id="org.eclipse.ui.views.ProblemView" partName="Problems">
 <viewState PRIMARY_SORT_FIELD="org.eclipse.ui.ide.severityAndDescriptionField" categoryGroup="org.eclipse.ui.ide.severity" markerContentGenerator="org.eclipse.ui.ide.problemsGenerator" partName="Problems">
 <expanded>
-<category IMemento.internal.id="Warnings (4 items)"/>
+<category IMemento.internal.id="Warnings (6 items)"/>
+<category IMemento.internal.id="Warnings"/>
 <category IMemento.internal.id="Errors"/>
 </expanded>
 <columnWidths org.eclipse.ui.ide.locationField="90" org.eclipse.ui.ide.markerType="149" org.eclipse.ui.ide.pathField="120" org.eclipse.ui.ide.resourceField="90" org.eclipse.ui.ide.severityAndDescriptionField="300"/>
@@ -303,160 +319,161 @@
 <navigationHistory>
 <editors>
 <editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" path="/motions/src/SkeletonPart.java"/>
-<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" path="/motions/src/HumanCanvas.java"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" path="/motions/src/RotateDimension.java"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" path="/motions/src/Main.java"/>
 <editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" path="/motions/src/HumanSkeleton.java"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" path="/motions/src/figures/Prism.java"/>
 <editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" path="/motions/src/HumanCanvas.java"/>
-<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" path="/motions/src/HumanSkeleton.java"/>
 </editors>
-<item historyLabel="HumanSkeleton.java" index="2">
-<position info="not_deleted" x="746" y="0"/>
+<item historyLabel="RotateDimension.java" index="1">
+<position info="not_deleted" x="1737" y="15"/>
 </item>
-<item historyLabel="HumanCanvas.java" index="1">
-<position info="not_deleted" x="2290" y="0"/>
+<item historyLabel="RotateDimension.java" index="1">
+<position info="not_deleted" x="1813" y="0"/>
 </item>
-<item historyLabel="SkeletonPart.java" index="0">
-<position info="not_deleted" x="600" y="0"/>
+<item historyLabel="Main.java" index="2">
+<position info="not_deleted" x="2021" y="0"/>
 </item>
-<item historyLabel="SkeletonPart.java" index="0">
-<position/>
+<item historyLabel="RotateDimension.java" index="1">
+<position info="not_deleted" x="2232" y="0"/>
 </item>
-<item historyLabel="SkeletonPart.java" index="0">
-<position info="not_deleted" x="968" y="0"/>
+<item historyLabel="RotateDimension.java" index="1">
+<position info="not_deleted" x="700" y="0"/>
 </item>
-<item historyLabel="SkeletonPart.java" index="0">
-<position info="not_deleted" x="1048" y="0"/>
+<item historyLabel="RotateDimension.java" index="1">
+<position info="not_deleted" x="616" y="0"/>
 </item>
-<item historyLabel="SkeletonPart.java" index="0">
-<position info="not_deleted" x="1024" y="0"/>
+<item historyLabel="RotateDimension.java" index="1">
+<position info="not_deleted" x="803" y="12"/>
 </item>
-<item historyLabel="SkeletonPart.java" index="0">
-<position/>
+<item historyLabel="RotateDimension.java" index="1">
+<position info="not_deleted" x="1167" y="0"/>
 </item>
-<item historyLabel="SkeletonPart.java" index="0">
-<position/>
+<item historyLabel="RotateDimension.java" index="1">
+<position info="not_deleted" x="2723" y="0"/>
 </item>
-<item historyLabel="SkeletonPart.java" index="0">
-<position/>
+<item historyLabel="RotateDimension.java" index="1">
+<position info="not_deleted" x="2801" y="0"/>
 </item>
-<item historyLabel="SkeletonPart.java" index="0">
-<position info="not_deleted" x="1024" y="0"/>
+<item historyLabel="RotateDimension.java" index="1">
+<position info="not_deleted" x="2870" y="0"/>
 </item>
-<item historyLabel="SkeletonPart.java" index="0">
-<position/>
-</item>
-<item historyLabel="SkeletonPart.java" index="0">
-<position info="not_deleted" x="1003" y="0"/>
+<item historyLabel="RotateDimension.java" index="1">
+<position info="not_deleted" x="2919" y="0"/>
 </item>
 <item historyLabel="SkeletonPart.java" index="0">
-<position/>
+<position info="not_deleted" x="1399" y="1"/>
 </item>
-<item historyLabel="SkeletonPart.java" index="0">
-<position/>
-</item>
-<item historyLabel="SkeletonPart.java" index="0">
-<position/>
-</item>
-<item historyLabel="HumanCanvas.java" index="3">
-<position info="not_deleted" x="2290" y="0"/>
-</item>
-<item historyLabel="HumanSkeleton.java" index="4">
-<position info="not_deleted" x="1256" y="0"/>
-</item>
-<item historyLabel="HumanCanvas.java" index="3">
-<position info="not_deleted" x="2290" y="0"/>
-</item>
-<item historyLabel="HumanSkeleton.java" index="4">
-<position info="not_deleted" x="1256" y="0"/>
-</item>
-<item historyLabel="HumanCanvas.java" index="3">
-<position info="not_deleted" x="2290" y="0"/>
-</item>
-<item historyLabel="SkeletonPart.java" index="0">
-<position info="not_deleted" x="1127" y="0"/>
-</item>
-<item historyLabel="HumanCanvas.java" index="3">
-<position info="not_deleted" x="2290" y="0"/>
-</item>
-<item historyLabel="SkeletonPart.java" index="0">
-<position info="not_deleted" x="1127" y="0"/>
-</item>
-<item historyLabel="HumanCanvas.java" index="3">
-<position info="not_deleted" x="4256" y="0"/>
-</item>
-<item historyLabel="HumanSkeleton.java" index="4">
-<position info="not_deleted" x="1014" y="0"/>
-</item>
-<item historyLabel="SkeletonPart.java" index="0">
-<position info="not_deleted" x="1106" y="0"/>
-</item>
-<item historyLabel="HumanSkeleton.java" index="4">
-<position info="not_deleted" x="965" y="0"/>
-</item>
-<item historyLabel="HumanCanvas.java" index="3">
-<position info="not_deleted" x="4350" y="0"/>
-</item>
-<item historyLabel="HumanSkeleton.java" index="4">
-<position info="not_deleted" x="889" y="0"/>
-</item>
-<item historyLabel="SkeletonPart.java" index="0">
-<position info="not_deleted" x="1106" y="0"/>
-</item>
-<item historyLabel="HumanSkeleton.java" index="4">
-<position info="not_deleted" x="1307" y="0"/>
-</item>
-<item historyLabel="HumanCanvas.java" index="3">
-<position info="not_deleted" x="3527" y="0"/>
-</item>
-<item historyLabel="HumanSkeleton.java" index="4">
-<position info="not_deleted" x="1307" y="0"/>
-</item>
-<item historyLabel="HumanCanvas.java" index="3">
-<position info="not_deleted" x="3527" y="0"/>
-</item>
-<item historyLabel="HumanSkeleton.java" index="4">
-<position info="not_deleted" x="1038" y="0"/>
-</item>
-<item historyLabel="HumanCanvas.java" index="3">
-<position info="not_deleted" x="3527" y="0"/>
-</item>
-<item historyLabel="SkeletonPart.java" index="0">
-<position info="not_deleted" x="1106" y="0"/>
-</item>
-<item historyLabel="HumanSkeleton.java" index="4">
-<position info="not_deleted" x="1038" y="0"/>
-</item>
-<item historyLabel="HumanCanvas.java" index="3">
-<position info="not_deleted" x="3527" y="0"/>
-</item>
-<item historyLabel="HumanSkeleton.java" index="4">
+<item historyLabel="HumanSkeleton.java" index="3">
 <position info="not_deleted" x="1281" y="0"/>
 </item>
-<item historyLabel="HumanCanvas.java" index="3">
-<position info="not_deleted" x="3527" y="0"/>
+<item historyLabel="RotateDimension.java" index="1">
+<position info="not_deleted" x="342" y="0"/>
 </item>
 <item historyLabel="SkeletonPart.java" index="0">
-<position info="not_deleted" x="1110" y="0"/>
-</item>
-<item historyLabel="HumanSkeleton.java" index="4">
-<position info="not_deleted" x="1281" y="0"/>
-</item>
-<item historyLabel="HumanCanvas.java" index="3">
-<position info="not_deleted" x="3527" y="0"/>
+<position info="not_deleted" x="1399" y="1"/>
 </item>
 <item historyLabel="SkeletonPart.java" index="0">
-<position info="not_deleted" x="1110" y="0"/>
+<position info="not_deleted" x="441" y="0"/>
 </item>
-<item historyLabel="HumanCanvas.java" index="3">
-<position info="not_deleted" x="3527" y="0"/>
+<item historyLabel="SkeletonPart.java" index="0">
+<position info="not_deleted" x="427" y="4"/>
 </item>
-<item historyLabel="HumanSkeleton.java" index="4">
+<item historyLabel="SkeletonPart.java" index="0">
+<position info="not_deleted" x="673" y="0"/>
+</item>
+<item historyLabel="SkeletonPart.java" index="0">
+<position info="not_deleted" x="2322" y="0"/>
+</item>
+<item historyLabel="RotateDimension.java" index="1">
+<position info="not_deleted" x="342" y="0"/>
+</item>
+<item historyLabel="HumanSkeleton.java" index="3">
 <position info="not_deleted" x="1281" y="0"/>
 </item>
-<item historyLabel="HumanCanvas.java" index="3">
+<item historyLabel="SkeletonPart.java" index="0">
+<position info="not_deleted" x="2322" y="0"/>
+</item>
+<item historyLabel="SkeletonPart.java" index="0">
+<position info="not_deleted" x="739" y="0"/>
+</item>
+<item historyLabel="SkeletonPart.java" index="0">
+<position info="not_deleted" x="759" y="0"/>
+</item>
+<item historyLabel="SkeletonPart.java" index="0">
+<position info="not_deleted" x="2120" y="0"/>
+</item>
+<item historyLabel="SkeletonPart.java" index="0">
+<position info="not_deleted" x="2189" y="0"/>
+</item>
+<item historyLabel="SkeletonPart.java" index="0">
+<position info="not_deleted" x="2192" y="0"/>
+</item>
+<item historyLabel="RotateDimension.java" index="1">
+<position info="not_deleted" x="342" y="0"/>
+</item>
+<item historyLabel="RotateDimension.java" index="1">
+<position info="not_deleted" x="2135" y="0"/>
+</item>
+<item historyLabel="Main.java" index="2">
+<position info="not_deleted" x="2021" y="0"/>
+</item>
+<item historyLabel="SkeletonPart.java" index="0">
+<position info="not_deleted" x="2192" y="0"/>
+</item>
+<item historyLabel="SkeletonPart.java" index="0">
+<position info="not_deleted" x="2192" y="0"/>
+</item>
+<item historyLabel="RotateDimension.java" index="1">
+<position info="not_deleted" x="2135" y="0"/>
+</item>
+<item historyLabel="SkeletonPart.java" index="0">
+<position info="not_deleted" x="2192" y="0"/>
+</item>
+<item historyLabel="SkeletonPart.java" index="0">
+<position info="not_deleted" x="2306" y="0"/>
+</item>
+<item historyLabel="SkeletonPart.java" index="0">
+<position info="not_deleted" x="2168" y="22"/>
+</item>
+<item historyLabel="SkeletonPart.java" index="0">
+<position info="not_deleted" x="822" y="0"/>
+</item>
+<item historyLabel="SkeletonPart.java" index="0">
+<position info="not_deleted" x="927" y="0"/>
+</item>
+<item historyLabel="SkeletonPart.java" index="0">
+<position info="not_deleted" x="1000" y="0"/>
+</item>
+<item historyLabel="Prism.java" index="4">
+<position info="not_deleted" x="0" y="0"/>
+</item>
+<item historyLabel="Main.java" index="2">
+<position info="not_deleted" x="2021" y="0"/>
+</item>
+<item historyLabel="HumanCanvas.java" index="5">
 <position info="not_deleted" x="3527" y="0"/>
+</item>
+<item historyLabel="Prism.java" index="4">
+<position info="not_deleted" x="0" y="0"/>
+</item>
+<item historyLabel="SkeletonPart.java" index="0">
+<position info="not_deleted" x="1199" y="0"/>
+</item>
+<item historyLabel="Main.java" index="2">
+<position info="not_deleted" x="2021" y="0"/>
+</item>
+<item historyLabel="Main.java" index="2">
+<position info="not_deleted" x="2021" y="0"/>
+</item>
+<item historyLabel="Prism.java" index="4">
+<position info="not_deleted" x="0" y="0"/>
+</item>
+<item historyLabel="RotateDimension.java" index="1">
+<position info="not_deleted" x="2135" y="0"/>
 </item>
 <item active="true" historyLabel="SkeletonPart.java" index="0">
-<position info="not_deleted" x="1110" y="0"/>
+<position info="not_deleted" x="1199" y="0"/>
 </item>
 </navigationHistory>
 <input factoryID="org.eclipse.ui.internal.model.ResourceFactory" path="/" type="8"/>
@@ -475,6 +492,15 @@
 </trimLayout>
 </window>
 <mruList>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="Prism.java" tooltip="motions/src/figures/Prism.java">
+<persistable path="/motions/src/figures/Prism.java"/>
+</file>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="Main.java" tooltip="motions/src/Main.java">
+<persistable path="/motions/src/Main.java"/>
+</file>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="RotateDimension.java" tooltip="motions/src/RotateDimension.java">
+<persistable path="/motions/src/RotateDimension.java"/>
+</file>
 <file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="HumanSkeleton.java" tooltip="motions/src/HumanSkeleton.java">
 <persistable path="/motions/src/HumanSkeleton.java"/>
 </file>
@@ -492,12 +518,6 @@
 </file>
 <file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="CustomFigure.java" tooltip="motions/src/CustomFigure.java">
 <persistable path="/motions/src/CustomFigure.java"/>
-</file>
-<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="RotateDimension.java" tooltip="motions/src/RotateDimension.java">
-<persistable path="/motions/src/RotateDimension.java"/>
-</file>
-<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="Main.java" tooltip="motions/src/Main.java">
-<persistable path="/motions/src/Main.java"/>
 </file>
 <file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="Range.java" tooltip="motions/src/types/Range.java">
 <persistable path="/motions/src/types/Range.java"/>

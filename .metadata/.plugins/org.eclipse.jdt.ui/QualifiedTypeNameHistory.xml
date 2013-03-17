@@ -20,12 +20,17 @@
 <fullyQualifiedTypeName name="java.awt.event.MouseListener"/>
 <fullyQualifiedTypeName name="java.awt.Component"/>
 <fullyQualifiedTypeName name="javax.swing.JSlider"/>
-<fullyQualifiedTypeName name="java.lang.Math"/>
 <fullyQualifiedTypeName name="figures.Prism"/>
 <fullyQualifiedTypeName name="java.util.HashMap"/>
 <fullyQualifiedTypeName name="RotateDimension"/>
-<fullyQualifiedTypeName name="SkeletonPart"/>
-<fullyQualifiedTypeName name="javax.vecmath.Vector3f"/>
 <fullyQualifiedTypeName name="java.nio.FloatBuffer"/>
 <fullyQualifiedTypeName name="javax.vecmath.Matrix4d"/>
+<fullyQualifiedTypeName name="java.util.Vector"/>
+<fullyQualifiedTypeName name="java.lang.Math"/>
+<fullyQualifiedTypeName name="javax.vecmath.AxisAngle4f"/>
+<fullyQualifiedTypeName name="javax.vecmath.Vector3f"/>
+<fullyQualifiedTypeName name="SkeletonPart"/>
+<fullyQualifiedTypeName name="javax.vecmath.Matrix4f"/>
+<fullyQualifiedTypeName name="javax.vecmath.Matrix3f"/>
+<fullyQualifiedTypeName name="javax.vecmath.Vector4f"/>
 </qualifiedTypeNameHistroy>

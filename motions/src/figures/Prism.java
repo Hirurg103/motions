@@ -2,7 +2,6 @@ package figures;
 import javax.media.opengl.GL2;
 
 import static javax.media.opengl.GL2.*;
-import java.math.*;
 
 public class Prism extends CustomFigure {
 	private int countFaces;
