@@ -1,0 +1,16 @@
+import java.util.ArrayList;
+
+
+public class Main {
+	public static void main(String[] args) {
+		ArrayList<T> tt = new ArrayList<T>();
+		T2 t2 = new T2();
+		T1 t1 = new T1();
+		T t = new T();
+		tt.add(t1); tt.add(t); tt.add(t2);
+//		for(T temp : tt) {
+//			System.out.println(temp.getClass() == T2.class);
+//		}
+		t1;
+	}
+}

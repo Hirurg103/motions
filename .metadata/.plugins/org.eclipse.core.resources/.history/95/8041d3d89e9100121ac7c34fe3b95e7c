@@ -1,0 +1,68 @@
+
+public class SkeletonPartPosition {
+	private float relativeX;
+	private float Y;
+	private float Z;
+	private int rotY;
+	private int rotZ;
+	private int rotX;
+	
+	
+	public SkeletonPartPosition(float relativeX, float Y, float Z, int rotY, int rotZ, int rotX) {
+		setRelativeX(relativeX);
+		setY(Y);
+		setZ(Z);
+		setInitRotY(rotY);
+		setInitRotZ(rotZ);
+	}
+	
+	public SkeletonPartPosition(float relativeX, float Y, float Z, int rotY, int rotZ) {
+		this(relativeX, Y, Z, rotY, rotZ, 0);
+	}
+	
+	public SkeletonPartPosition(float relativeX, float Y, float Z, int initRotY) { 
+		this(relativeX, Y, Z, initRotY, 0);
+	}
+	
+	public SkeletonPartPosition(float relativeX, float Y, float Z) { 
+		this(relativeX, Y, Z, 0);
+	}
+	
+	public SkeletonPartPosition(float relativeX, float Y) { 
+		this(relativeX, Y, 0);
+	}
+	
+	public SkeletonPartPosition(float relativeX) { 
+		this(relativeX, 0);
+	}
+	
+	public SkeletonPartPosition() { 
+		this(1.0f);
+	}
+
+	public float getRelativeX() {
+		return relativeX;
+	}
+
+	public void setRelativeX(float relativeX) { this.relativeX = relativeX; }
+
+	public float getY() { return Y; }
+
+	public void setY(float y) { Y = y; }
+
+	public float getZ() { return Z; }
+
+	public void setZ(float z) { Z = z; }
+
+	public int getRotY() { return rotY; }
+
+	public void setRotY(int rotY) { this.rotY = rotY; }
+
+	public int getRotZ() { return rotZ; }
+
+	public void setRotZ(int rotZ) { this.rotZ = rotZ; }
+
+	public int getRotX() { return rotX; }
+
+	public void setRotX(int rotX) { this.rotX = rotX; }
+}

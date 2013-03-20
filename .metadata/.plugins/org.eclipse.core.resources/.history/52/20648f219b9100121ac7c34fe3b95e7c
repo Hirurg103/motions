@@ -1,0 +1,163 @@
+import java.util.ArrayList;
+
+import javax.media.opengl.GL2;
+import javax.vecmath.Color4b;
+import javax.vecmath.Matrix4f;
+
+import figures.Prism;
+
+
+public class SkeletonPart extends GraphicsObject implements DimensionListener {
+	private String name;
+	private float length;
+	private Prism bone;
+	private ArrayList<SkeletonPart> childParts;
+	private SkeletonPart root = null;
+	private SkeletonPartPosition position;
+	private MotionDimension<Integer> rotY;
+	private MotionDimension<Integer> rotZ;
+	private MotionDimension<Float> stretchX;
+	
+	public SkeletonPart(String name, float length, SkeletonPartPosition position) {
+		super();
+		this.setName(name);
+		this.setLength(length);
+		setPosition(position);
+		setRotY(null);
+		setRotZ(null);
+		setStretchX(null);
+		this.bone = new Prism(5, length, 0.2f);
+		this.childParts = new ArrayList<SkeletonPart>();
+	}
+	
+	public SkeletonPart(String name, float length) {
+		this(name, length, new SkeletonPartPosition());
+	}
+	
+	public SkeletonPart(String name) {
+		this(name, 0);
+	}
+	
+	public void draw(GL2 gl) {
+		draw(gl, false);
+	}
+	
+	public void draw(GL2 gl, boolean withMyColorID) {
+		if(withMyColorID) {
+			// object will draw with color 
+			gl.glColor4b(myColorID.getX(), myColorID.getY(), myColorID.getZ(), myColorID.getW());
+		} else {
+			// set other graphics parameters
+		}
+		
+		// set into position relative to root part
+		if(getRoot() != null) gl.glTranslatef(getRoot().getLength()*getPosition().getRelativeX(), getPosition().getY(), getPosition().getZ());
+		if(getPosition().getInitRotY() != 0) gl.glRotatef(getPosition().getY(), 0, 1, 0);
+		if(getPosition().getInitRotZ() != 0) gl.glRotatef(getPosition().getZ(), 0, 0, 1);
+		
+		
+		if (rotY != null) gl.glRotatef(rotY.getValue(), 0, 1, 0);
+		if (rotZ != null) gl.glRotatef(rotZ.getValue(), 0, 0, 1);
+		
+		bone.draw(gl);
+		
+		for(SkeletonPart childPart : childParts) {
+			gl.glPushMatrix();
+			childPart.draw(gl, withMyColorID);
+			gl.glPopMatrix();
+		}
+	}
+		
+	public void addRotateDimension(RotateDimension rotateDimension) {
+		rotateDimensions.add(rotateDimension);
+		rotateDimension.addDimensionListener(this);
+		dimensionChanged(rotateDimension);
+	}
+	
+	public ArrayList<RotateDimension> getRotateDimensions() { return this.rotateDimensions; }
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+	
+	public void addChildPart(SkeletonPart childPart) {
+		childParts.add(childPart);
+		childPart.setRoot(this);
+	}
+
+	public float getLength() {
+		return length;
+	}
+
+	public void setLength(float length) {
+		this.length = length;
+	}
+
+	public SkeletonPart getRoot() {
+		return root;
+	}
+
+	public void setRoot(SkeletonPart root) {
+		this.root = root;
+	}
+	
+	public Matrix4f getWorldMatrx() {
+		return worldMatrix;
+	}
+	
+	public SkeletonPart getWithColor(Color4b pixelColor) {
+		if(this.myColorID.equals(pixelColor)) {
+			return this;
+		}
+		SkeletonPart selectedPart;
+		for(SkeletonPart childPart: childParts) {
+			if((selectedPart = childPart.getWithColor(pixelColor)) != null) {
+				return selectedPart;
+			}
+		}
+		return null;
+	}
+
+	@Override
+	public void dimensionChanged(BaseDimension dimension) {
+		if(getRoot() != null) { worldMatrix = getRoot().getWorldMatrx(); } else { worldMatrix.setIdentity(); } 
+	    for(RotateDimension rotateDimension: rotateDimensions) {
+	    	worldMatrix.mul(rotateDimension.getRotationMatrix());
+	    }
+	    for(SkeletonPart childPart: childParts) {
+	    	childPart.dimensionChanged(dimension);
+	    }
+	}
+
+	public SkeletonPartPosition getPosition() { return position; }
+
+	public void setPosition(SkeletonPartPosition position) { this.position = position;	}
+
+	public MotionDimension getRotY() {
+		return rotY;
+	}
+
+	public void setRotY(MotionDimension rotY) {
+		this.rotY = rotY;
+	}
+
+	public MotionDimension getRotZ() {
+		return rotZ;
+	}
+
+	public void setRotZ(MotionDimension rotZ) {
+		this.rotZ = rotZ;
+	}
+
+	public MotionDimension getStretchX() {
+		return stretchX;
+	}
+
+	public void setStretchX(MotionDimension stretchX) {
+		this.stretchX = stretchX;
+	}
+}

@@ -1,0 +1,61 @@
+
+public class RelativePosition {
+	private float relativeX;
+	private float Y;
+	private float Z;
+	private int initRotY;
+	private int initRotZ;
+	
+	
+	public RelativePosition(float relativeX, float Y, float Z, int initRotY, int initRotZ) {
+		setRelativeX(relativeX);
+		setY(Y);
+		setZ(Z);
+		setInitRotY(initRotY);
+		setInitRotZ(initRotZ);
+	}
+	
+	public RelativePosition() { 
+		
+	}
+
+	public float getRelativeX() {
+		return relativeX;
+	}
+
+	public void setRelativeX(float relativeX) {
+		this.relativeX = relativeX;
+	}
+
+	public float getY() {
+		return Y;
+	}
+
+	public void setY(float y) {
+		Y = y;
+	}
+
+	public float getZ() {
+		return Z;
+	}
+
+	public void setZ(float z) {
+		Z = z;
+	}
+
+	public int getInitRotY() {
+		return initRotY;
+	}
+
+	public void setInitRotY(int initRotY) {
+		this.initRotY = initRotY;
+	}
+
+	public int getInitRotZ() {
+		return initRotZ;
+	}
+
+	public void setInitRotZ(int initRotZ) {
+		this.initRotZ = initRotZ;
+	}
+}

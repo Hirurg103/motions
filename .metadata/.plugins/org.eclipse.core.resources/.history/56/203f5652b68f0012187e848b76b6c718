@@ -1,0 +1,4 @@
+
+public class T1 extends T {
+	public void t1() {}
+}

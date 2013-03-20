@@ -4,7 +4,7 @@ import javax.media.opengl.GL2;
 import static javax.media.opengl.GL2.*;
 
 
-public class Pyramid extends CustomFigure {
+public class Pyramid extends GraphicsObject {
 	// ----- Render the Pyramid -----
 	public static void draw(GL2 gl, float u, float v, float h) {
 		gl.glBegin(GL_QUADS); // of the pyramid

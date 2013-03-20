@@ -1,0 +1,8 @@
+
+public class CompositeSkeletonPart extends SkeletonPart {
+	private ArrayList<SkeletonPart> composites;
+	public CompositeSkeletonPart(String name) {
+		super(name);
+	}
+	
+}

@@ -1,0 +1,6 @@
+
+public class CompositeSkeletonPart extends SkeletonPart {
+	public CompositeSkeletonPart(name) {
+		super(name);
+	}
+}

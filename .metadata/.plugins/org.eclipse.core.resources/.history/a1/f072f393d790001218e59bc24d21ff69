@@ -1,0 +1,11 @@
+
+public class RelativePosition {
+	private int initRotY;
+	private int initRotZ;
+	private float relativeX;
+	private float Y;
+	private float Z;
+	public RelativePosition() { 
+		
+	}
+}

@@ -1,0 +1,63 @@
+import types.Range;
+
+import javax.swing.event.ChangeEvent;
+import javax.vecmath.AxisAngle4f;
+import javax.vecmath.Matrix4f;
+import javax.vecmath.Vector3f;
+
+public class RotateDimension extends Dimension implements DimensionListener {
+	/** This class represents rotate dimension. 
+	 *  Attribute range sets bounds of rotation capacity.
+	 *  axisAngle is a vector in the space which defines the axis of rotation.
+	 *  angleChanged sets to true after angle changed and sets to false after angle read.
+	 *  axisChanged sets to true after axis changed and sets to false after axis read.
+	 */
+	private static final long serialVersionUID = 1L;
+	private AxisAngle4f axisAngle;
+	
+	public RotateDimension(String name, Vector3f axis, Range<Integer> range) {
+		super(name, range);
+		axis.normalize(); this.axisAngle = new AxisAngle4f(axis, 0);
+	}
+	
+	public RotateDimension(String name, Vector3f axis) { 
+		this(name, axis, new Range<Integer>(0, 0));
+	}
+	
+	public RotateDimension(String name) { 
+		this(name, new Vector3f(0.0f, 0.0f, 1.0f), new Range<Integer>(0, 0));
+	}
+	
+	public void setAngle(int angle) { this.getAxisAngle().setAngle(angle); }
+	
+	public int getAngle() { return getValue(); }
+	
+	
+	public void setAxis(Vector3f axis) { axis.normalize(); axisAngle.set(axis, getValue()); notifyDimensionListeners(); }
+	
+	public void setAxis(float x, float y, float z) { setAxis(new Vector3f(x, y, z)); }
+	
+	public Vector3f getAxis() { return new Vector3f(axisAngle.x, axisAngle.y, axisAngle.z); }
+	
+	public AxisAngle4f getAxisAngle() { return axisAngle; }
+
+	public Matrix4f getRotationMatrix() {
+		Matrix4f rotationMatrix = new Matrix4f();
+		rotationMatrix.set(1);
+		rotationMatrix.set(this.axisAngle);
+		return rotationMatrix;
+	}
+	
+	@Override
+	public void stateChanged(ChangeEvent e) {
+		super.stateChanged(e);
+		setA
+	}
+	
+
+	@Override
+	public void dimensionChanged(Dimension dimension) {
+		// TODO Auto-generated method stub
+		
+	}
+}

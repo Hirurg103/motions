@@ -1,0 +1,48 @@
+import java.util.ArrayList;
+
+import javax.swing.JSlider;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
+
+import types.Range;
+
+public class Dimension extends JSlider implements ChangeListener {
+	/** This class represents arbitrary dimension model.
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	private Range<Integer> range;
+	private String name;
+	private ArrayList<DimensionListener> dimensionListeners; 
+	
+	public Dimension(String name, Range<Integer> range) {
+		super(range.from(), range.to());		
+		setName(name);
+		setRange(range);
+		this.dimensionListeners = new ArrayList<DimensionListener>();
+		this.addChangeListener(this);
+	}
+	
+	public Dimension(String name) {
+		this(name, new Range<Integer>(0, 0));
+	}
+	
+	public void setRange(Range<Integer> range) { this.range = range; }
+	public Range<Integer> getRange() { return this.range; }
+	
+	public void setName(String name) { this.name = name; }
+	public String getName() { return name; }
+	
+	@Override
+	public void stateChanged(ChangeEvent e) { notifyUpdateListeners(); }
+	
+	private void notifyUpdateListeners() {
+		for(DimensionListener dimensionListener: dimensionListeners) {
+			dimensionListener.dimensionChanged(this);
+		}
+	}
+	
+	public void addUpdateListener(DimensionListener dimensionListener) {
+		dimensionListeners.add(dimensionListener);
+	}
+}

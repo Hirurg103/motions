@@ -1,0 +1,6 @@
+
+public class RelativePosition<T> {
+	public RelativePosition(T t) { 
+		
+	}
+}

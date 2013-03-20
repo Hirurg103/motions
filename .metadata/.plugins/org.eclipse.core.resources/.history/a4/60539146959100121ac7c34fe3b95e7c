@@ -1,0 +1,4 @@
+
+public interface DimensionListener {
+	public void dimensionChanged(BaseDimension dimension);
+}

@@ -3,6 +3,7 @@ import java.awt.Dimension;
 import java.nio.FloatBuffer;
 
 import javax.swing.JPanel;
+import javax.swing.JSlider;
 
 import javax.media.opengl.awt.GLCanvas;
 import javax.media.opengl.glu.GLU;
@@ -39,7 +40,7 @@ public class HumanCanvas extends GLCanvas implements GLEventListener, MouseListe
 	private HumanSkeleton humanSkeleton;                // human skeleton to draw
 	private JPanel controlPanel = null;                 // panel to display human controls such as sliders
 	private Shader shaderProgram;  						// the shader program
-	private GL2 gl;
+	private GL2 gl = null;
 	private float translateX = 0; private float translateZ = 0;
 	private float rotateX = 0; private float rotateY = 0;
 	private float dragX = -1; private float dragY = -1;
@@ -95,8 +96,8 @@ public class HumanCanvas extends GLCanvas implements GLEventListener, MouseListe
 	    gl.glRotatef(rotateX, pM.get(0), pM.get(4), pM.get(8));
 	    gl.glRotatef(rotateY, pM.get(1), pM.get(5), pM.get(9));
 	    rotateX = 0; rotateY = 0;
-	    gl.glTranslatef(translateX*pM.get(0), translateX*pM.get(1), translateX*pM.get(2));
-	    gl.glTranslatef(translateZ*pM.get(8), translateZ*pM.get(9), translateZ*pM.get(10));
+	    gl.glTranslatef(translateX*pM.get(0), translateX*pM.get(4), translateX*pM.get(8));
+	    gl.glTranslatef(translateZ*pM.get(3), translateZ*pM.get(7), translateZ*pM.get(11));
 	    translateX = translateZ = 0;
 	}
 	
@@ -224,8 +225,8 @@ public class HumanCanvas extends GLCanvas implements GLEventListener, MouseListe
 			SkeletonPart activeSkeletonPart = this.humanSkeleton.getActiveSkeletonPart(gl, mouseEvent.getX(), mouseEvent.getY());
 			controlPanel.removeAll();
 			if(activeSkeletonPart != null) { 
-				for(RotateDimension rotateDimension : activeSkeletonPart.getRotateDimensions()) {
-					controlPanel.add(rotateDimension);
+				for(MotionDimension<? extends Number> motionDimension : activeSkeletonPart.getMotionDimensions()) {
+					controlPanel.add((JSlider)motionDimension);
 				}
 				controlPanel.revalidate();
 				controlPanel.repaint();

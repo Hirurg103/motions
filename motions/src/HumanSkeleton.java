@@ -4,10 +4,8 @@ import java.util.ArrayList;
 
 import javax.swing.JPanel;
 import javax.media.opengl.GL2;
-import types.Range;
 
 import javax.vecmath.Color4b;
-import javax.vecmath.Vector3f;
 
 import static javax.media.opengl.GL.GL_TEXTURE_2D;
 import static javax.media.opengl.GL2.*;
@@ -22,19 +20,20 @@ public class HumanSkeleton {
 		this.skeletonParts = new ArrayList<SkeletonPart>();
 		
 		this.root = new SkeletonPart("Shoulder", 1); skeletonParts.add(root);
-		this.root.addRotateDimension(new RotateDimension("Down-Up", new Vector3f(0, 0, 1), new Range<Integer>(-90, 90)));
-		this.root.addRotateDimension(new RotateDimension("Left-Right", new Vector3f(0, 1, 0), new Range<Integer>(-90, 90)));
-	    SkeletonPart elbow = new SkeletonPart("Elbow", 0.8f); skeletonParts.add(elbow);
-	    elbow.addRotateDimension(new RotateDimension("Bend-Unbend", new Vector3f(0, 0, 1), new Range<Integer>(0, 170)));
-	    root.addChildPart(new Vector3f(this.root.getLength(), 0, 0), elbow);
-	    
-	    SkeletonPart elbow1 = new SkeletonPart("Elbow1", 0.8f); skeletonParts.add(elbow1);
-	    elbow1.addRotateDimension(new RotateDimension("Bend-Unbend", new Vector3f(0, 0, 1), new Range<Integer>(0, 170)));
-	    root.addChildPart(new Vector3f(this.root.getLength(), -1, 0), elbow1);
-	    
-	    SkeletonPart elbow2 = new SkeletonPart("Elbow2", 0.8f); skeletonParts.add(elbow2);
-	    elbow2.addRotateDimension(new RotateDimension("Bend-Unbend", new Vector3f(0, 0, 1), new Range<Integer>(0, 170)));
-	    root.addChildPart(new Vector3f(this.root.getLength(), -2, 0), elbow2);
+		
+//		this.root.addRotateDimension(new RotateDimension("Left-Right", new Vector3f(0, 1, 0), -30, 170, 0));
+//		this.root.addRotateDimension(new RotateDimension("Down-Up", new Vector3f(0, 0, 1), -90, 90, 0));
+//		
+//		this.root.addRotateDimension(new RotateDimension("Curl", new Vector3f(1, 0, 0), -90, 90, 0));
+//		
+//	    SkeletonPart elbow = new SkeletonPart("Elbow", 0.8f); skeletonParts.add(elbow);
+//	    elbow.addRotateDimension(new RotateDimension("Bend-Unbend", new Vector3f(0, 0, 1), 0, 170, 0));
+//	    root.addChildPart(elbow);
+//	    
+//	    SkeletonPart hand = new SkeletonPart("Hand", 0.3f); skeletonParts.add(hand);
+//	    hand.addRotateDimension(new RotateDimension("Left-Right", new Vector3f(0, 1, 0), -90, 80, 0));
+//	    hand.addRotateDimension(new RotateDimension("Down-Up", new Vector3f(0, 0, 1), -45, 45, 0));
+//	    elbow.addChildPart(hand);
 	    
 	}
 	
