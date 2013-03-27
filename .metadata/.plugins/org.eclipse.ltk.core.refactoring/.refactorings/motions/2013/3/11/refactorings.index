@@ -1,9 +1,0 @@
-1362925464744	Infer generic type arguments
-1362953096539	Encapsulate field 'name'
-1362999303986	Move compilation unit
-1362999331472	Move compilation unit
-1363006634694	Encapsulate field 'length'
-1363293268645	Encapsulate field 'angleChanged'
-1363294201984	Encapsulate field 'root'
-1363294368138	Encapsulate field 'worldMatrix'
-1363373298690	Encapsulate field 'shaderProgram'

@@ -1,7 +1,0 @@
-uniform vec3 pos;
-
-void main(void) {
-    gl_Position = vec4(pos, 1.0);
-    // transmit vertex color into fragment shader  
-    //fragmentColor = color; 
-}

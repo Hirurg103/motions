@@ -1,5 +1,0 @@
-attribute mat3 u;
-
-void main(void) {
-    u;
-}

@@ -1,4 +1,0 @@
-
-public interface DimensionListener {
-	public void dimensionChanged(MotionDimension dimension);
-}

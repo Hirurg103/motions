@@ -1,5 +1,0 @@
-package figures;
-
-public class Prism extends CustomFigure {
-	
-}

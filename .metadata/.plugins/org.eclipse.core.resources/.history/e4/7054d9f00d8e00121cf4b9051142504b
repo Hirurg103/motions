@@ -1,8 +1,0 @@
-varying vec3 fragmentColor;
-
-vec4 color;
-
-void main(void) {
-    // set pixel color
-    color = vec4(fragmentColor, 1.0);
-}

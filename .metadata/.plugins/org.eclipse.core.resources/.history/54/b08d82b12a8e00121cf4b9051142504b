@@ -1,4 +1,0 @@
-attribute color;
-
-void main(void) {
-}
