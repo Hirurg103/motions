@@ -2,31 +2,29 @@ import java.util.ArrayList;
 
 import javax.media.opengl.GL2;
 import javax.vecmath.Color4b;
+import javax.vecmath.Color4f;
 
-import figures.Prism;
+import figures.GraphicsObject;
 
 public class SkeletonPart extends PickableObject implements DimensionListener {
 	private String name;
 	private float length;
 	private SkeletonPart root = null;
 	private SkeletonPartPosition position;
-	private MotionDimension<Integer> rotY;
-	private MotionDimension<Integer> rotZ;
-	private MotionDimension<Integer> rotX;
-	private MotionDimension<Float> stretchX;
+	private MotionDimension<Integer> rotY = null;
+	private MotionDimension<Integer> rotZ = null;
+	private MotionDimension<Integer> rotX = null;
+	private MotionDimension<Float> stretchX = null;
 	private ArrayList<SkeletonPart> childParts;
-	private Prism bone;
+	private GraphicsObject bone = null;
 	
 	public SkeletonPart(String name, float length, SkeletonPartPosition position) {
 		super();
-		this.setName(name);
-		this.setLength(length);
-		setRotY(null);
-		setRotZ(null);;
-		setRotX(null);
-		setStretchX(null);
+		setColor(null);
+		setName(name);
+		setLength(length);
+		setPosition(position);
 		this.childParts = new ArrayList<SkeletonPart>();
-		this.bone = new Prism(5, getActualLength(), 0.3f*getActualLength());
 	}
 	
 	public SkeletonPart(String name, float length) {
@@ -37,20 +35,21 @@ public class SkeletonPart extends PickableObject implements DimensionListener {
 		this(name, 0);
 	}
 	
-	public void draw(GL2 gl) {
-		draw(gl, false);
-	}
+	@Override
+	public void draw(GL2 gl) { draw(gl, false); }
 	
+	@Override
 	public void draw(GL2 gl, boolean withMyColorID) {
 		if(withMyColorID) {
 			// object will draw with color 
 			gl.glColor4b(myColorID.getX(), myColorID.getY(), myColorID.getZ(), myColorID.getW());
 		} else {
 			// set other graphics parameters
+			if(getColor() != null) gl.glColor3f(getColor().getX(), getColor().getY(), getColor().getZ());
 		}
 		
 		// set into position relative to root part
-		if(getRoot() != null) {
+		if(root != null) {
 			gl.glTranslatef(root.getActualLength()*position.getRelativeX(), position.getY(), position.getZ());
 		}
 		if(position.getRotY() != 0) gl.glRotatef(position.getRotY(), 0, 1, 0);
@@ -62,7 +61,7 @@ public class SkeletonPart extends PickableObject implements DimensionListener {
 		if (rotZ != null) gl.glRotatef(rotZ.getNumericValue(), 0, 0, 1);
 		if (rotX != null) gl.glRotatef(rotX.getNumericValue(), 1, 0, 0);
 		
-		bone.draw(gl);
+		if(bone != null) bone.draw(gl, !withMyColorID);
 		
 		for(SkeletonPart childPart : childParts) {
 			gl.glPushMatrix();
@@ -126,25 +125,34 @@ public class SkeletonPart extends PickableObject implements DimensionListener {
 
 	public MotionDimension<Integer> getRotY() { return rotY; }
 
-	public SkeletonPart setRotY(MotionDimension<Integer> rotY) { this.rotY = rotY; rotY.addDimensionListener(this); return this; }
+	public SkeletonPart setRotY(MotionDimension<Integer> rotY) { this.rotY = rotY; if(rotY != null) rotY.addDimensionListener(this); return this; }
 
 	public MotionDimension<Integer> getRotZ() { return rotZ; }
 
-	public SkeletonPart setRotZ(MotionDimension<Integer> rotZ) { this.rotZ = rotZ; rotZ.addDimensionListener(this); return this; }
+	public SkeletonPart setRotZ(MotionDimension<Integer> rotZ) { this.rotZ = rotZ; if(rotZ != null) rotZ.addDimensionListener(this); return this; }
 	
 	public MotionDimension<Integer> getRotX() { return rotX; }
 
-	public SkeletonPart setRotX(MotionDimension<Integer> rotX) { this.rotX = rotX; rotX.addDimensionListener(this); return this; }
+	public SkeletonPart setRotX(MotionDimension<Integer> rotX) { this.rotX = rotX; if(rotX != null) rotX.addDimensionListener(this); return this; }
 
 	public MotionDimension<Float> getStretchX() { return stretchX; }
 
-	public SkeletonPart setStretchX(MotionDimension<Float> stretchX) { this.stretchX = stretchX; stretchX.addDimensionListener(this); return this; }
+	public SkeletonPart setStretchX(MotionDimension<Float> stretchX) { this.stretchX = stretchX; if(stretchX != null) stretchX.addDimensionListener(this); return this; }
 
-	public Prism getBone() { return bone; }
+	public GraphicsObject getBone() { return bone; }
 	
-	public SkeletonPart setBone(Prism bone) {
+	public SkeletonPart setBone(GraphicsObject bone) {
 		bone.setHeight(getActualLength());
 		this.bone = bone;
 		return this;
 	}
+	
+	@Override
+	public SkeletonPart setColor(Color4f color) { super.setColor(color); return this; }
+	
+	@Override
+	public SkeletonPart setColor(float r, float g, float b, float a) { super.setColor(r, g, b, a); return this; }
+	
+	@Override
+	public SkeletonPart setColor(float r, float g, float b) { super.setColor(r, g, b); return this; }
 }

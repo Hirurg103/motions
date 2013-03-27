@@ -87,6 +87,7 @@ public class HumanCanvas extends GLCanvas implements GLEventListener, MouseListe
 	    updateControlPanel();
 	    gl.glLoadIdentity();
 	    gl.glColor3f(1.0f, 1.0f, 1.0f);
+	    gl.glLoadIdentity();
 		humanSkeleton.draw(gl);
 		
 	    // move the camera
@@ -144,7 +145,7 @@ public class HumanCanvas extends GLCanvas implements GLEventListener, MouseListe
 		gl.glMatrixMode(GL_PROJECTION);  				// choose projection matrix
 		gl.glLoadIdentity();             				// reset projection matrix
 		glu.gluPerspective(45.0, aspect, 0.1, 100.0); 	// fovy, aspect, zNear, zFar
-		gl.glTranslatef(0, 0, -10); 					// translate into scene
+		gl.glTranslatef(0, 0, -3); 					// translate into scene
 		gl.glMatrixMode(GL_MODELVIEW);
 		gl.glLoadIdentity();
 		// Enable the model-view transform
@@ -224,7 +225,7 @@ public class HumanCanvas extends GLCanvas implements GLEventListener, MouseListe
 		if(mouseEvent != null && mouseEvent.getEventType() == MouseEvent.EVENT_MOUSE_CLICKED) {
 			SkeletonPart activeSkeletonPart = this.humanSkeleton.getActiveSkeletonPart(gl, mouseEvent.getX(), mouseEvent.getY());
 			controlPanel.removeAll();
-			if(activeSkeletonPart != null) { 
+			if(activeSkeletonPart != null) {
 				for(MotionDimension<? extends Number> motionDimension : activeSkeletonPart.getMotionDimensions()) {
 					controlPanel.add((JSlider)motionDimension);
 				}

@@ -1,6 +1,8 @@
+import javax.media.opengl.GL2;
 import javax.vecmath.Color4b;
+import figures.GraphicsObject;
 
-public class PickableObject {
+public class PickableObject extends GraphicsObject {
 	protected Color4b myColorID;
 	private static long lastID = 1;
 	
@@ -17,4 +19,10 @@ public class PickableObject {
 	public String toString() {
 		return "(" + myColorID.getX() + ", " + myColorID.getY() + ", " +  myColorID.getZ() + ", " + myColorID.getW() + ")";
 	}
+	
+	@Override
+	public void draw(GL2 gl, boolean withMyColorID) {}
+	
+	@Override
+	public void draw(GL2 gl) { draw(gl, false); }
 }

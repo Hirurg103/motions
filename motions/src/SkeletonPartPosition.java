@@ -38,7 +38,7 @@ public class SkeletonPartPosition {
 	}
 	
 	public SkeletonPartPosition() { 
-		this(1.0f);
+		this(0);
 	}
 
 	public float getRelativeX() {

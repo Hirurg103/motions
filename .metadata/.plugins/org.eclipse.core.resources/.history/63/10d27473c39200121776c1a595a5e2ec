@@ -1,0 +1,55 @@
+package figures;
+
+import javax.media.opengl.GL2;
+import javax.media.opengl.glu.GLU;
+import javax.media.opengl.glu.GLUquadric;
+
+import figures.Prism;
+
+import javax.vecmath.Color4f;
+
+public class Bone extends Prism {
+	private float leftCapsuleRadius;
+	private float rightCapsuleRadius;
+	private Color4f color;
+	private GLU glu;
+	
+	public Bone(float height, float radius, float base) {
+		super(6, height, radius, base);
+		setLeftCapsuleRadius(0);
+		setRightCapsuleRadius(0);
+		setColor(null);
+		this.glu = new GLU();
+	}
+	
+	@Override
+	public void draw(GL2 gl) {
+		if(color != null) {
+			gl.glColor3f(color.getX(), color.getY(), color.getZ());
+		}
+		super.draw(gl);
+		GLUquadric quadric = glu.gluNewQuadric();
+		gl.glTranslatef(super.getBase(), 0, 0);
+		glu.gluSphere(quadric, leftCapsuleRadius, 10, 5);
+		gl.glTranslatef(super.getHeight(), 0, 0);
+		glu.gluSphere(quadric, rightCapsuleRadius, 10, 5);
+		gl.glTranslatef(-super.getBase() - super.getHeight(), 0, 0);
+	}
+	
+	public float getLeftCapsuleRadius() { return leftCapsuleRadius; }
+	
+	public Bone setLeftCapsuleRadius(float leftCapsuleRadius) { this.leftCapsuleRadius = leftCapsuleRadius; return this; }
+	
+	public float getRightCapsuleRadius() { return rightCapsuleRadius; }
+	
+	public Bone setRightCapsuleRadius(float rightCapsuleRadius) { this.rightCapsuleRadius = rightCapsuleRadius; return this; }
+
+	public Color4f getColor() { return color; }
+
+	public Bone setColor(Color4f color) { this.color = color; return this; }
+	
+	public Bone setColor4f(float r, float g, float b, float a) { this.color = new Color4f(r, g, b, a); return this; }
+	
+	public Bone setColor3f(float r, float g, float b) { return setColor4f(r, g, b, 1); }
+	
+}
