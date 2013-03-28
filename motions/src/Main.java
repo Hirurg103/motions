@@ -1,15 +1,19 @@
 import java.awt.*;
 import java.awt.event.*;
+import java.io.File;
 
 import javax.swing.*;
 
 import com.jogamp.opengl.util.FPSAnimator;
+
+import actions.*;
 
  
 @SuppressWarnings("serial")
 public class Main {
 	// Define constants for the top-level container
 	private static String TITLE = "Human motion";  // window's title
+	private static JFrame instrumentPanel = null;  // Panel contains buttons to change program mode 
 
 	/** The entry main() method to setup the top-level container and canvas */
 	public static void main(String[] args) {
@@ -37,7 +41,7 @@ public class Main {
 					@Override
 					public void windowClosing(WindowEvent e) {
 						// Use a dedicate thread to run the stop() to ensure that the
-						// animator stops before program exits.
+						// Animator stops before program exits.
 						new Thread() {
 							@Override
 							public void run() {
@@ -48,10 +52,29 @@ public class Main {
 					}
 				});
 				frame.setTitle(TITLE);
+				JToolBar toolbar = new JToolBar("Tools", JToolBar.HORIZONTAL); // create instrument panel
+            	toolbar.add(new CreateCustomMotionAction());
+            	toolbar.add(Box.createHorizontalStrut(2));
+            	toolbar.add(new CreateTimelineAction());
+            	frame.getContentPane().add(toolbar, "North");
 				frame.pack();
             	frame.setVisible(true);
             	animator.start(); // start the animation loop
+            	
+            	// createInstrumentPanel(); // create frame to show user instruments
+            	// showInstrumentPanel();
          	}
 		});
 	}		
+	
+	private static void createInstrumentPanel() {
+		instrumentPanel = new JFrame();
+		instrumentPanel.setPreferredSize(new Dimension(200, 600));
+    	instrumentPanel.pack();
+	}
+	
+	private static void showInstrumentPanel() {
+		if(instrumentPanel == null) createInstrumentPanel();
+		instrumentPanel.setVisible(true);
+	}
 }

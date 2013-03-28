@@ -1,0 +1,25 @@
+package actions;
+
+import java.awt.event.ActionEvent;
+
+import javax.swing.AbstractAction;
+import javax.swing.ImageIcon;
+
+public class CreateCustomMotionAction extends AbstractAction {
+	
+	public CreateCustomMotionAction() {
+		putValue(AbstractAction.SMALL_ICON, new ImageIcon("../images/create_custom_motion_icon.jpeg"));
+	}
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	@Override
+	public void actionPerformed(ActionEvent arg0) {
+		// TODO Auto-generated method stub
+		
+	}
+
+}

@@ -1,0 +1,7 @@
+package actions;
+
+import javax.swing.JButton;
+
+public class CustomAction extends JButton {
+
+}

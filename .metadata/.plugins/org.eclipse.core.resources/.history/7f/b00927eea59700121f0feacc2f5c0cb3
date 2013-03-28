@@ -1,0 +1,13 @@
+package actions;
+
+public class CreateTimelineAction extends CustomAction {
+	public CreateTimelineAction() {
+		super("Create timeline");
+	}
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+}

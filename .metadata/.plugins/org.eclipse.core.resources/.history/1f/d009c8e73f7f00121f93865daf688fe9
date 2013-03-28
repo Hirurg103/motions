@@ -1,0 +1,10 @@
+import javax.media.opengl.GLAutoDrawable;
+
+
+public class Human extends CustomFigure {
+
+	public static void draw(GLAutoDrawable drawable, float u, float v, float h) {
+
+	}
+
+}

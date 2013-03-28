@@ -1,0 +1,6 @@
+
+public class Pyramid implements CustomFigure {
+	public void draw() { 
+		
+	}
+}

@@ -1,0 +1,27 @@
+package actions;
+
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+import javax.swing.AbstractAction;
+import javax.swing.ImageIcon;
+
+public class CreateCustomMotionAction extends JButton implements ActionListener {
+	
+	public CreateCustomMotionAction() {
+		putValue(AbstractAction.SMALL_ICON, new ImageIcon("../images/create_custom_motion_icon.jpeg"));
+		putValue(AbstractAction.SHORT_DESCRIPTION, "Make custom motion");
+	}
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	@Override
+	public void actionPerformed(ActionEvent arg0) {
+		// TODO Auto-generated method stub
+		
+	}
+
+}

@@ -1,0 +1,32 @@
+package actions;
+
+import java.awt.Component;
+import java.awt.event.ActionEvent;
+
+import javax.swing.JComponent;
+
+public class CreateCustomMotionAction extends CustomAction {
+	
+	public CreateCustomMotionAction() {
+		super("Create custom motion");
+		setBorderPainted(false);
+		addActionListener(this);
+	}
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	@Override
+	public void actionPerformed(ActionEvent arg0) {
+		setSelected();
+		for(Component component : getParent().getComponents()) {
+			if(customAction instanceof CustomAction) {
+				
+			}
+		}
+			
+		
+		System.out.println("action");
+	}
+}

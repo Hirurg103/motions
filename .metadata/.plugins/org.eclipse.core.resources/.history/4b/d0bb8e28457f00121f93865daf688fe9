@@ -1,0 +1,20 @@
+import javax.media.opengl.GL2;
+
+public class Human extends CustomFigure {
+
+	public static void draw(GL2 gl) {
+		// Center of body
+		Pyramid.draw(gl, 0.8f, .5f, 1.5f);
+		
+		// bottom of body
+		gl.glTranslatef(0, -1.5f, 0);
+		Pyramid.draw(gl, 1.2f, 0.3f, 2.5f);
+		
+		//left leg
+		gl.glTranslatef(0.5f, -2.5f, 0);
+		Pyramid.draw();
+		
+
+	}
+
+}
