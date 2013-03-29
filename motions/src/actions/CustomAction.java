@@ -9,11 +9,15 @@ import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 
+import main.HumanCanvas;
+
 public class CustomAction extends JButton implements ActionListener {
-	/**
+	/** Base class for handle actions on tool bar.
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	public static HumanCanvas humanCanvas;
+	
 
 	public CustomAction(String name) { 
 		super(); 
@@ -41,5 +45,6 @@ public class CustomAction extends JButton implements ActionListener {
 				customAction.setUnselected();
 			}
 		}
+		humanCanvas.setMouseAdapter(getName());
 	}
 }

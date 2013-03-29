@@ -1,0 +1,7 @@
+package handlers;
+
+import com.jogamp.newt.event.MouseAdapter;
+
+public class CreateCustomMotionMouseHandler extends MouseAdapter {
+
+}

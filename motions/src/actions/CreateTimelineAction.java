@@ -2,6 +2,7 @@ package actions;
 
 import java.awt.event.ActionEvent;
 
+
 public class CreateTimelineAction extends CustomAction {
 	public CreateTimelineAction() {
 		super("Create timeline");
@@ -15,7 +16,6 @@ public class CreateTimelineAction extends CustomAction {
 	
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		super.actionPerformed(e);	
-		System.out.println("Create timeline");
+		super.actionPerformed(e);
 	}
 }

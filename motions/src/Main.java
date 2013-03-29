@@ -1,12 +1,14 @@
 import java.awt.*;
 import java.awt.event.*;
-import java.io.File;
 
 import javax.swing.*;
 
-import com.jogamp.opengl.util.FPSAnimator;
+import main.HumanCanvas;
 
 import actions.*;
+
+import com.jogamp.opengl.util.FPSAnimator;
+
 
  
 @SuppressWarnings("serial")
@@ -25,13 +27,13 @@ public class Main {
 				JPanel controlPanel = new JPanel();
 				
 				// Create the OpenGL rendering canvas
-				HumanCanvas canvas = new HumanCanvas();
+				final HumanCanvas canvas = new HumanCanvas();
 				canvas.setControlPanel(controlPanel);
 				controlPanel.setPreferredSize(new Dimension(200, 480));
 				
 				final FPSAnimator animator = canvas.getAnimator();
              
-				final JFrame frame = new JFrame(); // Swing's JFrame or AWT's Frame
+				final JFrame frame = new JFrame();  // Swing's JFrame or AWT's Frame
 				JPanel panel = new JPanel();
 				panel.add(canvas);
 				panel.add(controlPanel);
@@ -53,28 +55,15 @@ public class Main {
 				});
 				frame.setTitle(TITLE);
 				JToolBar toolbar = new JToolBar("Tools", JToolBar.HORIZONTAL); // create instrument panel
-            	toolbar.add(new CreateCustomMotionAction());
+				CustomAction.humanCanvas = canvas;
+            	toolbar.add(new CreateMotionAction());
             	toolbar.add(Box.createHorizontalStrut(2));
             	toolbar.add(new CreateTimelineAction());
             	frame.getContentPane().add(toolbar, "North");
 				frame.pack();
             	frame.setVisible(true);
             	animator.start(); // start the animation loop
-            	
-            	// createInstrumentPanel(); // create frame to show user instruments
-            	// showInstrumentPanel();
          	}
 		});
 	}		
-	
-	private static void createInstrumentPanel() {
-		instrumentPanel = new JFrame();
-		instrumentPanel.setPreferredSize(new Dimension(200, 600));
-    	instrumentPanel.pack();
-	}
-	
-	private static void showInstrumentPanel() {
-		if(instrumentPanel == null) createInstrumentPanel();
-		instrumentPanel.setVisible(true);
-	}
 }
