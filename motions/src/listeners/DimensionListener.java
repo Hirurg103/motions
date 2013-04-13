@@ -1,6 +1,6 @@
 package listeners;
 
-import main.MotionDimension;
+import gui.dimensions.MotionDimension;
 
 
 public interface DimensionListener {

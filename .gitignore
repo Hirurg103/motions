@@ -1,5 +1,7 @@
-﻿.metadata
-motions/.settings
-motions/.classpath
-motions/.project
-motions/bin
+﻿
+/motions/.settings
+/motions/.classpath
+/motions/.project
+/motions/bin
+/.~**
+/.metadata/

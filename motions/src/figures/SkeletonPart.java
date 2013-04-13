@@ -1,5 +1,7 @@
 package figures;
 
+import gui.dimensions.MotionDimension;
+
 import java.util.ArrayList;
 
 import javax.media.opengl.GL2;
@@ -7,7 +9,6 @@ import javax.vecmath.Color4b;
 import javax.vecmath.Color4f;
 
 import listeners.DimensionListener;
-import main.MotionDimension;
 
 
 public class SkeletonPart extends PickableObject implements DimensionListener {
@@ -61,9 +62,9 @@ public class SkeletonPart extends PickableObject implements DimensionListener {
 		if(position.getRotX() != 0) gl.glRotatef(position.getRotX(), 1, 0, 0);
 		
 		
-		if (rotY != null) gl.glRotatef(rotY.getNumericValue(), 0, 1, 0);
-		if (rotZ != null) gl.glRotatef(rotZ.getNumericValue(), 0, 0, 1);
-		if (rotX != null) gl.glRotatef(rotX.getNumericValue(), 1, 0, 0);
+		if (rotY != null) gl.glRotatef(rotY.getConvertedValue(), 0, 1, 0);
+		if (rotZ != null) gl.glRotatef(rotZ.getConvertedValue(), 0, 0, 1);
+		if (rotX != null) gl.glRotatef(rotX.getConvertedValue(), 1, 0, 0);
 		
 		if(bone != null) bone.draw(gl, !withMyColorID);
 		
@@ -102,7 +103,7 @@ public class SkeletonPart extends PickableObject implements DimensionListener {
 	}
 	
 	public float getActualLength() {
-		if(stretchX != null) return stretchX.getNumericValue()*length;
+		if(stretchX != null) return stretchX.getConvertedValue()*length;
 		return length;
 	}
 	

@@ -1,5 +1,0 @@
-import javax.media.opengl.awt.GLCanvas;
-
-public class HumanCanvas extends GLCanvas  {
-
-}

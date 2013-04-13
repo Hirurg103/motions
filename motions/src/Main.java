@@ -1,69 +1,51 @@
-import java.awt.*;
-import java.awt.event.*;
+import java.awt.Checkbox;
+import java.awt.Dimension;
 
-import javax.swing.*;
+import gui.ApplicationFrame;
 
-import main.HumanCanvas;
+import javax.swing.Box;
+import javax.swing.BoxLayout;
+import javax.swing.JCheckBox;
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.ScrollPaneLayout;
+import javax.swing.SwingUtilities;
 
-import actions.*;
-
-import com.jogamp.opengl.util.FPSAnimator;
-
-
- 
 @SuppressWarnings("serial")
 public class Main {
-	// Define constants for the top-level container
-	private static String TITLE = "Human motion";  // window's title
-	private static JFrame instrumentPanel = null;  // Panel contains buttons to change program mode 
-
 	/** The entry main() method to setup the top-level container and canvas */
 	public static void main(String[] args) {
 		// Run the GUI codes in the event-dispatching thread for thread safety
 		SwingUtilities.invokeLater(new Runnable() {
 			@Override
 			public void run() {
-				// Panel to display human controls such as sliders
-				JPanel controlPanel = new JPanel();
-				
-				// Create the OpenGL rendering canvas
-				final HumanCanvas canvas = new HumanCanvas();
-				canvas.setControlPanel(controlPanel);
-				controlPanel.setPreferredSize(new Dimension(200, 480));
-				
-				final FPSAnimator animator = canvas.getAnimator();
-             
-				final JFrame frame = new JFrame();  // Swing's JFrame or AWT's Frame
-				JPanel panel = new JPanel();
-				panel.add(canvas);
-				panel.add(controlPanel);
-				
-				frame.getContentPane().add(panel);
-				frame.addWindowListener(new WindowAdapter() {
-					@Override
-					public void windowClosing(WindowEvent e) {
-						// Use a dedicate thread to run the stop() to ensure that the
-						// Animator stops before program exits.
-						new Thread() {
-							@Override
-							public void run() {
-								if (animator.isStarted()) animator.stop();
-								System.exit(0);
-							}
-						}.start();
-					}
-				});
-				frame.setTitle(TITLE);
-				JToolBar toolbar = new JToolBar("Tools", JToolBar.HORIZONTAL); // create instrument panel
-				CustomAction.humanCanvas = canvas;
-            	toolbar.add(new CreateMotionAction());
-            	toolbar.add(Box.createHorizontalStrut(2));
-            	toolbar.add(new CreateTimelineAction());
-            	frame.getContentPane().add(toolbar, "North");
-				frame.pack();
-            	frame.setVisible(true);
-            	animator.start(); // start the animation loop
+				new ApplicationFrame();
+//				JFrame frame = new JFrame();
+//				frame.setSize(400, 300);
+//				JScrollPane pane = new JScrollPane(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
+//				JPanel panel = new JPanel();
+//				pane.setViewportView(panel);
+//				pane.setPreferredSize(new Dimension(400, 300));
+//				pane.setLayout(new ScrollPaneLayout());
+//				panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
+//				JPanel panel1 = new JPanel();
+//				JPanel panel2 = new JPanel();
+//				panel.add(panel1);
+//				panel.add(panel2);
+//				
+//				for(int i = 0; i < 10; i++) {
+//					panel1.add(new JCheckBox());
+//				}
+//				for(int i = 0; i < 10; i++) {
+//					panel2.add(new JCheckBox());
+//				}
+//				panel.add(Box.createVerticalStrut(30 - panel.getPreferredSize().height));
+//				frame.getContentPane().add(pane);
+//				frame.pack();
+//				frame.setVisible(true);
+				//System.out.println("\u00D7");
          	}
 		});
-	}		
+	}	
 }
