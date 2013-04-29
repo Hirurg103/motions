@@ -1,16 +1,25 @@
 import java.awt.Checkbox;
 import java.awt.Dimension;
+import java.awt.Graphics;
+import java.util.List;
+import java.util.Map;
 
 import gui.ApplicationFrame;
 
 import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JCheckBox;
+import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import javax.swing.JSlider;
 import javax.swing.ScrollPaneLayout;
 import javax.swing.SwingUtilities;
+
+
+import db.BaseConnection;
+import db.FirebirdConnection;
 
 @SuppressWarnings("serial")
 public class Main {
@@ -20,9 +29,14 @@ public class Main {
 		SwingUtilities.invokeLater(new Runnable() {
 			@Override
 			public void run() {
+//				List<Map<String, Object>> result;
+//				FirebirdConnection fbcon = new FirebirdConnection();
+//				result = fbcon.query("select * from employees");
+//				System.out.println(result);
 				new ApplicationFrame();
 //				JFrame frame = new JFrame();
 //				frame.setSize(400, 300);
+//				frame.getContentPane().add(comp);
 //				JScrollPane pane = new JScrollPane(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
 //				JPanel panel = new JPanel();
 //				pane.setViewportView(panel);

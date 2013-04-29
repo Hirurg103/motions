@@ -5,6 +5,9 @@ import java.awt.event.WindowEvent;
 
 import javax.swing.JFrame;
 
+import db.DatabaseUtils;
+import db.FirebirdConnection;
+
 public class ApplicationFrame extends JFrame {
 	// Define constants for the top-level container
 	private static String TITLE = "Human motion";  // window's title 
@@ -32,6 +35,8 @@ public class ApplicationFrame extends JFrame {
 					@Override
 					public void run() {
 						if(mainPanel.getFPSAnimator().isStarted()) mainPanel.getFPSAnimator().stop();
+						System.out.println("Closing database connection...");
+						DatabaseUtils.close(FirebirdConnection.getInstance());
 						System.exit(0);
 					}
 				}.start();

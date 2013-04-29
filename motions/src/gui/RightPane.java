@@ -3,6 +3,7 @@ package gui;
 import java.awt.Dimension;
 
 import gui.motions.CreateMotionPanel;
+import gui.motions.StoreMotionsPanel;
 
 import javax.swing.ImageIcon;
 import javax.swing.JPanel;
@@ -16,7 +17,7 @@ public class RightPane extends JTabbedPane implements ChangeListener {
 	 */
 	private static final long serialVersionUID = 6562729020471545125L;
 	private CreateMotionPanel createMotionPanel;
-	private JPanel storeMotionsPanel;
+	private StoreMotionsPanel storeMotionsPanel;
 	private JPanel storeTimelinesPanel;
 	public static int RIGHT_PANE_WIDTH = 620;
 
@@ -27,7 +28,7 @@ public class RightPane extends JTabbedPane implements ChangeListener {
 		createMotionPanel.setName("Create motion");
 		addTab("Create motion", new ImageIcon("../images/create_motion_icon.jpeg"), createMotionPanel, "<Alt> + <N>");
 		setMnemonicAt(0, 78);
-		JPanel storeMotionsPanel = new JPanel();
+		JPanel storeMotionsPanel = new StoreMotionsPanel();
 		storeMotionsPanel.setName("Motions store");
 		addTab("Motions store", null, storeMotionsPanel, "<Alt> + <M>");
 		setMnemonicAt(1, 77);
@@ -47,7 +48,7 @@ public class RightPane extends JTabbedPane implements ChangeListener {
 
 	public JPanel getStoreMotionsPanel() { return storeMotionsPanel; }
 
-	public void setStoreMotionsPanel(JPanel storeMotionsPanel) { this.storeMotionsPanel = storeMotionsPanel; }
+	public void setStoreMotionsPanel(StoreMotionsPanel storeMotionsPanel) { this.storeMotionsPanel = storeMotionsPanel; }
 
 	public JPanel getStoreTimelinesPanel() { return storeTimelinesPanel; }
 
