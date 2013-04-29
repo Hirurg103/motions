@@ -5,3 +5,5 @@
 /motions/bin
 /.~**
 /.metadata/
+/motions/hs_err_*
+/test
