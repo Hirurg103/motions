@@ -31,7 +31,7 @@ public class BaseTreeNode extends DefaultMutableTreeNode implements Comparable<D
 	public void attachTreeLeafs(List<Map<String, Object>> queryNodes, String parentColumnName, String idColumnName, BaseTreeNodeBuilder builder) {
 		parentColumnName = parentColumnName.toUpperCase(); idColumnName = idColumnName.toUpperCase();
 		for(Enumeration<DefaultMutableTreeNode> children = this.children(); children.hasMoreElements();) {
-			CategoryTreeNode category = (CategoryTreeNode)children.nextElement();
+			BaseTreeNode category = (BaseTreeNode)children.nextElement();
 			category.attachTreeLeafs(queryNodes, parentColumnName, idColumnName, builder);
 		}
 		
