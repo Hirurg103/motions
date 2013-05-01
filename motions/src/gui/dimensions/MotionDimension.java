@@ -1,6 +1,6 @@
 package gui.dimensions;
 
-import gui.motions.MotionDimensionSettingPanel;
+import gui.motions.build.MotionDimensionSettingPanel;
 
 import java.util.ArrayList;
 import java.util.Hashtable;
@@ -36,6 +36,9 @@ public class MotionDimension<T extends Number> extends JSlider implements Change
 	protected Hashtable<Integer, JLabel> labelTable;
 	protected float minBoundaryOffset = 0.75f;
 	protected float minTicksSpaceRate = 0.05f;
+	protected Object id;
+	protected Object motionId;
+	protected boolean isSynchronized = false;
 	
 	public MotionDimension(String name, T from, T to, T initial) {
 		super();
@@ -160,8 +163,21 @@ public class MotionDimension<T extends Number> extends JSlider implements Change
 		setTo(initTo);
 		if(getModel().getMinimum() == nativeModel.getMinimum() && getModel().getMaximum() == nativeModel.getMaximum()) nativeModel.setValue(getValue());
 		setModel(nativeModel);
+		setIsSyncronized(false);
 		updateLabelTable();
 		revalidate();
 		repaint();
 	}
+	
+	public Object getId() { return id; }
+	
+	public void setId(Object id) { this.id = id; }
+	
+	public Object getMotionId() { return motionId; }
+	
+	public void setMotionId(Object motionId) { this.motionId = motionId; }
+	
+	public boolean getIsSynchronized() { return isSynchronized; }
+	
+	public void setIsSyncronized(boolean isSynchronized) { this.isSynchronized = isSynchronized; } 
 }

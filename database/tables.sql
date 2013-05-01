@@ -40,17 +40,35 @@ begin
 end!!
 set term ; !!
 
-create table motion_categories(
-id integer primary key not null,
-name varchar(255),
-parent_id integer references motion_categories(id)
+create table category_types(
+  id integer primary key not null,
+  name varchar(255) unique not null
+);
+
+create generator gen_category_type_id;
+set generator gen_category_type_id to 0;
+
+set term !! ;
+create trigger trig_set_category_type_id for category_types
+active before insert position 0
+as
+begin
+  if(new.id is null) then new.id = gen_id(gen_category_type_id, 1);
+end!!
+set term ; !!
+
+create table categories(
+  id integer primary key not null,
+  category_type_id integer references category_types,
+  name varchar(255),
+  parent_id integer references categories(id)
 );
 
 create generator gen_motion_category_id;
 set generator gen_motion_category_id to 0;
 
 set term !! ;
-create trigger trig_set_motion_category_id for motion_categories
+create trigger trig_set_category_id for categories
 active before insert position 0
 as
 begin
@@ -61,8 +79,8 @@ set term !! ;
 create table motions(
 id integer primary key not null,
 name varchar(255),
-category_id integer references motion_categories(id) not null,
-created_at datetime 
+category_id integer references categories(id),
+created_at timestamp default current_timestamp
 );
 
 create generator gen_motion_id;
@@ -82,13 +100,14 @@ as smallint
 check (value in(0, 1));
 
 create table motion_dimensions(
-id integer primary key not null,
-motion_id integer references motions not null,
-dimension_id integer references dimensions not null,
-from_f float,
-to_f float,
-initial_f float,
-is_bound boolean default 0
+ id integer primary key not null,
+ motion_id integer references motions not null,
+ dimension_id integer references dimensions not null,
+ from_f float,
+ to_f float,
+ initial_f float,
+ is_bound boolean default 0,
+ created_at timestamp default current_timestamp
 );
 
 create generator gen_motion_dimension_id;
@@ -102,11 +121,3 @@ begin
   if(new.id is null) then new.id = gen_id(gen_motion_dimension_id, 1);
 end!!
 set term ; !!
-
-29.04.2013 9:36
-------------------------------------------------------------------------------
-alter table motion_categories
-add created_at timestamp default current_timestamp;
-
-alter table motions
-add created_at timestamp default current_timestamp;

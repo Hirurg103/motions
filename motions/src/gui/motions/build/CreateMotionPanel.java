@@ -1,8 +1,11 @@
-package gui.motions;
+package gui.motions.build;
 
 import gui.MainPanel;
 import gui.RightPane;
+import gui.dimensions.MotionDimension;
+import gui.motions.store.StoreMotionsPanel;
 
+import java.awt.Component;
 import java.awt.Dimension;
 
 import javax.swing.Box;
@@ -10,15 +13,11 @@ import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
-
-import db.DatabaseUtils;
-import db.FirebirdConnection;
+import javax.swing.JTextField;
 
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
 
 public class CreateMotionPanel extends JPanel {
 	/**
@@ -47,25 +46,22 @@ public class CreateMotionPanel extends JPanel {
 		@Override
 		public void mouseClicked(MouseEvent e) {
 			super.mouseClicked(e);
-//			try {
-//				java.sql.Statement st = FirebirdConnection.getInstance().createStatement();
-//				st.execute("insert into motions(name) values ('move forward')", new String[] {"id"});
-//				ResultSet rs = st.getGeneratedKeys();
-//				List<Map<String, Object>> res = DatabaseUtils.map(rs);
-//				System.out.println(res);
-//			} catch(SQLException ex) {
-//				System.out.println("Error!!!!!!!!!!!!!!!!!");
-//				ex.printStackTrace();
-//			}
-			List<Map<String, Object>> res = null;
-			ArrayList<Object> params=new ArrayList<Object>();
-			//params.add("dina");
-			//DatabaseUtils.execute("insert into motion_categories (name, parent_id) values ('a', null)");
-			res = DatabaseUtils.execute(FirebirdConnection.getInstance(), "select * from motion_categories mc left outer join motions m on mc.id = m.category_id");
-			System.out.println(res.get(1).get("CREATED_AT"));
-			System.out.println(res);
-			
-			//System.out.println(res);
+			ArrayList<MotionDimension<? extends Number>> motionDimensions = new ArrayList<MotionDimension<? extends Number>>();
+			for(Component component : skeletonPartsSettingPanel.getComponents()) {
+				if(component instanceof SkeletonPartSettingPanel) {
+					for(Component innerComponent : ((SkeletonPartSettingPanel) component).getComponents()) {
+						if(innerComponent instanceof MotionDimensionSettingPanel) {
+							MotionDimensionSettingPanel motionDimensionSettingPanel = (MotionDimensionSettingPanel)innerComponent;
+							motionDimensions.add(motionDimensionSettingPanel.getMotionDimension());
+						}
+					}
+				}
+			}
+			StoreMotionsPanel.setMotionDimensions(motionDimensions);
+			MainPanel.getRightPanel().setSelectedIndex(1);
+			StoreMotionsPanel.getStoreMotionsControlPanel().setVisible(true); 
+			StoreMotionsPanel.getTextFieldNewMotionName().setText("New motion");
+			StoreMotionsPanel.getTextFieldNewMotionName().grabFocus();
 		}
 	}
 }

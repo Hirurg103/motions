@@ -11,7 +11,7 @@ public class MainPanel extends JPanel {
 	 */
 	private static final long serialVersionUID = 4842055135769775781L;
 	private final HumanCanvas humanCanvas; // display human skeleton
-	private RightPane rightPanel; // Panel to display human controls such as sliders
+	private static RightPane rightPanel; // Panel to display human controls such as sliders
 	private final FPSAnimator fpsAnimator;
 	public static int MAIN_PANEL_HEIGHT = 480;
 
@@ -34,5 +34,5 @@ public class MainPanel extends JPanel {
 	
 	public HumanCanvas getHumanCanvas() { return humanCanvas; }
 	
-	public JTabbedPane getRightPanel() { return rightPanel; }
+	public static JTabbedPane getRightPanel() { return rightPanel; }
 }

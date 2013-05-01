@@ -1,4 +1,4 @@
-package gui.motions;
+package gui.motions.build;
 
 import java.awt.Component;
 import java.awt.Dimension;

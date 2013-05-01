@@ -4,6 +4,7 @@ import javax.vecmath.Color4f;
 
 public class GraphicsObject {
 	protected Color4f color;
+	protected Object id;
 	
 	public void draw(GL2 gl) {};
 	
@@ -18,4 +19,8 @@ public class GraphicsObject {
 	public GraphicsObject setColor(float r, float g, float b, float a) { this.color = new Color4f(r, g, b, a); return this; }
 	
 	public GraphicsObject setColor(float r, float g, float b) { return setColor(r, g, b, 1); }
+	
+	public Object getId() { return id; }
+
+	public void setId(Object id) { this.id = id; }
 }

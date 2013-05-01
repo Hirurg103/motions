@@ -1,4 +1,4 @@
-package gui.motions;
+package gui.motions.build;
 import java.awt.Dimension;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -91,6 +91,7 @@ public class MotionDimensionSettingPanel extends JPanel {
 			if(isSynchronized.isSelected()) {
 				if(MotionDimensionSettingPanel.commonModel == null) MotionDimensionSettingPanel.commonModel = new DefaultBoundedRangeModel(motionDimension.getValue(), motionDimension.getExtent(), motionDimension.getMinimum(), motionDimension.getMaximum());
 				motionDimension.setModel(MotionDimensionSettingPanel.commonModel);
+				motionDimension.setIsSyncronized(true);
 				from.setEnabled(true);
 				from.getChangeListeners()[0].stateChanged(new ChangeEvent(from));
 				to.setEnabled(true);
@@ -140,4 +141,6 @@ public class MotionDimensionSettingPanel extends JPanel {
 			motionDimension.repaint();
 		}
 	}
+	
+	public MotionDimension<? extends Number> getMotionDimension() { return motionDimension; }
 }

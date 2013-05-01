@@ -3,10 +3,14 @@ package figures;
 import gui.dimensions.MotionDimension;
 
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
 import javax.media.opengl.GL2;
 import javax.vecmath.Color4b;
 import javax.vecmath.Color4f;
+
+import db.DatabaseUtils;
 
 import listeners.DimensionListener;
 
@@ -23,6 +27,7 @@ public class SkeletonPart extends PickableObject implements DimensionListener {
 	private ArrayList<SkeletonPart> childParts;
 	private GraphicsObject bone = null;
 	
+	@SuppressWarnings("serial")
 	public SkeletonPart(String name, float length, SkeletonPartPosition position) {
 		super();
 		setColor(null);
@@ -30,6 +35,13 @@ public class SkeletonPart extends PickableObject implements DimensionListener {
 		setLength(length);
 		setPosition(position);
 		this.childParts = new ArrayList<SkeletonPart>();
+		
+		//TODO: skeleton parts must load from database automatically
+		List<Map<String, Object>> queryResult = DatabaseUtils.query("select * from skeleton_parts where name = ?", new ArrayList<Object>() {{ add(getName()); }});
+		if(queryResult.isEmpty()) { 
+			queryResult = DatabaseUtils.execute("insert into skeleton_parts (name, length) values (?, ?)", new ArrayList<Object>() {{ add(getName()); add(getActualLength()); }}, new String[] {" id" });
+		}
+		if(!queryResult.isEmpty()) setId(queryResult.get(0).get("ID"));
 	}
 	
 	public SkeletonPart(String name, float length) {
@@ -130,19 +142,38 @@ public class SkeletonPart extends PickableObject implements DimensionListener {
 
 	public MotionDimension<Integer> getRotY() { return rotY; }
 
-	public SkeletonPart setRotY(MotionDimension<Integer> rotY) { this.rotY = rotY; if(rotY != null) rotY.addDimensionListener(this); return this; }
+	public SkeletonPart setRotY(MotionDimension<Integer> rotY) {
+		this.rotY = rotY; saveDimensionIntoDb(rotY);
+		if(rotY != null) rotY.addDimensionListener(this); 
+		return this; 
+	}
 
 	public MotionDimension<Integer> getRotZ() { return rotZ; }
 
-	public SkeletonPart setRotZ(MotionDimension<Integer> rotZ) { this.rotZ = rotZ; if(rotZ != null) rotZ.addDimensionListener(this); return this; }
+	public SkeletonPart setRotZ(MotionDimension<Integer> rotZ) { 
+		this.rotZ = rotZ; 
+		saveDimensionIntoDb(rotZ); 
+		if(rotZ != null) rotZ.addDimensionListener(this); 
+		return this; 
+	}
 	
 	public MotionDimension<Integer> getRotX() { return rotX; }
 
-	public SkeletonPart setRotX(MotionDimension<Integer> rotX) { this.rotX = rotX; if(rotX != null) rotX.addDimensionListener(this); return this; }
+	public SkeletonPart setRotX(MotionDimension<Integer> rotX) { 
+		this.rotX = rotX; 
+		saveDimensionIntoDb(rotX); 
+		if(rotX != null) rotX.addDimensionListener(this); 
+		return this; 
+	}
 
 	public MotionDimension<Float> getStretchX() { return stretchX; }
 
-	public SkeletonPart setStretchX(MotionDimension<Float> stretchX) { this.stretchX = stretchX; if(stretchX != null) stretchX.addDimensionListener(this); return this; }
+	public SkeletonPart setStretchX(MotionDimension<Float> stretchX) { 
+		this.stretchX = stretchX;
+		saveDimensionIntoDb(stretchX);
+		if(stretchX != null) stretchX.addDimensionListener(this); 
+		return this; 
+	}
 
 	public GraphicsObject getBone() { return bone; }
 	
@@ -160,4 +191,27 @@ public class SkeletonPart extends PickableObject implements DimensionListener {
 	
 	@Override
 	public SkeletonPart setColor(float r, float g, float b) { super.setColor(r, g, b); return this; }
+	
+	// TODO: dimensions must load from db
+	@SuppressWarnings("serial")
+	private void saveDimensionIntoDb(final MotionDimension<? extends Number> dimension) {
+		List<Map<String, Object>> queryDimension = DatabaseUtils.query("select * from dimensions where skeleton_part_id = ? and name = ?", new ArrayList<Object>() {{ add(getId()); add(dimension.getName()); }});
+		if(queryDimension.isEmpty()) {
+			queryDimension = DatabaseUtils.execute("insert into dimensions (skeleton_part_id, name, from_v, to_v, initial_v) values (?, ?, ?, ?, ?)", new ArrayList<Object>() {{ add(getId()); add(dimension.getName()); add(dimension.getFrom().floatValue()); add(dimension.getTo().floatValue()); add(dimension.getInitial().floatValue()); }}, new String[] { "id" });
+		}
+		if(!queryDimension.isEmpty()) {
+			final Integer dimensionId = (Integer)(queryDimension.get(0).get("ID"));
+			dimension.setId(dimensionId);
+			List<Map<String, Object>> queryDimensionMotion = DatabaseUtils.query("select * from motion_dimensions md inner join motions m on md.motion_id = m.id where name is null and md.dimension_id = ?", new ArrayList<Object>() {{ add(dimensionId); }});
+			if(queryDimensionMotion.isEmpty()) {
+				final List<Map<String, Object>> queryMotion = DatabaseUtils.execute("insert into motions (name) values (?)", new ArrayList<Object>() {{ add(null); }}, new String[] {"id"});
+				if(!queryMotion.isEmpty()) {
+					final Object motionId = queryMotion.get(0).get("ID");
+					dimension.setMotionId(motionId);
+					queryDimensionMotion = DatabaseUtils.execute("insert into motion_dimensions (motion_id, dimension_id, from_f, to_f, initial_f) values (?, ?, ?, ?, ?)", new ArrayList<Object>() {{ add(motionId); add(dimensionId); add(dimension.getFrom()); add(dimension.getTo()); add(dimension.getInitial()); }}, new String[] {"id"});
+				}
+			}
+			
+		}
+	}
 }

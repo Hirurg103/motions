@@ -25,8 +25,8 @@ import com.jogamp.newt.event.awt.AWTMouseAdapter;
 
 import figures.HumanSkeleton;
 import figures.SkeletonPart;
-import gui.motions.CreateMotionPanel;
-import gui.motions.SkeletonPartsSettingPanel;
+import gui.motions.build.CreateMotionPanel;
+import gui.motions.build.SkeletonPartsSettingPanel;
 
 import static javax.media.opengl.GL.*;					// GL constants
 import static javax.media.opengl.GL2.*;					// GL2 constants

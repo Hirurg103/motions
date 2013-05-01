@@ -1,4 +1,4 @@
-package gui.motions;
+package gui.motions.build;
 
 import javax.swing.Box;
 import javax.swing.BoxLayout;

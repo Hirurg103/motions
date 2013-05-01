@@ -1,16 +1,22 @@
 import java.awt.Checkbox;
 import java.awt.Dimension;
 import java.awt.Graphics;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import gui.ApplicationFrame;
+import gui.motions.store.StoreMotionsPanel;
 
 import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JCheckBox;
 import javax.swing.JComponent;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JSlider;
@@ -19,6 +25,7 @@ import javax.swing.SwingUtilities;
 
 
 import db.BaseConnection;
+import db.DatabaseUtils;
 import db.FirebirdConnection;
 
 @SuppressWarnings("serial")

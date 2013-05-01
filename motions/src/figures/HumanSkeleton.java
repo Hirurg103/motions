@@ -24,7 +24,7 @@ public class HumanSkeleton {
 	public HumanSkeleton() {
 		this.skeletonParts = new ArrayList<SkeletonPart>();
 		
-		
+		//TODO: skeleton parts will load from database automatically
 		SkeletonPart pelvis = new SkeletonPart("Pelvis", 0.3f)
 				.setBone(new Bone(0.3f, 0.05f, -0.15f).setLeftCapsuleRadius(0.05f).setRightCapsuleRadius(0.05f))
 				.setRotY(new RotateDimension("Rotation:Counterclockwise-Clockwise", 180, -180, 0))

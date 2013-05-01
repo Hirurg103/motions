@@ -2,8 +2,8 @@ package gui;
 
 import java.awt.Dimension;
 
-import gui.motions.CreateMotionPanel;
-import gui.motions.StoreMotionsPanel;
+import gui.motions.build.CreateMotionPanel;
+import gui.motions.store.StoreMotionsPanel;
 
 import javax.swing.ImageIcon;
 import javax.swing.JPanel;
@@ -16,9 +16,9 @@ public class RightPane extends JTabbedPane implements ChangeListener {
 	 * 	Right panel shows create motion, motions and timelines tabs 
 	 */
 	private static final long serialVersionUID = 6562729020471545125L;
-	private CreateMotionPanel createMotionPanel;
-	private StoreMotionsPanel storeMotionsPanel;
-	private JPanel storeTimelinesPanel;
+	private static CreateMotionPanel createMotionPanel;
+	private static StoreMotionsPanel storeMotionsPanel;
+	private static JPanel storeTimelinesPanel;
 	public static int RIGHT_PANE_WIDTH = 620;
 
 	public RightPane() {
@@ -44,13 +44,15 @@ public class RightPane extends JTabbedPane implements ChangeListener {
 		mainPanel.getHumanCanvas().setMouseAdapter(getSelectedComponent().getName());
 	}
 
-	public CreateMotionPanel getCreateMotionPanel() { return createMotionPanel; }
+	public static CreateMotionPanel getCreateMotionPanel() { return createMotionPanel; }
+	
+	public static void setCreateMotionPanel(CreateMotionPanel createMotionPanel) { RightPane.createMotionPanel = createMotionPanel; }
 
-	public JPanel getStoreMotionsPanel() { return storeMotionsPanel; }
+	public static StoreMotionsPanel getStoreMotionsPanel() { return storeMotionsPanel; }
 
-	public void setStoreMotionsPanel(StoreMotionsPanel storeMotionsPanel) { this.storeMotionsPanel = storeMotionsPanel; }
+	public static void setStoreMotionsPanel(StoreMotionsPanel storeMotionsPanel) { RightPane.storeMotionsPanel = storeMotionsPanel; }
 
-	public JPanel getStoreTimelinesPanel() { return storeTimelinesPanel; }
+	public static JPanel getStoreTimelinesPanel() { return storeTimelinesPanel; }
 
-	public void setStoreTimelinesPanel(JPanel storeTimelinesPanel) { this.storeTimelinesPanel = storeTimelinesPanel; }
+	public static void setStoreTimelinesPanel(JPanel storeTimelinesPanel) { RightPane.storeTimelinesPanel = storeTimelinesPanel; }
 }

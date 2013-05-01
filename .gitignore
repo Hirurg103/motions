@@ -7,3 +7,4 @@
 /.metadata/
 /motions/hs_err_*
 /test
+/database/*.fdb
