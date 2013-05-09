@@ -20,10 +20,10 @@ public class SkeletonPart extends PickableObject implements DimensionListener {
 	private float length;
 	private SkeletonPart root = null;
 	private SkeletonPartPosition position;
-	private MotionDimension<Integer> rotY = null;
-	private MotionDimension<Integer> rotZ = null;
-	private MotionDimension<Integer> rotX = null;
-	private MotionDimension<Float> stretchX = null;
+	private MotionDimension rotY = null;
+	private MotionDimension rotZ = null;
+	private MotionDimension rotX = null;
+	private MotionDimension stretchX = null;
 	private ArrayList<SkeletonPart> childParts;
 	private GraphicsObject bone = null;
 	
@@ -87,8 +87,8 @@ public class SkeletonPart extends PickableObject implements DimensionListener {
 		}
 	}
 	
-	public ArrayList<MotionDimension<? extends Number>> getMotionDimensions() { 
-		ArrayList<MotionDimension<? extends Number>> motionDimensions = new ArrayList<MotionDimension<? extends Number>>();
+	public ArrayList<MotionDimension> getMotionDimensions() { 
+		ArrayList<MotionDimension> motionDimensions = new ArrayList<MotionDimension>();
 		if(rotY != null) motionDimensions.add(rotY);
 		if(rotZ != null) motionDimensions.add(rotZ);
 		if(rotX != null) motionDimensions.add(rotX);
@@ -120,7 +120,7 @@ public class SkeletonPart extends PickableObject implements DimensionListener {
 	}
 	
 	@Override
-	public void dimensionChanged(MotionDimension<? extends Number> dimension) {
+	public void dimensionChanged(MotionDimension dimension) {
 		if(dimension == stretchX) bone.setHeight(this.getActualLength());
 	}
 
@@ -140,35 +140,35 @@ public class SkeletonPart extends PickableObject implements DimensionListener {
 
 	public SkeletonPart setPosition(SkeletonPartPosition position) { this.position = position; return this; }
 
-	public MotionDimension<Integer> getRotY() { return rotY; }
+	public MotionDimension getRotY() { return rotY; }
 
-	public SkeletonPart setRotY(MotionDimension<Integer> rotY) {
+	public SkeletonPart setRotY(MotionDimension rotY) {
 		this.rotY = rotY; saveDimensionIntoDb(rotY);
 		if(rotY != null) rotY.addDimensionListener(this); 
 		return this; 
 	}
 
-	public MotionDimension<Integer> getRotZ() { return rotZ; }
+	public MotionDimension getRotZ() { return rotZ; }
 
-	public SkeletonPart setRotZ(MotionDimension<Integer> rotZ) { 
+	public SkeletonPart setRotZ(MotionDimension rotZ) { 
 		this.rotZ = rotZ; 
 		saveDimensionIntoDb(rotZ); 
 		if(rotZ != null) rotZ.addDimensionListener(this); 
 		return this; 
 	}
 	
-	public MotionDimension<Integer> getRotX() { return rotX; }
+	public MotionDimension getRotX() { return rotX; }
 
-	public SkeletonPart setRotX(MotionDimension<Integer> rotX) { 
+	public SkeletonPart setRotX(MotionDimension rotX) { 
 		this.rotX = rotX; 
 		saveDimensionIntoDb(rotX); 
 		if(rotX != null) rotX.addDimensionListener(this); 
 		return this; 
 	}
 
-	public MotionDimension<Float> getStretchX() { return stretchX; }
+	public MotionDimension getStretchX() { return stretchX; }
 
-	public SkeletonPart setStretchX(MotionDimension<Float> stretchX) { 
+	public SkeletonPart setStretchX(MotionDimension stretchX) { 
 		this.stretchX = stretchX;
 		saveDimensionIntoDb(stretchX);
 		if(stretchX != null) stretchX.addDimensionListener(this); 
@@ -194,10 +194,10 @@ public class SkeletonPart extends PickableObject implements DimensionListener {
 	
 	// TODO: dimensions must load from db
 	@SuppressWarnings("serial")
-	private void saveDimensionIntoDb(final MotionDimension<? extends Number> dimension) {
+	private void saveDimensionIntoDb(final MotionDimension dimension) {
 		List<Map<String, Object>> queryDimension = DatabaseUtils.query("select * from dimensions where skeleton_part_id = ? and name = ?", new ArrayList<Object>() {{ add(getId()); add(dimension.getName()); }});
 		if(queryDimension.isEmpty()) {
-			queryDimension = DatabaseUtils.execute("insert into dimensions (skeleton_part_id, name, from_v, to_v, initial_v) values (?, ?, ?, ?, ?)", new ArrayList<Object>() {{ add(getId()); add(dimension.getName()); add(dimension.getFrom().floatValue()); add(dimension.getTo().floatValue()); add(dimension.getInitial().floatValue()); }}, new String[] { "id" });
+			queryDimension = DatabaseUtils.execute("insert into dimensions (skeleton_part_id, name, from_v, to_v, initial_v) values (?, ?, ?, ?, ?)", new ArrayList<Object>() {{ add(getId()); add(dimension.getName()); add(dimension.getFrom()); add(dimension.getTo()); add(dimension.getInitial()); }}, new String[] { "id" });
 		}
 		if(!queryDimension.isEmpty()) {
 			final Integer dimensionId = (Integer)(queryDimension.get(0).get("ID"));

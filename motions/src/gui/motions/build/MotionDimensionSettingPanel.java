@@ -15,8 +15,6 @@ import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
 import gui.dimensions.MotionDimension;
-import gui.dimensions.RotateDimension;
-import gui.dimensions.StretchDimension;
 
 public class MotionDimensionSettingPanel extends JPanel {
 	
@@ -24,15 +22,15 @@ public class MotionDimensionSettingPanel extends JPanel {
 	 * 	This class represents motion dimension setting controls on skeleton part setting panel.
 	 */
 	private static final long serialVersionUID = 7551262022885146277L;
-	private MotionDimension<? extends Number> motionDimension;
+	private MotionDimension motionDimension;
 	private JCheckBox isSynchronized;
-	private MotionDimension<? extends Number> from;
-	private MotionDimension<? extends Number> to;
+	private MotionDimension from;
+	private MotionDimension to;
 	public static int SLIDER_WIDTH = 100;
 	private static BoundedRangeModel commonModel = null;
 	private static int countSynchronized = 0;
 	
-	public MotionDimensionSettingPanel(MotionDimension<? extends Number> motionDimension) {
+	public MotionDimensionSettingPanel(MotionDimension motionDimension) {
 		super();
 		this.motionDimension = motionDimension;
 		String[] dimensionCharacteristics = motionDimension.getName().split(":");
@@ -109,38 +107,18 @@ public class MotionDimensionSettingPanel extends JPanel {
 	class FromChangeListener implements ChangeListener {
 		@Override
 		public void stateChanged(ChangeEvent e) {
-			if(e.getSource() instanceof RotateDimension) {
-				RotateDimension from = (RotateDimension)e.getSource();
-				RotateDimension  motionDimension = (RotateDimension)MotionDimensionSettingPanel.this.motionDimension;
-				motionDimension.setFrom(from.getAngle());
-			} else if(e.getSource() instanceof StretchDimension) {
-				StretchDimension from = (StretchDimension)e.getSource();
-				StretchDimension  motionDimension = (StretchDimension)MotionDimensionSettingPanel.this.motionDimension;
-				motionDimension.setFrom(from.getStretch());
-			}
-			motionDimension.updateLabelTable();
-			motionDimension.revalidate();
-			motionDimension.repaint();
+			MotionDimension from = (MotionDimension)e.getSource();
+			motionDimension.setFrom(from.getConvertedValue());
 		}
 	}
 	
 	class ToChangeListener implements ChangeListener {
 		@Override
 		public void stateChanged(ChangeEvent e) {
-			if(e.getSource() instanceof RotateDimension) {
-				RotateDimension to = (RotateDimension)e.getSource();
-				RotateDimension  motionDimension = (RotateDimension)MotionDimensionSettingPanel.this.motionDimension;
-				motionDimension.setTo(to.getAngle());
-			} else if(e.getSource() instanceof StretchDimension) {
-				StretchDimension to = (StretchDimension)e.getSource();
-				StretchDimension  motionDimension = (StretchDimension)MotionDimensionSettingPanel.this.motionDimension;
-				motionDimension.setTo(to.getStretch());
-			}
-			motionDimension.updateLabelTable();
-			motionDimension.revalidate();
-			motionDimension.repaint();
+			MotionDimension to = (MotionDimension)e.getSource();
+			motionDimension.setTo(to.getConvertedValue());
 		}
 	}
 	
-	public MotionDimension<? extends Number> getMotionDimension() { return motionDimension; }
+	public MotionDimension getMotionDimension() { return motionDimension; }
 }

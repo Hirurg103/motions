@@ -36,7 +36,7 @@ public class SkeletonPartSettingPanel extends JPanel {
 		namePanel.add(labelCancelPart);
 		add(namePanel);
 		
-		for(MotionDimension<? extends Number> motionDimension: skeletonPart.getMotionDimensions()) {
+		for(MotionDimension motionDimension: skeletonPart.getMotionDimensions()) {
 			add(new MotionDimensionSettingPanel(motionDimension));
 			add(Box.createVerticalStrut(5));  						// distance between dimensions
 		}
@@ -50,7 +50,7 @@ public class SkeletonPartSettingPanel extends JPanel {
 		public void mouseClicked(MouseEvent e) {
 			SkeletonPartsSettingPanel parent = (SkeletonPartsSettingPanel)that.getParent();
 			parent.remove(that);
-			for(MotionDimension<? extends Number> motionDimension: skeletonPart.getMotionDimensions()) {
+			for(MotionDimension motionDimension: skeletonPart.getMotionDimensions()) {
 				motionDimension.reset();
 			}
 		}

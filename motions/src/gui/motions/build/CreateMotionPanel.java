@@ -45,7 +45,7 @@ public class CreateMotionPanel extends JPanel {
 		@Override
 		public void mouseClicked(MouseEvent e) {
 			super.mouseClicked(e);
-			ArrayList<MotionDimension<? extends Number>> motionDimensions = new ArrayList<MotionDimension<? extends Number>>();
+			ArrayList<MotionDimension> motionDimensions = new ArrayList<MotionDimension>();
 			for(Component component : skeletonPartsSettingPanel.getComponents()) {
 				if(component instanceof SkeletonPartSettingPanel) {
 					for(Component innerComponent : ((SkeletonPartSettingPanel) component).getComponents()) {

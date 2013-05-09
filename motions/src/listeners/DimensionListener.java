@@ -4,5 +4,5 @@ import gui.dimensions.MotionDimension;
 
 
 public interface DimensionListener {
-	public void dimensionChanged(MotionDimension<? extends Number> dimension);
+	public void dimensionChanged(MotionDimension dimension);
 }

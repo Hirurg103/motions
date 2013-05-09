@@ -37,7 +37,7 @@ public class StoreMotionsPanel extends JPanel {
 	private JTextField textFieldNewCategoryName;
 	private JButton buttonAddNewCategory;
 	private MotionsTree motionsTree;
-	private static ArrayList<MotionDimension<? extends Number>> motionDimensions = null;
+	private static ArrayList<MotionDimension> motionDimensions = null;
 	private static JPanel storeMotionsControlPanel = null;
 	private static JTextField textFieldNewMotionName;
 	
@@ -69,11 +69,11 @@ public class StoreMotionsPanel extends JPanel {
 		add(storeMotionsControlPanel);
 	}
 	
-	public static ArrayList<MotionDimension<? extends Number>> getMotionDimensions() {
+	public static ArrayList<MotionDimension> getMotionDimensions() {
 		return motionDimensions;
 	}
 
-	public static void setMotionDimensions(ArrayList<MotionDimension<? extends Number>> motionDimensions) {
+	public static void setMotionDimensions(ArrayList<MotionDimension> motionDimensions) {
 		StoreMotionsPanel.motionDimensions = motionDimensions;
 	}
 
@@ -136,8 +136,8 @@ public class StoreMotionsPanel extends JPanel {
 			motionsTree.getMotionsTreeModel().insertNodeInto(newMotion, rootCategory, position);
 			motionsTree.scrollPathToVisible(new TreePath(newMotion.getPath()));
 			motionsTree.setSelectionPath(new TreePath(newMotion.getPath()));
-			for(final MotionDimension<? extends Number> motionDimension : motionDimensions) {
-				DatabaseUtils.execute("insert into motion_dimensions (motion_id, dimension_id, from_f, to_f, initial_f, is_bound) values (?, ?, ?, ?, ?, ?)", new ArrayList<Object>() {{ add(createdMotionId); add(motionDimension.getId()); add(motionDimension.getFrom().floatValue()); add(motionDimension.getTo().floatValue()); add(motionDimension.getConvertedValue()); add(motionDimension.getIsSynchronized() ? 1 : 0); }});
+			for(final MotionDimension motionDimension : motionDimensions) {
+				DatabaseUtils.execute("insert into motion_dimensions (motion_id, dimension_id, from_f, to_f, initial_f, is_bound) values (?, ?, ?, ?, ?, ?)", new ArrayList<Object>() {{ add(createdMotionId); add(motionDimension.getId()); add(motionDimension.getFrom()); add(motionDimension.getTo()); add(motionDimension.getConvertedValue()); add(motionDimension.getIsSynchronized() ? 1 : 0); }});
 			}
 			storeMotionsControlPanel.setVisible(false);
 		}

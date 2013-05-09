@@ -14,23 +14,22 @@ import javax.swing.event.ChangeListener;
 import listeners.DimensionListener;
 
 
-public class MotionDimension<T extends Number> extends JSlider implements ChangeListener, Cloneable {
+public class MotionDimension extends JSlider implements ChangeListener, Cloneable {
 	/** 
 	 * 	This class represents arbitrary dimension model.
 	 */
 	private static final long serialVersionUID = 1L;
 	protected String name;
 	private ArrayList<DimensionListener> dimensionListeners;
-	protected T initFrom;
-	protected T from;
-	protected T initTo;
-	protected T to;
-	protected T initial;
-	protected T current;
+	protected float initFrom;
+	protected float from;
+	protected float initTo;
+	protected float to;
+	protected float initial;
+	protected float current;
 	protected BoundedRangeModel nativeModel;
 	protected int sensitivity = 360;
 	protected float[] possibleTickLengths = {1};
-	protected int countTicks = 3;
 	protected String unitSign = "";
 	protected float multiplier = 1.0f;
 	protected Hashtable<Integer, JLabel> labelTable;
@@ -40,11 +39,11 @@ public class MotionDimension<T extends Number> extends JSlider implements Change
 	protected Object motionId;
 	protected boolean isSynchronized = false;
 	
-	public MotionDimension(String name, T from, T to, T initial) {
+	public MotionDimension(String name, float from, float to, float initial) {
 		super();
 		setMinimum(0);
 		setMaximum(sensitivity);
-		setValue((int)(sensitivity*(initial.floatValue() - from.floatValue())/(to.floatValue() - from.floatValue())));
+		setValue((int)(sensitivity*(initial - from)/(to - from)));
 		setName(name);
 		this.dimensionListeners = new ArrayList<DimensionListener>();
 		this.addChangeListener(this);
@@ -62,18 +61,18 @@ public class MotionDimension<T extends Number> extends JSlider implements Change
 	public String getName() { return name; }
 	
 	public float getConvertedValue() {
-		return from.floatValue() + (to.floatValue() - from.floatValue())*getValue()/sensitivity;
+		return from + (to - from)*getValue()/sensitivity;
 	}
 	
 	public int getRevertedValue(float value) {
-		if(from.floatValue() < to.floatValue()) { 
-			if(value < from.floatValue()) return 0;
-			if(value > to.floatValue()) return sensitivity;
+		if(from < to) { 
+			if(value < from) return 0;
+			if(value > to) return sensitivity;
 		} else {
-			if(value > from.floatValue()) return 0;
-			if(value < to.floatValue()) return sensitivity;
+			if(value > from) return 0;
+			if(value < to) return sensitivity;
 		}
-		return (int)((value - from.floatValue())/(to.floatValue() - from.floatValue())*sensitivity);
+		return (int)((value - from)/(to - from)*sensitivity);
 	}
 	
 	@Override
@@ -88,38 +87,10 @@ public class MotionDimension<T extends Number> extends JSlider implements Change
 	public void addDimensionListener(DimensionListener dimensionListener) {
 		dimensionListeners.add(dimensionListener);
 	}
-	
-	public void setFrom(T from) { this.from = from; }
-	
-	public T getFrom() { return from; }
-	
-	public void setTo(T to) { this.to = to; }
-	
-	public T getTo() { return to; }
-
-	public T getInitial() { return initial; }
-
-	public void setInitial(T initial) { this.initial = initial; }
-	
-	public int getCountTicks() { return countTicks; }
-	
-	public void setCountTicks(int countTicks) { this.countTicks = countTicks; }
-	
-	public String getUnitSign() { return unitSign; }
-	
-	public void setUnitSign(String unitSign) { this.unitSign = unitSign; }
-	
-	public float getMultiplier() { return multiplier; }
-	
-	public void setMultiplier(float multiplier) { this.multiplier = multiplier; }
-	
-	public int getSensitivity() { return sensitivity; }
-	
-	public float[] getPossibleTickLengths() { return possibleTickLengths; }
-	
+		
 	@Override
-	public MotionDimension<T> clone() {
-		return new MotionDimension<T>(name, from, to, initial);
+	public MotionDimension clone() {
+		return new MotionDimension(name, from, to, initial);
 	}
 	
 	public MotionDimensionLabel createTick(Number value) {
@@ -132,7 +103,7 @@ public class MotionDimension<T extends Number> extends JSlider implements Change
 	
 	public void createLabelTable() {
 		labelTable = new Hashtable<Integer, JLabel>();
-		float fromF = from.floatValue(), toF = to.floatValue();
+		float fromF = from, toF = to;
 		float min = Math.min(fromF, toF); float max = Math.max(fromF, toF);
 		int tickIndex = 0;
 		for(; tickIndex < possibleTickLengths.length; tickIndex++) {
@@ -156,6 +127,8 @@ public class MotionDimension<T extends Number> extends JSlider implements Change
 	public void updateLabelTable() {
 		createLabelTable();
 		super.setLabelTable(labelTable);
+		revalidate();
+		repaint();
 	}
 	
 	public void reset() {
@@ -168,7 +141,33 @@ public class MotionDimension<T extends Number> extends JSlider implements Change
 		revalidate();
 		repaint();
 	}
+		
+	public void setFrom(float from) { this.from = from; updateLabelTable(); }
 	
+	public float getFrom() { return from; }
+	
+	public void setTo(float to) { this.to = to; updateLabelTable(); }
+	
+	public float getTo() { return to; }
+
+	public float getInitial() { return initial; }
+
+	public void setInitial(float initial) { this.initial = initial; }
+	
+	public String getUnitSign() { return unitSign; }
+	
+	public void setUnitSign(String unitSign) { this.unitSign = unitSign; updateLabelTable(); }
+	
+	public float getMultiplier() { return multiplier; }
+	
+	public void setMultiplier(float multiplier) { this.multiplier = multiplier; updateLabelTable(); }
+	
+	public int getSensitivity() { return sensitivity; }
+	
+	public float[] getPossibleTickLengths() { return possibleTickLengths; }
+	
+	public void setPossibleTickLengths(float[] possibleTickLengths) { this.possibleTickLengths = possibleTickLengths; updateLabelTable(); }
+
 	public Object getId() { return id; }
 	
 	public void setId(Object id) { this.id = id; }

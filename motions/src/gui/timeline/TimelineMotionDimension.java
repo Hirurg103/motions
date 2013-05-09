@@ -1,4 +1,5 @@
 package gui.timeline;
+import gui.dimensions.MotionDimension;
 import gui.dimensions.MotionDimensionLabel;
 
 import java.awt.Dimension;
@@ -19,7 +20,7 @@ import javax.swing.JSlider;
 
 
 
-public class TimelineMotion extends JSlider implements MouseMotionListener, MouseListener {
+public class TimelineMotionDimension extends JSlider implements MouseMotionListener, MouseListener {
 	/**
 	 * 	An element that represents the position of the skeleton part dimension on the time line
 	 */
@@ -28,7 +29,8 @@ public class TimelineMotion extends JSlider implements MouseMotionListener, Mous
 	private boolean isSliderView = false;
 	private Image normalView;  
 	
-	public TimelineMotion() {
+	@SuppressWarnings("serial")
+	public TimelineMotionDimension() {
 		super(0, 10);
 		setPreferredSize(new Dimension(14, 16));
 		setMinimumSize(new Dimension(14, 16));
