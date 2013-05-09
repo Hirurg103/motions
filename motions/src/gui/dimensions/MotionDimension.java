@@ -54,6 +54,7 @@ public class MotionDimension extends JSlider implements ChangeListener, Cloneabl
 		setTo(to);
 		setInitial(initial);
 		labelTable = new Hashtable<Integer, JLabel>();
+		setPaintLabels(true);
 	}
 	
 	public void setName(String name) { this.name = name; }
@@ -90,7 +91,17 @@ public class MotionDimension extends JSlider implements ChangeListener, Cloneabl
 		
 	@Override
 	public MotionDimension clone() {
-		return new MotionDimension(name, from, to, initial);
+		MotionDimension clon = new MotionDimension(name, from, to, initial);
+		clon.setPossibleTickLengths(getPossibleTickLengths());
+		clon.setUnitSign(getUnitSign());
+		clon.setMultiplier(getMultiplier());
+		clon.setId(getId());
+		clon.setMotionId(getMotionId());
+		if(getIsSynchronized()) {
+			clon.setIsSyncronized(true);
+			clon.setModel(getModel());
+		}
+		return clon;
 	}
 	
 	public MotionDimensionLabel createTick(Number value) {
