@@ -75,9 +75,12 @@ public class TimelineDimensionSettingPanel extends JPanel implements MouseListen
 				x += PIXELS_ON_SECOND;
 			}
 		} else {
-			g.setColor(Color.BLUE);
 			g.drawLine(0, VATERLINE_LEVEL, timelineDimensionSettingPanelWidth, VATERLINE_LEVEL);
 		}
+		
+		g.setColor(Color.RED);
+		g.drawLine(getCursorPosition() - 1, 1, getCursorPosition() - 1, Y_TIME_TICK_BOTTOM + 1);
+		g.drawLine(getCursorPosition() + 1, 1, getCursorPosition() + 1, Y_TIME_TICK_BOTTOM + 1);
 	}
 
 	public JLabel getDimensionLabel() { return dimensionLabel; }
@@ -99,8 +102,15 @@ public class TimelineDimensionSettingPanel extends JPanel implements MouseListen
 	public void mouseExited(MouseEvent e) { }
 
 	@Override
-	public void mousePressed(MouseEvent e) { }
+	public void mousePressed(MouseEvent e) { 
+		setCursorPosition(e.getPoint().x);
+		getParent().getParent().repaint();
+	}
 
 	@Override
 	public void mouseReleased(MouseEvent e) { }
+	
+	public static int getCursorPosition() { return cursorPosition; }
+
+	public static void setCursorPosition(int cursorPosition) { TimelineDimensionSettingPanel.cursorPosition = cursorPosition; }
 }
