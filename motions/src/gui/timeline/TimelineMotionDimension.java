@@ -1,6 +1,5 @@
 package gui.timeline;
 import gui.dimensions.MotionDimension;
-import gui.dimensions.MotionDimensionLabel;
 
 import java.awt.Dimension;
 import java.awt.Graphics;
@@ -12,15 +11,12 @@ import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 import java.io.File;
 import java.io.IOException;
-import java.util.Hashtable;
 
 import javax.imageio.ImageIO;
-import javax.swing.JLabel;
-import javax.swing.JSlider;
+import javax.swing.JComponent;
+import javax.swing.JScrollPane;
 
-
-
-public class TimelineMotionDimension extends JSlider implements MouseMotionListener, MouseListener {
+public class TimelineMotionDimension extends MotionDimension implements MouseMotionListener, MouseListener {
 	/**
 	 * 	An element that represents the position of the skeleton part dimension on the time line
 	 */
@@ -28,16 +24,23 @@ public class TimelineMotionDimension extends JSlider implements MouseMotionListe
 	private boolean isSliderChanging = false;
 	private boolean isSliderView = false;
 	private Image normalView;  
+	private static final int NORMAL_WIDTH = 14;
+	private static final int NORMAL_HEIGHT = 16;
+	private static final int SLIDER_WIDTH = 110;
+	private static final int SLIDER_HEIGHT = 28;
 	
-	@SuppressWarnings("serial")
-	public TimelineMotionDimension() {
-		super(0, 10);
-		setPreferredSize(new Dimension(14, 16));
-		setMinimumSize(new Dimension(14, 16));
-		setMaximumSize(new Dimension(14, 16));
+	public TimelineMotionDimension(MotionDimension motionDimension, float from, float to, float initial) {
+		super(motionDimension.getName(), from, to, initial);
+		setPossibleTickLengths(motionDimension.getPossibleTickLengths());
+		setUnitSign(motionDimension.getUnitSign());
+		setMultiplier(motionDimension.getMultiplier());
 		
-		setPaintLabels(true);
-		setLabelTable(new Hashtable<Integer, JLabel>() {{ put(0, new MotionDimensionLabel("0")); put(5, new MotionDimensionLabel("5")); put(10, new MotionDimensionLabel("10")); }});
+		setMotionId(motionDimension.getMotionId());
+		
+		setBounds(0, 0, NORMAL_WIDTH, NORMAL_HEIGHT);
+		setPreferredSize(new Dimension(NORMAL_WIDTH, NORMAL_HEIGHT));
+		setMinimumSize(new Dimension(NORMAL_WIDTH, NORMAL_HEIGHT));
+		setMaximumSize(new Dimension(NORMAL_WIDTH, NORMAL_HEIGHT));
 		
 		try {
 			normalView = ImageIO.read(new File("../images/motion_anchor.png"));
@@ -75,6 +78,25 @@ public class TimelineMotionDimension extends JSlider implements MouseMotionListe
 		if(isInDragArea(e.getPoint()) && !isSliderView && !isSliderChanging) { 
 			Point currentMousePosition = e.getPoint();
 			Rectangle currentPosition = getBounds();
+		
+			Rectangle parentBounds = getParent().getBounds();
+			int mousePositionRelativeToParent = currentPosition.x + currentMousePosition.x; 
+			if(mousePositionRelativeToParent < horizontalSliderOffset()) return;
+			if(mousePositionRelativeToParent > parentBounds.width - horizontalSliderOffset()) {
+				TimelineDimensionSettingPanel.timelineDimensionSettingPanelWidth += horizontalSliderOffset();
+				getParent().revalidate();
+			}
+		
+			// Reset scroll bar position
+			JScrollPane sp = (JScrollPane)getParent().getParent().getParent().getParent();
+			JComponent parent = (JComponent)getParent();
+			Rectangle visibleArea = parent.getVisibleRect();
+			if(mousePositionRelativeToParent < visibleArea.x) {
+				sp.getHorizontalScrollBar().setValue(Math.max(0, mousePositionRelativeToParent));
+			} else if(visibleArea.x + visibleArea.width < mousePositionRelativeToParent) {
+				sp.getHorizontalScrollBar().setValue(Math.min(TimelineDimensionSettingPanel.timelineDimensionSettingPanelWidth, mousePositionRelativeToParent - visibleArea.width));
+			}
+		
 			currentPosition.x += currentMousePosition.x - currentPosition.width/2;
 			setBounds(currentPosition);
 		}
@@ -101,16 +123,26 @@ public class TimelineMotionDimension extends JSlider implements MouseMotionListe
 	}
 
 	@Override
-	public void mousePressed(MouseEvent arg0) {	}
+	public void mousePressed(MouseEvent e) {	}
 
 	@Override
-	public void mouseReleased(MouseEvent arg0) {
+	public void mouseReleased(MouseEvent e) {
 		if(!isSliderView && isSliderChanging) {
 			setNormalView();
 		}
 		isSliderChanging = false;
 		repaint();
 	}
+	
+	@Override
+	public void setBounds(int x, int y, int width, int height) {
+		if(!isSliderView && !isSliderChanging) {
+			x = Math.max(horizontalSliderOffset(), x);
+		} else {
+			x = Math.max(0, x);
+		}
+		super.setBounds(x, y, width, height);
+	};
 	
 	private boolean isInSliderViewArea(Point p) {
 		if(p.y < 12) return true;
@@ -124,18 +156,22 @@ public class TimelineMotionDimension extends JSlider implements MouseMotionListe
 	private void setNormalView() {
 		isSliderView = false;
 		Rectangle r = getBounds();
-		setBounds(r.x + 48, r.y, 14, 16);
-		setMinimumSize(new Dimension(14, 16));
-		setPreferredSize(new Dimension(14, 16));
-		setMaximumSize(new Dimension(14, 16));
+		setBounds(r.x + horizontalSliderOffset(), r.y, NORMAL_WIDTH, NORMAL_HEIGHT);
+		setMinimumSize(new Dimension(NORMAL_WIDTH, NORMAL_HEIGHT));
+		setPreferredSize(new Dimension(NORMAL_WIDTH, NORMAL_HEIGHT));
+		setMaximumSize(new Dimension(NORMAL_WIDTH, NORMAL_HEIGHT));
 	}
 	
 	private void setSliderView() {
 		isSliderView = true;
 		Rectangle r = getBounds();
-		setBounds(r.x - 48, r.y, 110, 20);
-		setMinimumSize(new Dimension(110, 20));
-		setPreferredSize(new Dimension(110, 20));
-		setMaximumSize(new Dimension(110, 20));
+		setBounds(r.x - horizontalSliderOffset(), r.y, SLIDER_WIDTH, SLIDER_HEIGHT);
+		setMinimumSize(new Dimension(SLIDER_WIDTH, SLIDER_HEIGHT));
+		setPreferredSize(new Dimension(SLIDER_WIDTH, SLIDER_HEIGHT));
+		setMaximumSize(new Dimension(SLIDER_WIDTH, SLIDER_HEIGHT));
+	}
+	
+	private int horizontalSliderOffset() {
+		return (SLIDER_WIDTH - NORMAL_WIDTH)/2;
 	}
 }
