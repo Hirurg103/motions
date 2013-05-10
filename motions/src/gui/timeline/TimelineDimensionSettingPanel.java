@@ -21,18 +21,19 @@ public class TimelineDimensionSettingPanel extends JPanel implements MouseListen
 	 */
 	private static final long serialVersionUID = -7379485747325143076L;
 	private JLabel dimensionLabel;
-	private static final int TIMELINE_DIMENSION_SETTING_PANEL_HEIGHT = 28;
-	private static final int Y_TIME_TICK_BOTTOM = 15;
-	private static final int TIME_TICK_HEIGHT = 3;
-	private static final int TIME_TICK_MEDIUM_HEIGHT = 2;
-	private static final int TIME_TICK_SMALL_HEIGHT = 1;
-	private static final int TIME_TICK_OFFSET = 2;
-	private static final int VATERLINE_LEVEL = 14;
-	private static final int PIXELS_ON_SECOND = 50;
-	private static final int Y_DIMENSION_LABEL_POSITION = VATERLINE_LEVEL + 2;
+	private final int TIMELINE_DIMENSION_SETTING_PANEL_HEIGHT = 28;
+	private final int Y_TIME_TICK_BOTTOM = 15;
+	private final int TIME_TICK_HEIGHT = 3;
+	private final int TIME_TICK_MEDIUM_HEIGHT = 2;
+	private final int TIME_TICK_SMALL_HEIGHT = 1;
+	private final int TIME_TICK_OFFSET = 2;
+	private final int VATERLINE_LEVEL = 14;
+	private final int PIXELS_ON_SECOND = 50;
+	private final int Y_DIMENSION_LABEL_POSITION = VATERLINE_LEVEL + 2;
 	private final int DIMENSION_LABEL_WIDTH;
 	private final int DIMENSION_LABEL_HEIGHT;
 	private static TimelineDimensionSettingPanel currentTimelineDimensionSettingPanel = null;
+	private static int cursorPosition = 1;
 	
 	public static int timelineDimensionSettingPanelWidth = HumanCanvas.HUMAN_CANVAS_WIDTH + RightPane.RIGHT_PANE_WIDTH; 
 	
@@ -51,6 +52,7 @@ public class TimelineDimensionSettingPanel extends JPanel implements MouseListen
 		super.paint(g);
 		dimensionLabel.setBounds(getVisibleRect().x, Y_DIMENSION_LABEL_POSITION, DIMENSION_LABEL_WIDTH, DIMENSION_LABEL_HEIGHT);
 		setPreferredSize(new Dimension(timelineDimensionSettingPanelWidth, TIMELINE_DIMENSION_SETTING_PANEL_HEIGHT));
+		g.setColor(Color.BLUE);
 		if(currentTimelineDimensionSettingPanel == this) {
 			String timeValue;
 			Font timeLabelFont = new Font("Geneva", Font.PLAIN, 10);

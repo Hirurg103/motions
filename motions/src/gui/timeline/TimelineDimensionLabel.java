@@ -1,5 +1,6 @@
 package gui.timeline;
 
+import java.awt.Color;
 import java.awt.Font;
 
 import javax.swing.JLabel;
@@ -14,5 +15,6 @@ public class TimelineDimensionLabel extends JLabel {
 	public TimelineDimensionLabel(String text) {
 		super(text);
 		setFont(new Font("Geneva", Font.PLAIN, 8));
+		setForeground(Color.BLUE);
 	}
 }
