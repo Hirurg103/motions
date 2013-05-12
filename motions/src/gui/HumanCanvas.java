@@ -25,8 +25,13 @@ import com.jogamp.newt.event.awt.AWTMouseAdapter;
 
 import figures.HumanSkeleton;
 import figures.SkeletonPart;
+import gui.dimensions.MotionDimension;
 import gui.motions.build.CreateMotionPanel;
 import gui.motions.build.SkeletonPartsSettingPanel;
+import gui.timeline.TimelineDimensionSettingPanel;
+import gui.timeline.TimelineMotionDimension;
+import gui.timeline.TimelinePanel;
+import gui.timeline.TimelineSkeletonPartsSettingPanel;
 
 import static javax.media.opengl.GL.*;					// GL constants
 import static javax.media.opengl.GL2.*;					// GL2 constants
@@ -264,18 +269,34 @@ public class HumanCanvas extends GLCanvas implements GLEventListener, MouseListe
 			skeletonPartsSettingPanel.revalidate(); 
 			skeletonPartsSettingPanel.repaint(); 
 		}
-		
+
 		@Override
 		public void initialize() { }
-		
+
 		@Override
 		public void mouseDragged(MouseEvent e) { }
 	}
-	
+
 	public class CreateTimelineMouseAdapter extends MotionsMouseAdapter {
+		protected TimelineSkeletonPartsSettingPanel timelineSkeletonPartsSettingPanel = null;
+
+		public CreateTimelineMouseAdapter() {
+			super();
+			timelineSkeletonPartsSettingPanel = TimelinePanel.timelineSkeletonPartsSettingPanel;
+		}
+
 		@Override
 		public void mouseClicked(MouseEvent e) {
-			System.out.println("CreateTimelineMouseAdapter");
+			getContext().makeCurrent();
+			SkeletonPart activeSkeletonPart = humanSkeleton.getActiveSkeletonPart(gl, e.getX(), e.getY());
+			getContext().release();
+			if(activeSkeletonPart == null) return;
+			for(MotionDimension motionDimension : activeSkeletonPart.getMotionDimensions()) {
+				TimelineMotionDimension timelineMotionDimension = new TimelineMotionDimension(motionDimension, motionDimension.getFrom(), motionDimension.getTo(), motionDimension.getInitial());
+				timelineMotionDimension.setBounds(TimelineDimensionSettingPanel.getCursorPosition() - TimelineMotionDimension.NORMAL_WIDTH/2, 0, TimelineMotionDimension.NORMAL_WIDTH, TimelineMotionDimension.NORMAL_HEIGHT);
+				timelineSkeletonPartsSettingPanel.addTimelineMotionDimension(timelineMotionDimension);
+			}
+			timelineSkeletonPartsSettingPanel.revalidate();
 		}
 	}
 }
