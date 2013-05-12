@@ -12,7 +12,7 @@ public class TimelinePanel extends JPanel {
 	 * 	Panel to create time lines
 	 */
 	private static final long serialVersionUID = -1198440512138924197L;
-	public static final int TIMELINE_PANEL_HEIGHT = 230;
+	public static final int TIMELINE_PANEL_HEIGHT = 224;
 	public static TimelineSkeletonPartsSettingPanel timelineSkeletonPartsSettingPanel = new TimelineSkeletonPartsSettingPanel();
 	public static TimelineSkeletonPartsSettingScrollPane timelineSkeletonPartsSettingScrollPane = new TimelineSkeletonPartsSettingScrollPane();
 
