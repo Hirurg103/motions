@@ -39,7 +39,7 @@ public class SkeletonPart extends PickableObject implements DimensionListener {
 		//TODO: skeleton parts must load from database automatically
 		List<Map<String, Object>> queryResult = DatabaseUtils.query("select * from skeleton_parts where name = ?", new ArrayList<Object>() {{ add(getName()); }});
 		if(queryResult.isEmpty()) { 
-			queryResult = DatabaseUtils.execute("insert into skeleton_parts (name, length) values (?, ?)", new ArrayList<Object>() {{ add(getName()); add(getActualLength()); }}, new String[] {" id" });
+			queryResult = DatabaseUtils.execute("insert into skeleton_parts (name, length) values (?, ?)", new ArrayList<Object>() {{ add(getName()); add(getActualLength()); }}, new String[] {"id" });
 		}
 		if(!queryResult.isEmpty()) setId(queryResult.get(0).get("ID"));
 	}
@@ -143,36 +143,39 @@ public class SkeletonPart extends PickableObject implements DimensionListener {
 	public MotionDimension getRotY() { return rotY; }
 
 	public SkeletonPart setRotY(MotionDimension rotY) {
-		this.rotY = rotY; saveDimensionIntoDb(rotY);
-		if(rotY != null) rotY.addDimensionListener(this); 
+		this.rotY = rotY;
+		afterSet(this.rotY);
 		return this; 
 	}
 
 	public MotionDimension getRotZ() { return rotZ; }
 
 	public SkeletonPart setRotZ(MotionDimension rotZ) { 
-		this.rotZ = rotZ; 
-		saveDimensionIntoDb(rotZ); 
-		if(rotZ != null) rotZ.addDimensionListener(this); 
+		this.rotZ = rotZ;
+		afterSet(this.rotZ);
 		return this; 
 	}
 	
 	public MotionDimension getRotX() { return rotX; }
 
 	public SkeletonPart setRotX(MotionDimension rotX) { 
-		this.rotX = rotX; 
-		saveDimensionIntoDb(rotX); 
-		if(rotX != null) rotX.addDimensionListener(this); 
+		this.rotX = rotX;
+		afterSet(this.rotX);
 		return this; 
 	}
 
 	public MotionDimension getStretchX() { return stretchX; }
 
 	public SkeletonPart setStretchX(MotionDimension stretchX) { 
-		this.stretchX = stretchX;
-		saveDimensionIntoDb(stretchX);
-		if(stretchX != null) stretchX.addDimensionListener(this); 
+		this.stretchX = stretchX; 
+		afterSet(this.stretchX);
 		return this; 
+	}
+	
+	private void afterSet(MotionDimension motionDimension) {
+		saveDimensionIntoDb(motionDimension);
+		motionDimension.setSkeletonPartId(getId());
+		if(motionDimension != null) motionDimension.addDimensionListener(this);  
 	}
 
 	public GraphicsObject getBone() { return bone; }

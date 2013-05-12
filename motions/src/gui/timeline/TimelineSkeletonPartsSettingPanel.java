@@ -7,6 +7,8 @@ import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JPanel;
 
+import figures.HumanSkeleton;
+
 public class TimelineSkeletonPartsSettingPanel extends JPanel {
 
 	/**
@@ -28,7 +30,7 @@ public class TimelineSkeletonPartsSettingPanel extends JPanel {
 
 	public void addTimelineMotionDimension(TimelineMotionDimension timelineMotionDimension) {
 		if(timelineSkeletonPartSettingPanels.get(timelineMotionDimension.getSkeletonPartId()) == null) {
-			TimelineSkeletonPartSettingPanel timelineSkeletonPartSettingPanel = new TimelineSkeletonPartSettingPanel("Skeleton Part");
+			TimelineSkeletonPartSettingPanel timelineSkeletonPartSettingPanel = new TimelineSkeletonPartSettingPanel(HumanSkeleton.skeletonParts.get(timelineMotionDimension.getSkeletonPartId()));
 			timelineSkeletonPartSettingPanels.put(timelineMotionDimension.getSkeletonPartId(), timelineSkeletonPartSettingPanel);
 			add(timelineSkeletonPartSettingPanel);
 			revalidateHeight();

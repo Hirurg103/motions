@@ -34,14 +34,14 @@ public class RightPane extends JTabbedPane implements ChangeListener {
 		setMnemonicAt(1, 77);
 		JPanel storeTimelinesPanel = new JPanel();
 		storeTimelinesPanel.setName("Timelines store");
-		addTab("Timelines", null, storeTimelinesPanel, "<Alt> + <T>");
+		addTab("Timelines store", null, storeTimelinesPanel, "<Alt> + <T>");
 		setMnemonicAt(2, 84);
 		addChangeListener(this);
 	}
 	
 	public void stateChanged(ChangeEvent e) {
-		MainPanel mainPanel = GUIUtils.getApplicationFrame(this).getMainPanel();
-		mainPanel.getHumanCanvas().setMouseAdapter(getSelectedComponent().getName());
+		/*MainPanel mainPanel = GUIUtils.getApplicationFrame(this).getMainPanel();
+		mainPanel.getHumanCanvas().setMouseAdapter(getSelectedComponent().getName());*/
 	}
 
 	public static CreateMotionPanel getCreateMotionPanel() { return createMotionPanel; }

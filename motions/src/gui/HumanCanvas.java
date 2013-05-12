@@ -34,8 +34,8 @@ import static javax.media.opengl.fixedfunc.GLMatrixFunc.GL_MODELVIEW;
 import static java.awt.event.KeyEvent.*;
 
 public class HumanCanvas extends GLCanvas implements GLEventListener, MouseListener, KeyListener {
-	/** This class represents canvas on which performs drawing.
-	 * 
+	/**
+	 * 	 This class represents canvas on which performs drawing.
 	 */
 	
 	// Setup OpenGL Graphics Renderer
@@ -62,7 +62,6 @@ public class HumanCanvas extends GLCanvas implements GLEventListener, MouseListe
 		this.motionsAWTMouseAdapters = new HashMap<String, MotionsAWTMouseAdapter<? extends MouseAdapter>>();
 		this.motionsAWTMouseAdapters.put("Create motion", new MotionsAWTMouseAdapter<>(new CreateMotionMouseAdapter()));
 		this.motionsAWTMouseAdapters.put("Create timeline", new MotionsAWTMouseAdapter<>(new CreateTimelineMouseAdapter()));
-		setMouseAdapter("Create motion");
 	}
 	
 	public HumanCanvas(Dimension dimension) {

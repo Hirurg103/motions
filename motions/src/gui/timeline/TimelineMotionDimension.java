@@ -34,6 +34,8 @@ public class TimelineMotionDimension extends MotionDimension implements MouseMot
 		setUnitSign(motionDimension.getUnitSign());
 		setMultiplier(motionDimension.getMultiplier());
 		
+		setId(motionDimension.getId());
+		setSkeletonPartId(motionDimension.getSkeletonPartId());
 		setMotionId(motionDimension.getMotionId());
 		
 		setBounds(0, 0, NORMAL_WIDTH, NORMAL_HEIGHT);
@@ -57,8 +59,6 @@ public class TimelineMotionDimension extends MotionDimension implements MouseMot
 		Rectangle r = getBounds();
 		
 		g.clearRect(0, 0, r.width, r.height);
-		Point p = getMousePosition();
-		if(p == null) isSliderView = false;
 		if(isSliderView || isSliderChanging) {
 			super.paint(g);
 		} else {
@@ -115,7 +115,8 @@ public class TimelineMotionDimension extends MotionDimension implements MouseMot
 
 	@Override
 	public void mouseReleased(MouseEvent e) {
-		if(!isSliderView && isSliderChanging) {
+		Rectangle currentBounds = getBounds();
+		if(isSliderView && (currentBounds.width < e.getPoint().x || e.getPoint().x < 0 || currentBounds.height < e.getPoint().y || e.getPoint().y < 0)) {
 			setNormalView();
 		}
 		isSliderChanging = false;
