@@ -41,7 +41,7 @@ public class HumanCanvas extends GLCanvas implements GLEventListener, MouseListe
 	// Setup OpenGL Graphics Renderer
 	private static final long serialVersionUID = 1L;
 	private GLU glu;
-	private static final int HUMAN_CANVAS_WIDTH = 640; 	// width of the drawable
+	public static final int HUMAN_CANVAS_WIDTH = 640; 	// width of the drawable
 	private HumanSkeleton humanSkeleton;                // human skeleton to draw
 	private GL2 gl = null;
 	private float translateX = 0; private float translateZ = 0;

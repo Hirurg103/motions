@@ -6,6 +6,7 @@ import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.awt.event.MouseMotionListener;
 
 import gui.HumanCanvas;
 import gui.RightPane;
@@ -14,7 +15,7 @@ import gui.dimensions.MotionDimension;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-public class TimelineDimensionSettingPanel extends JPanel implements MouseListener {
+public class TimelineDimensionSettingPanel extends JPanel implements MouseListener, MouseMotionListener {
 
 	/**
 	 *  This class holds dimensions on time line.
@@ -33,10 +34,11 @@ public class TimelineDimensionSettingPanel extends JPanel implements MouseListen
 	private final int DIMENSION_LABEL_WIDTH;
 	private final int DIMENSION_LABEL_HEIGHT;
 	private static TimelineDimensionSettingPanel currentTimelineDimensionSettingPanel = null;
-	private static int cursorPosition = 1;
-	
+	private static final int minLeftCursorPossition = TimelineMotionDimension.horizontalSliderOffset() + TimelineMotionDimension.NORMAL_WIDTH/2;  
+	private static int cursorPosition = minLeftCursorPossition;
+
 	public static int timelineDimensionSettingPanelWidth = HumanCanvas.HUMAN_CANVAS_WIDTH + RightPane.RIGHT_PANE_WIDTH; 
-	
+
 	public TimelineDimensionSettingPanel(MotionDimension motionDimension) {
 		setDimensionLabel(new TimelineDimensionLabel(motionDimension.getName()));
 		add(getDimensionLabel());
@@ -45,8 +47,9 @@ public class TimelineDimensionSettingPanel extends JPanel implements MouseListen
 		setPreferredSize(new Dimension(timelineDimensionSettingPanelWidth, TIMELINE_DIMENSION_SETTING_PANEL_HEIGHT));
 		setLayout(null);
 		addMouseListener(this);
+		addMouseMotionListener(this);
 	}
-	
+
 	@Override
 	public void paint(Graphics g) {
 		super.paint(g);
@@ -57,11 +60,11 @@ public class TimelineDimensionSettingPanel extends JPanel implements MouseListen
 			String timeValue;
 			Font timeLabelFont = new Font("Geneva", Font.PLAIN, 10);
 			JLabel timeLabel; 
-			int x = 0;
+			int x = minLeftCursorPossition;
 			while(x < timelineDimensionSettingPanelWidth) {
 				g.drawLine(x, Y_TIME_TICK_BOTTOM - TIME_TICK_HEIGHT, x, Y_TIME_TICK_BOTTOM);
 				g.setFont(timeLabelFont);
-				timeValue = new Integer(x/PIXELS_ON_SECOND).toString();
+				timeValue = new Integer((x - minLeftCursorPossition)/PIXELS_ON_SECOND).toString();
 				timeLabel = new JLabel(timeValue);
 				timeLabel.setFont(timeLabelFont);
 				g.drawString(timeValue, x - timeLabel.getPreferredSize().width/2, Y_TIME_TICK_BOTTOM - TIME_TICK_HEIGHT - TIME_TICK_OFFSET);
@@ -109,8 +112,21 @@ public class TimelineDimensionSettingPanel extends JPanel implements MouseListen
 
 	@Override
 	public void mouseReleased(MouseEvent e) { }
-	
+
 	public static int getCursorPosition() { return cursorPosition; }
 
-	public static void setCursorPosition(int cursorPosition) { TimelineDimensionSettingPanel.cursorPosition = cursorPosition; }
+	public static void setCursorPosition(int cursorPosition) {
+		if(cursorPosition < minLeftCursorPossition) return;
+		TimelineDimensionSettingPanel.cursorPosition = cursorPosition; 
+	}
+
+	@Override
+	public void mouseDragged(MouseEvent e) { 
+		setCursorPosition(e.getPoint().x);
+		getParent().getParent().repaint();
+		TimelinePanel.timelineSkeletonPartsSettingScrollPane.resetHorisontalScrollBarPosition(e.getPoint().x);
+	}
+
+	@Override
+	public void mouseMoved(MouseEvent e) { }
 }

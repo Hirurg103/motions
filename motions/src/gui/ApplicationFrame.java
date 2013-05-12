@@ -1,9 +1,13 @@
 package gui;
 
+import gui.timeline.TimelinePanel;
+
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
 import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 
 import db.DatabaseUtils;
 import db.FirebirdConnection;
@@ -25,6 +29,9 @@ public class ApplicationFrame extends JFrame {
 		getContentPane().add(mainPanel);
 		applicationToolbar = new ApplicationToolbar();
 		getContentPane().add(applicationToolbar, "North");
+		JPanel timelinePanel = new TimelinePanel();
+		JScrollPane timelineScrollPane = new JScrollPane(timelinePanel);
+		getContentPane().add(timelineScrollPane, "South");
 		
 		addWindowListener(new WindowAdapter() {
 			@Override

@@ -6,7 +6,6 @@ import gui.RightPane;
 import java.awt.Dimension;
 
 import javax.swing.JPanel;
-import javax.swing.JScrollPane;
 
 public class TimelinePanel extends JPanel {
 	/**
@@ -14,13 +13,20 @@ public class TimelinePanel extends JPanel {
 	 */
 	private static final long serialVersionUID = -1198440512138924197L;
 	public static final int TIMELINE_PANEL_HEIGHT = 230;
+	public static TimelineSkeletonPartsSettingPanel timelineSkeletonPartsSettingPanel = new TimelineSkeletonPartsSettingPanel();
+	public static TimelineSkeletonPartsSettingScrollPane timelineSkeletonPartsSettingScrollPane = new TimelineSkeletonPartsSettingScrollPane();
+
+	static {
+		timelineSkeletonPartsSettingScrollPane.setViewportView(timelineSkeletonPartsSettingPanel);
+		timelineSkeletonPartsSettingScrollPane.setPreferredSize(new Dimension(HumanCanvas.HUMAN_CANVAS_WIDTH + RightPane.RIGHT_PANE_WIDTH, TIMELINE_PANEL_HEIGHT));
+	}
 
 	public TimelinePanel() {
 		super();
-		TimelineSkeletonPartsSettingPanel timelineSkeletonPartsSettingPanel = new TimelineSkeletonPartsSettingPanel();
-		JScrollPane timelineSkeletonPartsSettingScrollPane = new JScrollPane();
-		timelineSkeletonPartsSettingScrollPane.setViewportView(timelineSkeletonPartsSettingPanel);
-		timelineSkeletonPartsSettingPanel.setPreferredSize(new Dimension(HumanCanvas.HUMAN_CANVAS_WIDTH + RightPane.RIGHT_PANE_WIDTH, TIMELINE_PANEL_HEIGHT));
 		add(timelineSkeletonPartsSettingScrollPane);
+	}
+
+	public static void addTimelineMotionDimension(TimelineMotionDimension timelineMotionDimension) {
+		timelineSkeletonPartsSettingPanel.addTimelineMotionDimension(timelineMotionDimension);
 	}
 }

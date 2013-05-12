@@ -37,6 +37,7 @@ public class MotionDimension extends JSlider implements ChangeListener, Cloneabl
 	protected float minTicksSpaceRate = 0.05f;
 	protected Object id;
 	protected Object motionId;
+	protected Object skeletonPartId;
 	protected boolean isSynchronized = false;
 	
 	public MotionDimension(String name, float from, float to, float initial) {
@@ -186,6 +187,10 @@ public class MotionDimension extends JSlider implements ChangeListener, Cloneabl
 	public Object getMotionId() { return motionId; }
 	
 	public void setMotionId(Object motionId) { this.motionId = motionId; }
+	
+	public Object getSkeletonPartId() { return skeletonPartId; }
+	
+	public void setSkeletonPartId(Object skeletonPartId) { this.skeletonPartId = skeletonPartId; }
 	
 	public boolean getIsSynchronized() { return isSynchronized; }
 	
