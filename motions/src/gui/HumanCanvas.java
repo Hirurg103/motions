@@ -42,7 +42,7 @@ public class HumanCanvas extends GLCanvas implements GLEventListener, MouseListe
 	/**
 	 * 	 This class represents canvas on which performs drawing.
 	 */
-	
+
 	// Setup OpenGL Graphics Renderer
 	private static final long serialVersionUID = 1L;
 	private GLU glu;
@@ -55,11 +55,11 @@ public class HumanCanvas extends GLCanvas implements GLEventListener, MouseListe
 	private float mouseSensitivity = 0.1f;
 	private HashMap<String, MotionsAWTMouseAdapter<? extends MouseAdapter>> motionsAWTMouseAdapters;
 	private AWTMouseAdapter currentAWTMouseAdapter = null;
-	
+
 	/** Constructors to setup the GUI for this Component */
 	public HumanCanvas() {
 		super(new GLCapabilities(GLProfile.getDefault()));
-		
+
 		this.setPreferredSize(new Dimension(HUMAN_CANVAS_WIDTH, MainPanel.MAIN_PANEL_HEIGHT));
 		this.addGLEventListener(this);
 		// new AWTMouseAdapter(this).addTo(this);
@@ -68,12 +68,12 @@ public class HumanCanvas extends GLCanvas implements GLEventListener, MouseListe
 		this.motionsAWTMouseAdapters.put("Create motion", new MotionsAWTMouseAdapter<>(new CreateMotionMouseAdapter()));
 		this.motionsAWTMouseAdapters.put("Create timeline", new MotionsAWTMouseAdapter<>(new CreateTimelineMouseAdapter()));
 	}
-	
+
 	public HumanCanvas(Dimension dimension) {
 		this();
 		this.setPreferredSize(dimension);
 	}
-	 
+
 	// ------ Implement methods declared in GLEventListener ------
 
 	/**
@@ -90,7 +90,7 @@ public class HumanCanvas extends GLCanvas implements GLEventListener, MouseListe
 	    gl.glLoadIdentity();
 	    gl.glColor3f(1.0f, 1.0f, 1.0f);
 		humanSkeleton.draw(gl);
-		
+
 	    // move the camera
 	    gl.glMatrixMode(GL_PROJECTION);
 	    FloatBuffer pM = FloatBuffer.allocate(16);
@@ -102,7 +102,7 @@ public class HumanCanvas extends GLCanvas implements GLEventListener, MouseListe
 	    gl.glTranslatef(translateZ*pM.get(3), translateZ*pM.get(7), translateZ*pM.get(11));
 	    translateX = translateZ = 0;
 	}
-	
+
 	 /**
 	 * Called back before the OpenGL context is destroyed. Release resource such as buffers.
 	 */
@@ -123,7 +123,7 @@ public class HumanCanvas extends GLCanvas implements GLEventListener, MouseListe
 	    gl.glDepthFunc(GL_LEQUAL);  							// the type of depth test to do
 	    gl.glHint(GL_PERSPECTIVE_CORRECTION_HINT, GL_NICEST); 	// best perspective correction
 	    gl.glShadeModel(GL_SMOOTH); 							// blends colors nicely, and smoothes out lighting
-	     
+
 	    // add human skeleton control panel
 		this.humanSkeleton = new HumanSkeleton(); 
 	}
@@ -162,7 +162,7 @@ public class HumanCanvas extends GLCanvas implements GLEventListener, MouseListe
 			case VK_S: translateZ = 0.01f; break;
 			case VK_D: translateX = -0.01f; break;
 			case VK_A: translateX = 0.01f; break;
-				
+
 			case VK_UP: rotateX = -5; break;
 			case VK_DOWN: rotateX = 5; break;
 			case VK_RIGHT: rotateY = 5; break;
@@ -205,22 +205,20 @@ public class HumanCanvas extends GLCanvas implements GLEventListener, MouseListe
 
 	@Override
 	public void mouseWheelMoved(MouseEvent arg0) { }
-	
+
 	public AWTMouseAdapter getCurrentAdapter() { return currentAWTMouseAdapter; }
 
 	public void setCurrentAdapter(AWTMouseAdapter currentAWTMouseAdapter) { this.currentAWTMouseAdapter = currentAWTMouseAdapter; }
-	
-	
+
 	public void setMouseAdapter(String name) {
 		if(currentAWTMouseAdapter != null) currentAWTMouseAdapter.removeFrom(this);
 		currentAWTMouseAdapter = motionsAWTMouseAdapters.get(name);
 		if(currentAWTMouseAdapter != null) currentAWTMouseAdapter.addTo(this);
-		
 	}
-	
+
 	public class MotionsAWTMouseAdapter<T extends MouseAdapter & Initializable> extends AWTMouseAdapter {
 		private T mouseAdapter;
-		
+
 		public MotionsAWTMouseAdapter(T mouseAdapter) {
 			super(mouseAdapter);
 			this.mouseAdapter = mouseAdapter;
@@ -232,7 +230,7 @@ public class HumanCanvas extends GLCanvas implements GLEventListener, MouseListe
 			if(mouseAdapter != null) mouseAdapter.initialize();
 			return this;
 		}
-		
+
 		@Override
 		public AWTAdapter removeFrom(Component component) {
 			super.removeFrom(component);
@@ -240,25 +238,25 @@ public class HumanCanvas extends GLCanvas implements GLEventListener, MouseListe
 			return this;
 		}
 	}
-	
+
 	public interface Initializable { public void initialize(); public void destroy(); }
-	
+
 	public class MotionsMouseAdapter extends MouseAdapter implements Initializable {
 		@Override
 		public void initialize() { }
-		
+
 		@Override
 		public void destroy() { }
 	}
-	
+
 	public class CreateMotionMouseAdapter extends MotionsMouseAdapter {
 		protected SkeletonPartsSettingPanel skeletonPartsSettingPanel = null;
-		
+
 		public CreateMotionMouseAdapter() {
 			super();
 			skeletonPartsSettingPanel = CreateMotionPanel.skeletonPartsSettingPanel;
 		}
-		
+
 		@Override
 		public void mouseClicked(MouseEvent e) {
 			getContext().makeCurrent();
