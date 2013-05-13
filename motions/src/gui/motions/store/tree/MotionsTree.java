@@ -34,7 +34,7 @@ public class MotionsTree extends JTree {
 	private DefaultTreeModel motionsTreeModel;
 	private static final String categoryTypeName = "motions";
 	private static Object categoryTypeId;
-	
+
 	static {
 		List<Map<String, Object>> queryCategoryType = DatabaseUtils.query("select * from category_types where name = ?", new ArrayList<Object>() {{ add(categoryTypeName); }});
 		if(queryCategoryType.isEmpty()) queryCategoryType = DatabaseUtils.execute("insert into category_types (name) values (?)", new ArrayList<Object>() {{ add(categoryTypeName); }}, new String[] { "id" });
@@ -44,7 +44,7 @@ public class MotionsTree extends JTree {
 			setCategoryTypeId(queryCategoryType.get(0).get("ID"));
 		}
 	}
-	
+
 	public MotionsTree() {
 		super();
 		List<Map<String, Object>> queryNodes = DatabaseUtils.query("select * from categories where category_type_id = ? order by name", new ArrayList<Object>() {{ add(getCategoryTypeId()); }});
@@ -61,15 +61,15 @@ public class MotionsTree extends JTree {
 		setShowsRootHandles(true);
 		addMouseListener(new MotionsTreeMouseListener());
 	}
-	
+
 	public DefaultMutableTreeNode getMotionsRoot() { return motionsRoot; }
-	
+
 	public DefaultTreeModel getMotionsTreeModel() { return motionsTreeModel; }
-	
+
 	public static Object getCategoryTypeId() { return MotionsTree.categoryTypeId; }
 
 	public static void setCategoryTypeId(Object categoryTypeId) { MotionsTree.categoryTypeId = categoryTypeId; }
-	
+
 	public static String getCategoryTypeName() { return MotionsTree.categoryTypeName; }
 
 	class MotionsTreeModelListener implements TreeModelListener {
@@ -85,7 +85,7 @@ public class MotionsTree extends JTree {
 		@Override
 		public void treeStructureChanged(TreeModelEvent e) { }
 	}
-	
+
 	class MotionsTreeMouseListener extends MouseAdapter {
 		@Override
 		public void mouseClicked(MouseEvent e) {
