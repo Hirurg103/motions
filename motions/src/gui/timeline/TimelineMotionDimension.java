@@ -34,20 +34,19 @@ public class TimelineMotionDimension extends MotionDimension implements MouseMot
 		setPossibleTickLengths(motionDimension.getPossibleTickLengths());
 		setUnitSign(motionDimension.getUnitSign());
 		setMultiplier(motionDimension.getMultiplier());
-		
 		setSkeletonPartId(motionDimension.getSkeletonPartId());
-		
+
 		setBounds(0, 0, NORMAL_WIDTH, NORMAL_HEIGHT);
 		setPreferredSize(new Dimension(NORMAL_WIDTH, NORMAL_HEIGHT));
 		setMinimumSize(new Dimension(NORMAL_WIDTH, NORMAL_HEIGHT));
 		setMaximumSize(new Dimension(NORMAL_WIDTH, NORMAL_HEIGHT));
-		
+
 		try {
 			normalView = ImageIO.read(new File("../images/motion_anchor.png"));
 		} catch(IOException e) {
 			e.printStackTrace();
 		}
-		
+
 		addMouseMotionListener(this);
 		addMouseListener(this);
 	}
@@ -56,7 +55,7 @@ public class TimelineMotionDimension extends MotionDimension implements MouseMot
 	public void paint(Graphics g) {
 		if(g == null) return;
 		Rectangle r = getBounds();
-		
+
 		g.clearRect(0, 0, r.width, r.height);
 		if(isSliderView || isSliderChanging) {
 			super.paint(g);

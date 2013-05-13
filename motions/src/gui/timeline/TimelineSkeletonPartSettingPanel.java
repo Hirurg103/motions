@@ -71,5 +71,4 @@ public class TimelineSkeletonPartSettingPanel extends JPanel {
 		}
 		timelineDimensionSettingPanels.get(timelineMotionDimension.getId()).add(timelineMotionDimension);
 	}
-
 }

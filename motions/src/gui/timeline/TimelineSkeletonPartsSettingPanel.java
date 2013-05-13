@@ -33,7 +33,7 @@ public class TimelineSkeletonPartsSettingPanel extends JPanel {
 		this.verticalStrut = Box.createVerticalStrut(verticalStrutHeight);
 		add(verticalStrut);
 	}
-	
+
 	public void addTimelineMotion(TimelineMotion timelineMotion) {
 		for(TimelineMotionDimension timelineMotionDimension : timelineMotion.getTimelineMotionDimensions()) {
 			addTimelineMotionDimension(timelineMotionDimension);
@@ -57,5 +57,4 @@ public class TimelineSkeletonPartsSettingPanel extends JPanel {
 		int verticalStrutHeight = getParent().getParent().getPreferredSize().height - getPreferredSize().height;
 		if(verticalStrutHeight  > 0) add(verticalStrut = Box.createVerticalStrut(verticalStrutHeight));
 	}
-
 }
