@@ -1,4 +1,5 @@
 package gui.timeline;
+import figures.HumanSkeleton;
 import gui.dimensions.MotionDimension;
 
 import java.awt.Dimension;
@@ -11,6 +12,7 @@ import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 import java.io.File;
 import java.io.IOException;
+import java.util.Map;
 
 import javax.imageio.ImageIO;
 
@@ -28,15 +30,22 @@ public class TimelineMotionDimension extends MotionDimension implements MouseMot
 	public static final int SLIDER_HEIGHT = 28;
 	private static final TimelineSkeletonPartsSettingScrollPane timelineSkeletonPartsSettingScrollPane = TimelinePanel.timelineSkeletonPartsSettingScrollPane;
 	private TimelineMotion timelineMotion = null;
+	private float time;
 
-	public TimelineMotionDimension(MotionDimension motionDimension, float from, float to, float initial) {
-		super(motionDimension.getName(), from, to, initial);
+	public TimelineMotionDimension(Map<String, Object> queryMotionDimension) {
+		super(HumanSkeleton.motionDimensions.get(queryMotionDimension.get("DIMENSION_ID")).getName(), new Float(queryMotionDimension.get("FROM_F").toString()), new Float(queryMotionDimension.get("TO_F").toString()), new Float(queryMotionDimension.get("INITIAL_F").toString()));
+		MotionDimension motionDimension = HumanSkeleton.motionDimensions.get(queryMotionDimension.get("DIMENSION_ID"));
 		setPossibleTickLengths(motionDimension.getPossibleTickLengths());
 		setUnitSign(motionDimension.getUnitSign());
 		setMultiplier(motionDimension.getMultiplier());
 		setSkeletonPartId(motionDimension.getSkeletonPartId());
+		
+		setIsSynchronized((int)queryMotionDimension.get("IS_SYNCHRONIZED") == 1);
+		setMotionId(queryMotionDimension.get("MOTION_ID"));
+		setId(queryMotionDimension.get("ID"));
+		
 
-		setBounds(0, 0, NORMAL_WIDTH, NORMAL_HEIGHT);
+		setBounds(TimelineDimensionSettingPanel.getCursorPosition() - NORMAL_WIDTH/2, 0, NORMAL_WIDTH, NORMAL_HEIGHT);
 		setPreferredSize(new Dimension(NORMAL_WIDTH, NORMAL_HEIGHT));
 		setMinimumSize(new Dimension(NORMAL_WIDTH, NORMAL_HEIGHT));
 		setMaximumSize(new Dimension(NORMAL_WIDTH, NORMAL_HEIGHT));
@@ -165,4 +174,11 @@ public class TimelineMotionDimension extends MotionDimension implements MouseMot
 	public TimelineMotion getTimelineMotion() { return timelineMotion; }
 
 	public void setTimelineMotion(TimelineMotion timelineMotion) { this.timelineMotion = timelineMotion; }
+
+	public float getTime() { return time; }
+
+	public void resetTime() {
+		Rectangle currentBounds = getBounds();
+		this.time = ((float)currentBounds.x  + currentBounds.width/2 - horizontalSliderOffset())/TimelineDimensionSettingPanel.PIXELS_ON_SECOND; 
+	}
 }
