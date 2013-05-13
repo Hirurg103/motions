@@ -33,6 +33,12 @@ public class TimelineSkeletonPartsSettingPanel extends JPanel {
 		this.verticalStrut = Box.createVerticalStrut(verticalStrutHeight);
 		add(verticalStrut);
 	}
+	
+	public void addTimelineMotion(TimelineMotion timelineMotion) {
+		for(TimelineMotionDimension timelineMotionDimension : timelineMotion.getTimelineMotionDimensions()) {
+			addTimelineMotionDimension(timelineMotionDimension);
+		}
+	}
 
 	public void addTimelineMotionDimension(TimelineMotionDimension timelineMotionDimension) {
 		if(timelineSkeletonPartSettingPanels.get(timelineMotionDimension.getSkeletonPartId()) == null) {
@@ -42,6 +48,7 @@ public class TimelineSkeletonPartsSettingPanel extends JPanel {
 			revalidateHeight();
 		}
 		timelineSkeletonPartSettingPanels.get(timelineMotionDimension.getSkeletonPartId()).addTimelineMotionDimension(timelineMotionDimension);
+		revalidate();
 	}
 
 	public void revalidateHeight() {

@@ -27,6 +27,7 @@ public class TimelineMotionDimension extends MotionDimension implements MouseMot
 	public static final int SLIDER_WIDTH = 110;
 	public static final int SLIDER_HEIGHT = 28;
 	private static final TimelineSkeletonPartsSettingScrollPane timelineSkeletonPartsSettingScrollPane = TimelinePanel.timelineSkeletonPartsSettingScrollPane;
+	private TimelineMotion timelineMotion = null;
 
 	public TimelineMotionDimension(MotionDimension motionDimension, float from, float to, float initial) {
 		super(motionDimension.getName(), from, to, initial);
@@ -34,9 +35,7 @@ public class TimelineMotionDimension extends MotionDimension implements MouseMot
 		setUnitSign(motionDimension.getUnitSign());
 		setMultiplier(motionDimension.getMultiplier());
 		
-		setId(motionDimension.getId());
 		setSkeletonPartId(motionDimension.getSkeletonPartId());
-		setMotionId(motionDimension.getMotionId());
 		
 		setBounds(0, 0, NORMAL_WIDTH, NORMAL_HEIGHT);
 		setPreferredSize(new Dimension(NORMAL_WIDTH, NORMAL_HEIGHT));
@@ -163,4 +162,8 @@ public class TimelineMotionDimension extends MotionDimension implements MouseMot
 	public static int horizontalSliderOffset() {
 		return (SLIDER_WIDTH - NORMAL_WIDTH)/2;
 	}
+
+	public TimelineMotion getTimelineMotion() { return timelineMotion; }
+
+	public void setTimelineMotion(TimelineMotion timelineMotion) { this.timelineMotion = timelineMotion; }
 }

@@ -29,7 +29,7 @@ public class TimelineDimensionSettingPanel extends JPanel implements MouseListen
 	private final int TIME_TICK_SMALL_HEIGHT = 1;
 	private final int TIME_TICK_OFFSET = 2;
 	private final int VATERLINE_LEVEL = 14;
-	private final int PIXELS_ON_SECOND = 50;
+	private static final int PIXELS_ON_SECOND = 50;
 	private final int Y_DIMENSION_LABEL_POSITION = VATERLINE_LEVEL + 2;
 	private final int DIMENSION_LABEL_WIDTH;
 	private final int DIMENSION_LABEL_HEIGHT;
@@ -145,4 +145,6 @@ public class TimelineDimensionSettingPanel extends JPanel implements MouseListen
 	public boolean isMarker() { return isMarker; }
 
 	public void setMarker(boolean isMarker) { this.isMarker = isMarker; }
+	
+	public static float getTime() { return ((float)getCursorPosition() - minLeftCursorPossition)/PIXELS_ON_SECOND; }
 }

@@ -1,5 +1,6 @@
 package figures;
 
+import gui.dimensions.MotionDimension;
 import gui.dimensions.builders.RotateDimensionBuilder;
 import gui.dimensions.builders.StretchDimensionBuilder;
 
@@ -20,7 +21,8 @@ import static javax.media.opengl.fixedfunc.GLLightingFunc.GL_LIGHTING;
 
 public class HumanSkeleton {
 	private SkeletonPart root;
-	public static HashMap<Object, SkeletonPart> skeletonParts = new HashMap<Object, SkeletonPart>();;
+	public static HashMap<Object, SkeletonPart> skeletonParts = new HashMap<Object, SkeletonPart>();
+	public static HashMap<Object, MotionDimension> motionDimensions = new HashMap<Object, MotionDimension>();
 	
 	public HumanSkeleton() {
 		RotateDimensionBuilder rotateDimensionBuilder = new RotateDimensionBuilder();

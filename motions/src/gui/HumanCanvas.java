@@ -4,7 +4,10 @@ import java.awt.Component;
 import java.awt.Dimension;
 
 import java.nio.FloatBuffer;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import javax.media.opengl.awt.GLCanvas;
 import javax.media.opengl.glu.GLU;
@@ -23,13 +26,14 @@ import com.jogamp.newt.event.awt.AWTAdapter;
 import com.jogamp.newt.event.awt.AWTKeyAdapter;
 import com.jogamp.newt.event.awt.AWTMouseAdapter;
 
+import db.DatabaseUtils;
+
 import figures.HumanSkeleton;
 import figures.SkeletonPart;
 import gui.dimensions.MotionDimension;
 import gui.motions.build.CreateMotionPanel;
 import gui.motions.build.SkeletonPartsSettingPanel;
-import gui.timeline.TimelineDimensionSettingPanel;
-import gui.timeline.TimelineMotionDimension;
+import gui.timeline.TimelineMotion;
 import gui.timeline.TimelinePanel;
 import gui.timeline.TimelineSkeletonPartsSettingPanel;
 
@@ -284,17 +288,16 @@ public class HumanCanvas extends GLCanvas implements GLEventListener, MouseListe
 		}
 
 		@Override
+		@SuppressWarnings("serial")
 		public void mouseClicked(MouseEvent e) {
 			getContext().makeCurrent();
 			SkeletonPart activeSkeletonPart = humanSkeleton.getActiveSkeletonPart(gl, e.getX(), e.getY());
 			getContext().release();
 			if(activeSkeletonPart == null) return;
-			for(MotionDimension motionDimension : activeSkeletonPart.getMotionDimensions()) {
-				TimelineMotionDimension timelineMotionDimension = new TimelineMotionDimension(motionDimension, motionDimension.getFrom(), motionDimension.getTo(), motionDimension.getInitial());
-				timelineMotionDimension.setBounds(TimelineDimensionSettingPanel.getCursorPosition() - TimelineMotionDimension.NORMAL_WIDTH/2, 0, TimelineMotionDimension.NORMAL_WIDTH, TimelineMotionDimension.NORMAL_HEIGHT);
-				timelineSkeletonPartsSettingPanel.addTimelineMotionDimension(timelineMotionDimension);
+			for(final MotionDimension motionDimension : activeSkeletonPart.getMotionDimensions()) {
+				List<Map<String, Object>> queryMotionDimensions = DatabaseUtils.query("select * from motions inner join motion_dimensions on motions.id = motion_dimensions.motion_id where motions.id = ?", new ArrayList<Object>() {{ add(motionDimension.getMotionId()); }});
+				timelineSkeletonPartsSettingPanel.addTimelineMotion(new TimelineMotion(queryMotionDimensions));
 			}
-			timelineSkeletonPartsSettingPanel.revalidate();
 		}
 	}
 }

@@ -175,7 +175,10 @@ public class SkeletonPart extends PickableObject implements DimensionListener {
 	private void afterSet(MotionDimension motionDimension) {
 		saveDimensionIntoDb(motionDimension);
 		motionDimension.setSkeletonPartId(getId());
-		if(motionDimension != null) motionDimension.addDimensionListener(this);  
+		if(motionDimension != null) {
+			HumanSkeleton.motionDimensions.put(motionDimension.getId(), motionDimension);
+			motionDimension.addDimensionListener(this);
+		}
 	}
 
 	public GraphicsObject getBone() { return bone; }
@@ -213,6 +216,8 @@ public class SkeletonPart extends PickableObject implements DimensionListener {
 					dimension.setMotionId(motionId);
 					queryDimensionMotion = DatabaseUtils.execute("insert into motion_dimensions (motion_id, dimension_id, from_f, to_f, initial_f) values (?, ?, ?, ?, ?)", new ArrayList<Object>() {{ add(motionId); add(dimensionId); add(dimension.getFrom()); add(dimension.getTo()); add(dimension.getInitial()); }}, new String[] {"id"});
 				}
+			} else {
+				dimension.setMotionId(queryDimensionMotion.get(0).get("MOTION_ID"));
 			}
 			
 		}
