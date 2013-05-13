@@ -84,14 +84,14 @@ public class TimelineMotionDimension extends MotionDimension implements MouseMot
 		if(isInDragArea(e.getPoint()) && !isSliderView && !isSliderChanging) { 
 			Point currentMousePosition = e.getPoint();
 			Rectangle currentPosition = getBounds();
-		
+
 			int mousePositionRelativeToParent = currentPosition.x + currentMousePosition.x; 
-			
+
 			// Reset scroll bar position
 			if(timelineSkeletonPartsSettingScrollPane != null) {
 				timelineSkeletonPartsSettingScrollPane.resetHorisontalScrollBarPosition(mousePositionRelativeToParent);
 			}
-		
+
 			currentPosition.x += currentMousePosition.x - currentPosition.width/2;
 			setBounds(currentPosition);
 		}
