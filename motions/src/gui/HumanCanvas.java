@@ -4,10 +4,7 @@ import java.awt.Component;
 import java.awt.Dimension;
 
 import java.nio.FloatBuffer;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 import javax.media.opengl.awt.GLCanvas;
 import javax.media.opengl.glu.GLU;
@@ -25,8 +22,6 @@ import com.jogamp.newt.event.MouseListener;
 import com.jogamp.newt.event.awt.AWTAdapter;
 import com.jogamp.newt.event.awt.AWTKeyAdapter;
 import com.jogamp.newt.event.awt.AWTMouseAdapter;
-
-import db.DatabaseUtils;
 
 import figures.HumanSkeleton;
 import figures.SkeletonPart;
@@ -288,15 +283,13 @@ public class HumanCanvas extends GLCanvas implements GLEventListener, MouseListe
 		}
 
 		@Override
-		@SuppressWarnings("serial")
 		public void mouseClicked(MouseEvent e) {
 			getContext().makeCurrent();
 			SkeletonPart activeSkeletonPart = humanSkeleton.getActiveSkeletonPart(gl, e.getX(), e.getY());
 			getContext().release();
 			if(activeSkeletonPart == null) return;
 			for(final MotionDimension motionDimension : activeSkeletonPart.getMotionDimensions()) {
-				List<Map<String, Object>> queryMotionDimensions = DatabaseUtils.query("select * from motions inner join motion_dimensions on motions.id = motion_dimensions.motion_id where motions.id = ?", new ArrayList<Object>() {{ add(motionDimension.getMotionId()); }});
-				timelineSkeletonPartsSettingPanel.addTimelineMotion(new TimelineMotion(queryMotionDimensions));
+				timelineSkeletonPartsSettingPanel.addTimelineMotion(new TimelineMotion(motionDimension.getMotionId()));
 			}
 		}
 	}

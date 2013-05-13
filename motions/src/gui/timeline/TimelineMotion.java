@@ -7,6 +7,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import db.DatabaseUtils;
+
 public class TimelineMotion {
 	private ArrayList<TimelineMotionDimension> timelineMotionDimensions;
 	private float time;
@@ -26,6 +28,15 @@ public class TimelineMotion {
 
 			timelineMotionDimensions.add(timelineMotionDimension);
 		}		
+	}
+	
+	public TimelineMotion(Object motionId) {
+		this(queryMotionDimensions(motionId));
+	}
+	
+	@SuppressWarnings("serial")
+	public static List<Map<String, Object>> queryMotionDimensions(final Object motionId) {
+		return DatabaseUtils.query("select * from motions inner join motion_dimensions on motions.id = motion_dimensions.motion_id where motions.id = ?", new ArrayList<Object>() {{ add(motionId); }});
 	}
 
 	public ArrayList<TimelineMotionDimension> getTimelineMotionDimensions() { return timelineMotionDimensions; }
