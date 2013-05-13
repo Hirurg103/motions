@@ -2,9 +2,14 @@ package gui.motions.store.tree;
 
 import gui.motions.store.tree.builder.MotionCategoryTreeNodeBuilder;
 import gui.motions.store.tree.builder.MotionTreeNodeBuilder;
+import gui.timeline.TimelineMotion;
+import gui.timeline.TimelinePanel;
+import gui.tree.BaseTreeNode;
 import gui.tree.CategoryTreeNode;
 import gui.tree.TreeUtils;
 
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -54,6 +59,7 @@ public class MotionsTree extends JTree {
 		// setEditable(true);
 		getSelectionModel().setSelectionMode(TreeSelectionModel.SINGLE_TREE_SELECTION);
 		setShowsRootHandles(true);
+		addMouseListener(new MotionsTreeMouseListener());
 	}
 	
 	public DefaultMutableTreeNode getMotionsRoot() { return motionsRoot; }
@@ -78,6 +84,16 @@ public class MotionsTree extends JTree {
 
 		@Override
 		public void treeStructureChanged(TreeModelEvent e) { }
-		
+	}
+	
+	class MotionsTreeMouseListener extends MouseAdapter {
+		@Override
+		public void mouseClicked(MouseEvent e) {
+			if(e.getClickCount() != 2) return;
+			BaseTreeNode selectedNode = (BaseTreeNode)getPathForLocation(e.getPoint().x, e.getPoint().y).getLastPathComponent();
+			if(!(selectedNode instanceof MotionTreeNode)) return;
+			MotionTreeNode selectedMotion = (MotionTreeNode)selectedNode;
+			TimelinePanel.timelineSkeletonPartsSettingPanel.addTimelineMotion(new TimelineMotion(selectedMotion.getId()));
+		}
 	}
 }
