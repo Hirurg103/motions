@@ -99,7 +99,7 @@ public class MotionDimension extends JSlider implements ChangeListener, Cloneabl
 		clon.setId(getId());
 		clon.setMotionId(getMotionId());
 		if(getIsSynchronized()) {
-			clon.setIsSyncronized(true);
+			clon.setIsSynchronized(true);
 			clon.setModel(getModel());
 		}
 		return clon;
@@ -148,7 +148,7 @@ public class MotionDimension extends JSlider implements ChangeListener, Cloneabl
 		setTo(initTo);
 		if(getModel().getMinimum() == nativeModel.getMinimum() && getModel().getMaximum() == nativeModel.getMaximum()) nativeModel.setValue(getValue());
 		setModel(nativeModel);
-		setIsSyncronized(false);
+		setIsSynchronized(false);
 		updateLabelTable();
 		revalidate();
 		repaint();
@@ -194,5 +194,5 @@ public class MotionDimension extends JSlider implements ChangeListener, Cloneabl
 	
 	public boolean getIsSynchronized() { return isSynchronized; }
 	
-	public void setIsSyncronized(boolean isSynchronized) { this.isSynchronized = isSynchronized; } 
+	public void setIsSynchronized(boolean isSynchronized) { this.isSynchronized = isSynchronized; } 
 }

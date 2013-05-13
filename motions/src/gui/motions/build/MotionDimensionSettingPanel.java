@@ -89,7 +89,7 @@ public class MotionDimensionSettingPanel extends JPanel {
 			if(isSynchronized.isSelected()) {
 				if(MotionDimensionSettingPanel.commonModel == null) MotionDimensionSettingPanel.commonModel = new DefaultBoundedRangeModel(motionDimension.getValue(), motionDimension.getExtent(), motionDimension.getMinimum(), motionDimension.getMaximum());
 				motionDimension.setModel(MotionDimensionSettingPanel.commonModel);
-				motionDimension.setIsSyncronized(true);
+				motionDimension.setIsSynchronized(true);
 				from.setEnabled(true);
 				from.getChangeListeners()[0].stateChanged(new ChangeEvent(from));
 				to.setEnabled(true);
