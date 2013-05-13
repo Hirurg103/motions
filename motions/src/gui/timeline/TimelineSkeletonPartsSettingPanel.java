@@ -22,6 +22,12 @@ public class TimelineSkeletonPartsSettingPanel extends JPanel {
 		super();
 		timelineSkeletonPartSettingPanels = new HashMap<Object, TimelineSkeletonPartSettingPanel>();
 		setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
+
+		JPanel generalTimeline = new JPanel();
+		generalTimeline.setLayout(new BoxLayout(generalTimeline, BoxLayout.Y_AXIS));
+		generalTimeline.add(new TimelineDimensionSettingPanel(true));
+		add(generalTimeline);
+
 		int verticalStrutHeight = TimelinePanel.TIMELINE_PANEL_HEIGHT - getPreferredSize().height;
 		if(verticalStrutHeight < 0) verticalStrutHeight = 0;
 		this.verticalStrut = Box.createVerticalStrut(verticalStrutHeight);

@@ -21,7 +21,7 @@ public class TimelineDimensionSettingPanel extends JPanel implements MouseListen
 	 *  This class holds dimensions on time line.
 	 */
 	private static final long serialVersionUID = -7379485747325143076L;
-	private JLabel dimensionLabel;
+	private JLabel dimensionLabel = new JLabel();
 	private final int TIMELINE_DIMENSION_SETTING_PANEL_HEIGHT = 28;
 	private final int Y_TIME_TICK_BOTTOM = 15;
 	private final int TIME_TICK_HEIGHT = 3;
@@ -36,12 +36,18 @@ public class TimelineDimensionSettingPanel extends JPanel implements MouseListen
 	private static TimelineDimensionSettingPanel currentTimelineDimensionSettingPanel = null;
 	private static final int minLeftCursorPossition = TimelineMotionDimension.horizontalSliderOffset() + TimelineMotionDimension.NORMAL_WIDTH/2;  
 	private static int cursorPosition = minLeftCursorPossition;
+	private boolean isMarker = false;
 
 	public static int timelineDimensionSettingPanelWidth = HumanCanvas.HUMAN_CANVAS_WIDTH + RightPane.RIGHT_PANE_WIDTH; 
 
-	public TimelineDimensionSettingPanel(MotionDimension motionDimension) {
-		setDimensionLabel(new TimelineDimensionLabel(motionDimension.getName()));
+	public TimelineDimensionSettingPanel(MotionDimension motionDimension, boolean isMarker) {
+		if(motionDimension != null) {
+			setDimensionLabel(new TimelineDimensionLabel(motionDimension.getName()));
+		} else {
+			setDimensionLabel(new TimelineDimensionLabel(""));
+		}
 		add(getDimensionLabel());
+		this.setMarker(isMarker);
 		Dimension dimensionLabelSize = getDimensionLabel().getPreferredSize();
 		getDimensionLabel().setBounds(0, VATERLINE_LEVEL + 2, DIMENSION_LABEL_WIDTH = dimensionLabelSize.width, DIMENSION_LABEL_HEIGHT = dimensionLabelSize.height);
 		setPreferredSize(new Dimension(timelineDimensionSettingPanelWidth, TIMELINE_DIMENSION_SETTING_PANEL_HEIGHT));
@@ -49,6 +55,12 @@ public class TimelineDimensionSettingPanel extends JPanel implements MouseListen
 		addMouseListener(this);
 		addMouseMotionListener(this);
 	}
+	
+	public TimelineDimensionSettingPanel(MotionDimension motionDimension) { this(motionDimension, false); }
+	
+	public TimelineDimensionSettingPanel(boolean isMarker) { this(null, isMarker); }
+	
+	public TimelineDimensionSettingPanel() { this(null, false); }
 
 	@Override
 	public void paint(Graphics g) {
@@ -56,7 +68,7 @@ public class TimelineDimensionSettingPanel extends JPanel implements MouseListen
 		dimensionLabel.setBounds(getVisibleRect().x, Y_DIMENSION_LABEL_POSITION, DIMENSION_LABEL_WIDTH, DIMENSION_LABEL_HEIGHT);
 		setPreferredSize(new Dimension(timelineDimensionSettingPanelWidth, TIMELINE_DIMENSION_SETTING_PANEL_HEIGHT));
 		g.setColor(Color.BLUE);
-		if(currentTimelineDimensionSettingPanel == this) {
+		if(currentTimelineDimensionSettingPanel == this || isMarker()) {
 			String timeValue;
 			Font timeLabelFont = new Font("Geneva", Font.PLAIN, 10);
 			JLabel timeLabel; 
@@ -129,4 +141,8 @@ public class TimelineDimensionSettingPanel extends JPanel implements MouseListen
 
 	@Override
 	public void mouseMoved(MouseEvent e) { }
+
+	public boolean isMarker() { return isMarker; }
+
+	public void setMarker(boolean isMarker) { this.isMarker = isMarker; }
 }
