@@ -55,11 +55,11 @@ public class TimelineDimensionSettingPanel extends JPanel implements MouseListen
 		addMouseListener(this);
 		addMouseMotionListener(this);
 	}
-	
+
 	public TimelineDimensionSettingPanel(MotionDimension motionDimension) { this(motionDimension, false); }
-	
+
 	public TimelineDimensionSettingPanel(boolean isMarker) { this(null, isMarker); }
-	
+
 	public TimelineDimensionSettingPanel() { this(null, false); }
 
 	@Override
@@ -145,6 +145,6 @@ public class TimelineDimensionSettingPanel extends JPanel implements MouseListen
 	public boolean isMarker() { return isMarker; }
 
 	public void setMarker(boolean isMarker) { this.isMarker = isMarker; }
-	
+
 	public static float getTime() { return ((float)getCursorPosition() - minLeftCursorPossition)/PIXELS_ON_SECOND; }
 }

@@ -39,11 +39,10 @@ public class TimelineMotionDimension extends MotionDimension implements MouseMot
 		setUnitSign(motionDimension.getUnitSign());
 		setMultiplier(motionDimension.getMultiplier());
 		setSkeletonPartId(motionDimension.getSkeletonPartId());
-		
+
 		setIsSynchronized((int)queryMotionDimension.get("IS_SYNCHRONIZED") == 1);
 		setMotionId(queryMotionDimension.get("MOTION_ID"));
 		setId(queryMotionDimension.get("ID"));
-		
 
 		setBounds(TimelineDimensionSettingPanel.getCursorPosition() - NORMAL_WIDTH/2, 0, NORMAL_WIDTH, NORMAL_HEIGHT);
 		setPreferredSize(new Dimension(NORMAL_WIDTH, NORMAL_HEIGHT));
