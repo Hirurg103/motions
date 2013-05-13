@@ -45,6 +45,7 @@ public class TimelineMotionDimension extends MotionDimension implements MouseMot
 		setId(queryMotionDimension.get("ID"));
 
 		setBounds(TimelineDimensionSettingPanel.getCursorPosition() - NORMAL_WIDTH/2, 0, NORMAL_WIDTH, NORMAL_HEIGHT);
+		resetTime();
 		setPreferredSize(new Dimension(NORMAL_WIDTH, NORMAL_HEIGHT));
 		setMinimumSize(new Dimension(NORMAL_WIDTH, NORMAL_HEIGHT));
 		setMaximumSize(new Dimension(NORMAL_WIDTH, NORMAL_HEIGHT));
@@ -125,6 +126,7 @@ public class TimelineMotionDimension extends MotionDimension implements MouseMot
 		if(isSliderView && (currentBounds.width < e.getPoint().x || e.getPoint().x < 0 || currentBounds.height < e.getPoint().y || e.getPoint().y < 0)) {
 			setNormalView();
 		}
+		if(!isSliderChanging) resetTime();
 		isSliderChanging = false;
 		repaint();
 	}
@@ -178,6 +180,6 @@ public class TimelineMotionDimension extends MotionDimension implements MouseMot
 
 	public void resetTime() {
 		Rectangle currentBounds = getBounds();
-		this.time = ((float)currentBounds.x  + currentBounds.width/2 - horizontalSliderOffset())/TimelineDimensionSettingPanel.PIXELS_ON_SECOND; 
+		this.time = ((float)currentBounds.x  + currentBounds.width/2 - TimelineDimensionSettingPanel.minLeftCursorPossition)/TimelineDimensionSettingPanel.PIXELS_ON_SECOND; 
 	}
 }

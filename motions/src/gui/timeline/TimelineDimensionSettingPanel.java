@@ -34,7 +34,7 @@ public class TimelineDimensionSettingPanel extends JPanel implements MouseListen
 	private final int DIMENSION_LABEL_WIDTH;
 	private final int DIMENSION_LABEL_HEIGHT;
 	private static TimelineDimensionSettingPanel currentTimelineDimensionSettingPanel = null;
-	private static final int minLeftCursorPossition = TimelineMotionDimension.horizontalSliderOffset() + TimelineMotionDimension.NORMAL_WIDTH/2;  
+	public static final int minLeftCursorPossition = TimelineMotionDimension.horizontalSliderOffset() + TimelineMotionDimension.NORMAL_WIDTH/2;  
 	private static int cursorPosition = minLeftCursorPossition;
 	private boolean isMarker = false;
 
