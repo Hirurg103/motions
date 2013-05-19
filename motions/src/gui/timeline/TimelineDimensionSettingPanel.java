@@ -15,6 +15,8 @@ import gui.dimensions.MotionDimension;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import timeline.computing.TimelineSplinesManager;
+
 public class TimelineDimensionSettingPanel extends JPanel implements MouseListener, MouseMotionListener {
 
 	/**
@@ -129,7 +131,8 @@ public class TimelineDimensionSettingPanel extends JPanel implements MouseListen
 
 	public static void setCursorPosition(int cursorPosition) {
 		if(cursorPosition < minLeftCursorPossition) return;
-		TimelineDimensionSettingPanel.cursorPosition = cursorPosition; 
+		TimelineDimensionSettingPanel.cursorPosition = cursorPosition;
+		TimelineSplinesManager.resetMotionDimensions();
 	}
 
 	@Override
