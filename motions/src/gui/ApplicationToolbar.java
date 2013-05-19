@@ -2,6 +2,7 @@ package gui;
 
 import gui.actions.CreateMotionAction;
 import gui.actions.CreateTimelineAction;
+import gui.actions.StartMotionAction;
 
 import javax.swing.Box;
 import javax.swing.JToolBar;
@@ -18,5 +19,7 @@ public class ApplicationToolbar extends JToolBar {
 		add(new CreateMotionAction());
 		add(Box.createHorizontalStrut(2));
 		add(new CreateTimelineAction());
+		add(Box.createHorizontalStrut(2));
+		add(new StartMotionAction());
 	}
 }

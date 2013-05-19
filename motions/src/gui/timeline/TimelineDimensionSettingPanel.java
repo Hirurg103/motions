@@ -36,7 +36,7 @@ public class TimelineDimensionSettingPanel extends JPanel implements MouseListen
 	private final int DIMENSION_LABEL_WIDTH;
 	private final int DIMENSION_LABEL_HEIGHT;
 	private static TimelineDimensionSettingPanel currentTimelineDimensionSettingPanel = null;
-	public static final int minLeftCursorPossition = TimelineMotionDimension.horizontalSliderOffset() + TimelineMotionDimension.NORMAL_WIDTH/2;  
+	public static final int minLeftCursorPossition = TimelineMotionDimension.horizontalSliderOffset() + TimelineMotionDimension.NORMAL_WIDTH/2;
 	private static int cursorPosition = minLeftCursorPossition;
 	private boolean isMarker = false;
 
@@ -94,7 +94,7 @@ public class TimelineDimensionSettingPanel extends JPanel implements MouseListen
 		} else {
 			g.drawLine(0, VATERLINE_LEVEL, timelineDimensionSettingPanelWidth, VATERLINE_LEVEL);
 		}
-		
+
 		g.setColor(Color.RED);
 		g.drawLine(getCursorPosition() - 1, 1, getCursorPosition() - 1, Y_TIME_TICK_BOTTOM + 1);
 		g.drawLine(getCursorPosition() + 1, 1, getCursorPosition() + 1, Y_TIME_TICK_BOTTOM + 1);
@@ -133,13 +133,13 @@ public class TimelineDimensionSettingPanel extends JPanel implements MouseListen
 		if(cursorPosition < minLeftCursorPossition) return;
 		TimelineDimensionSettingPanel.cursorPosition = cursorPosition;
 		TimelineSplinesManager.resetMotionDimensions();
+		TimelinePanel.timelineSkeletonPartsSettingScrollPane.resetHorisontalScrollBarPosition(cursorPosition);
+		TimelinePanel.timelineSkeletonPartsSettingPanel.repaint();
 	}
 
 	@Override
 	public void mouseDragged(MouseEvent e) { 
 		setCursorPosition(e.getPoint().x);
-		getParent().getParent().repaint();
-		TimelinePanel.timelineSkeletonPartsSettingScrollPane.resetHorisontalScrollBarPosition(e.getPoint().x);
 	}
 
 	@Override
@@ -150,4 +150,8 @@ public class TimelineDimensionSettingPanel extends JPanel implements MouseListen
 	public void setMarker(boolean isMarker) { this.isMarker = isMarker; }
 
 	public static float getTime() { return ((float)getCursorPosition() - minLeftCursorPossition)/PIXELS_ON_SECOND; }
+
+	public static float getMaxTime() { return ((float)timelineDimensionSettingPanelWidth - 2*minLeftCursorPossition)/PIXELS_ON_SECOND; }
+
+	public static void setTime(float time) { setCursorPosition((int)(minLeftCursorPossition + time*PIXELS_ON_SECOND)); }
 }

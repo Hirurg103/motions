@@ -20,7 +20,7 @@ public class TimelineSkeletonPartsSettingScrollPane extends JScrollPane {
 		if(mousePosition < visibleArea.x) {
 			getHorizontalScrollBar().setValue(Math.max(0, mousePosition));
 		} else {
-			int newSliderPosition = mousePosition - visibleArea.width + TimelineMotionDimension.horizontalSliderOffset(); 
+			int newSliderPosition = mousePosition - visibleArea.width + TimelineDimensionSettingPanel.minLeftCursorPossition; 
 			if(visibleArea.x < newSliderPosition) {
 				getHorizontalScrollBar().setValue(Math.min(TimelineDimensionSettingPanel.timelineDimensionSettingPanelWidth, newSliderPosition));
 				TimelineDimensionSettingPanel.timelineDimensionSettingPanelWidth = mousePosition + TimelineMotionDimension.horizontalSliderOffset();
