@@ -21,7 +21,7 @@ public class DatabaseUtils {
 			System.exit(0);
 		}
 	}
-	
+
 	public static Connection createConnection(String driver, String url, String username, String password) {
 		Connection connection = null;
 		try {

@@ -137,7 +137,7 @@ public class StoreMotionsPanel extends JPanel {
 			motionsTree.scrollPathToVisible(new TreePath(newMotion.getPath()));
 			motionsTree.setSelectionPath(new TreePath(newMotion.getPath()));
 			for(final MotionDimension motionDimension : motionDimensions) {
-				DatabaseUtils.execute("insert into motion_dimensions (motion_id, dimension_id, from_f, to_f, initial_f, is_bound) values (?, ?, ?, ?, ?, ?)", new ArrayList<Object>() {{ add(createdMotionId); add(motionDimension.getId()); add(motionDimension.getFrom()); add(motionDimension.getTo()); add(motionDimension.getConvertedValue()); add(motionDimension.getIsSynchronized() ? 1 : 0); }});
+				DatabaseUtils.execute("insert into motion_dimensions (motion_id, dimension_id, from_f, to_f, initial_f, is_synchronized) values (?, ?, ?, ?, ?, ?)", new ArrayList<Object>() {{ add(createdMotionId); add(motionDimension.getId()); add(motionDimension.getFrom()); add(motionDimension.getTo()); add(motionDimension.getConvertedValue()); add(motionDimension.getIsSynchronized() ? 1 : 0); }});
 			}
 			storeMotionsControlPanel.setVisible(false);
 		}
