@@ -13,11 +13,11 @@ import gui.RightPane;
 import gui.dimensions.MotionDimension;
 
 import javax.swing.JLabel;
-import javax.swing.JPanel;
+import javax.swing.JLayeredPane;
 
 import timeline.computing.TimelineSplinesManager;
 
-public class TimelineDimensionSettingPanel extends JPanel implements MouseListener, MouseMotionListener {
+public class TimelineDimensionSettingPanel extends JLayeredPane implements MouseListener, MouseMotionListener {
 
 	/**
 	 *  This class holds dimensions on time line.

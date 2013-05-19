@@ -15,6 +15,7 @@ import java.io.IOException;
 import java.util.Map;
 
 import javax.imageio.ImageIO;
+import javax.swing.JLayeredPane;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
@@ -182,6 +183,8 @@ public class TimelineMotionDimension extends MotionDimension implements MouseMot
 			setMinimumSize(new Dimension(NORMAL_WIDTH, NORMAL_HEIGHT));
 			setPreferredSize(new Dimension(NORMAL_WIDTH, NORMAL_HEIGHT));
 			setMaximumSize(new Dimension(NORMAL_WIDTH, NORMAL_HEIGHT));
+			JLayeredPane parent = (JLayeredPane)getParent();
+			parent.setLayer(this, 1);
 		}
 	}
 
@@ -201,6 +204,8 @@ public class TimelineMotionDimension extends MotionDimension implements MouseMot
 			setMinimumSize(new Dimension(SLIDER_WIDTH, SLIDER_HEIGHT));
 			setPreferredSize(new Dimension(SLIDER_WIDTH, SLIDER_HEIGHT));
 			setMaximumSize(new Dimension(SLIDER_WIDTH, SLIDER_HEIGHT));
+			JLayeredPane parent = (JLayeredPane)getParent();
+			parent.setLayer(this, 2147483647);
 		}
 	}
 
