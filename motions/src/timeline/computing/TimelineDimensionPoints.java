@@ -1,9 +1,10 @@
 package timeline.computing;
 
 import java.util.ArrayList;
+import java.util.Map;
 import java.util.TreeMap;
 
-public class TimelineDimensionPoints extends TreeMap<Float, ArrayList<Float>> {
+public class TimelineDimensionPoints extends TreeMap<Float, ArrayList<Float>> implements Map<Float, ArrayList<Float>> {
 
 	/**
 	 * 	Holds time line points for given dimension. 
